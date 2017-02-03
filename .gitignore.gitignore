@@ -1,0 +1,14 @@
+# phpstorm project file# composer vendor dir
+/vendor
+
+#runtime folder 
+/runtime
+
+#config db 
+/config/db.php
+
+# composer itself is not needed
+composer.phar
+
+# composer.lock in applications is ignored since it's automatically created by composer when application is installed
+/apps/*/composer.lock
