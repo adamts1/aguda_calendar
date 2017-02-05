@@ -1,4 +1,4 @@
-Laury porject!
+Laury project!
 ============================
 
 Using Yii 2 Basic Project Template
