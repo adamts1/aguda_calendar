@@ -2,7 +2,10 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
+use app\models\Course;
+use app\models\Location;
+use app\models\User;
+use app\models\Student;//check
 /* @var $this yii\web\View */
 /* @var $model app\models\Group */
 /* @var $form yii\widgets\ActiveForm */
@@ -12,12 +15,14 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'courseid')->textInput() ?>
+    <?= $form->field($model, 'courseid')->dropDownList(Course::getCourse()) ?>
 
-    <?= $form->field($model, 'teacherid')->textInput() ?>
+    <?= $form->field($model, 'teacherid')->dropDownList(User::getTeachers()) ?>
 
-    <?= $form->field($model, 'locationid')->textInput() ?>
+    <?= $form->field($model, 'locationid')->dropDownList(Location::getLocation()) ?>
 
+
+ <!-- <?= $form->field($model, 'locationid')->dropDownList(Student::getStudentForGroup()) ?> -->
     <?= $form->field($model, 'dayintheweek')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'duration')->textInput() ?>

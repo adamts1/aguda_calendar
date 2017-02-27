@@ -3,7 +3,9 @@
 namespace app\models;
 
 use Yii;
-
+use yii\helpers\ArrayHelper;
+use yii\db\ActiveRecord;
+use yii\behaviors\BlameableBehavior;
 /**
  * This is the model class for table "center".
  *
@@ -77,4 +79,13 @@ class Center extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Teacher::className(), ['centerid' => 'id']);
     }
+
+    public static function getCenter()  // return the name of the course using for dropdown 
+	{
+		$allCenter = self::find()->all();
+		$allCenterArray = ArrayHelper::
+					map($allCenter, 'id', 'name');
+		return $allCenterArray;						
+	}   
+
 }

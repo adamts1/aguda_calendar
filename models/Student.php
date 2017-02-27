@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "student".
@@ -36,6 +38,7 @@ class Student extends \yii\db\ActiveRecord
     {
         return [
             [['centerid'], 'integer'],
+         
             [['name', 'lastname', 'grade'], 'string', 'max' => 255],
             [['centerid'], 'exist', 'skipOnError' => true, 'targetClass' => Center::className(), 'targetAttribute' => ['centerid' => 'id']],
         ];
@@ -52,6 +55,7 @@ class Student extends \yii\db\ActiveRecord
             'name' => 'Name',
             'lastname' => 'Lastname',
             'grade' => 'Grade',
+      
         ];
     }
 
@@ -94,4 +98,12 @@ class Student extends \yii\db\ActiveRecord
     {
         return $this->hasMany(StudentTeacher::className(), ['studentid' => 'id']);
     }
+
+    public static function getStudentForGroup()  // return the name of the course using for dropdown 
+	{
+		$allStudentForGroup = self::find()->all();
+		$allStudentForGroupArray = ArrayHelper::
+					map($allStudentForGroup, 'id', 'name');
+		return $allStudentForGroupArray;						
+	} 
 }

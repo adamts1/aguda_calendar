@@ -3,6 +3,9 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
+use yii\db\ActiveRecord;
+use yii\behaviors\BlameableBehavior;
 
 /**
  * This is the model class for table "location".
@@ -59,4 +62,12 @@ class Location extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Group::className(), ['locationid' => 'id']);
     }
+
+     public static function getLocation()  // return the name of the location using for dropdown 
+	{
+		$allLocation = self::find()->all();
+		$allLocationArray = ArrayHelper::
+					map($allLocation, 'id', 'name');
+		return $allLocationArray;						
+	}   
 }

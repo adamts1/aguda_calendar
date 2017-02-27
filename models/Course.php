@@ -3,6 +3,9 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
+use yii\db\ActiveRecord;
+use yii\behaviors\BlameableBehavior;
 
 /**
  * This is the model class for table "course".
@@ -77,4 +80,12 @@ class Course extends \yii\db\ActiveRecord
     {
         return $this->hasMany(StudentCourse::className(), ['courseid' => 'id']);
     }
+
+    public static function getCourse()  // return the name of the course using for dropdown 
+	{
+		$allCourses = self::find()->all();
+		$allCoursesArray = ArrayHelper::
+					map($allCourses, 'id', 'coursename');
+		return $allCoursesArray;						
+	}   
 }

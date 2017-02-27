@@ -38,6 +38,7 @@ class Group extends \yii\db\ActiveRecord
         return [
             [['courseid', 'teacherid', 'locationid'], 'integer'],
             [['duration'], 'safe'],
+           // [['student'], 'integer'],  //check
             [['dayintheweek'], 'string', 'max' => 255],
             [['courseid'], 'exist', 'skipOnError' => true, 'targetClass' => Course::className(), 'targetAttribute' => ['courseid' => 'id']],
             [['locationid'], 'exist', 'skipOnError' => true, 'targetClass' => Location::className(), 'targetAttribute' => ['locationid' => 'id']],
@@ -57,6 +58,7 @@ class Group extends \yii\db\ActiveRecord
             'locationid' => 'Locationid',
             'dayintheweek' => 'Dayintheweek',
             'duration' => 'Duration',
+            //'student' => 'student',//check
         ];
     }
 
@@ -99,4 +101,6 @@ class Group extends \yii\db\ActiveRecord
     {
         return $this->hasMany(GroupStudent::className(), ['groupid' => 'id']);
     }
+
+    
 }

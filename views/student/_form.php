@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\models\Center;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Student */
@@ -12,7 +13,8 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'centerid')->textInput() ?>
+    <?= $form->field($model, 'centerid')->dropDownList(Center::getCenter()) ?>
+
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 

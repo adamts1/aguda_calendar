@@ -6,7 +6,7 @@ namespace app\models;
 	use \yii\web\IdentityInterface;
 	use yii\db\ActiveRecord;
 	use yii\behaviors\BlameableBehavior;
-
+    use yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "user".
  *
@@ -25,11 +25,14 @@ namespace app\models;
  * @property integer $updated_at
  * @property integer $created_by
  * @property integer $updated_by
+ * @property integer $userRole
  *
  * @property Supervisor $supervisor
+ * @property Teacher $teacher
+ * @property Userrole $userRole0
  */
- class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
-	{
+class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
+{
     /**
      * @inheritdoc
      */
@@ -45,10 +48,10 @@ namespace app\models;
     {
         return [
             [['notes'], 'string'],
-            [['status', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
-            ['email', 'email'],
+            [['status', 'created_at', 'updated_at', 'created_by', 'updated_by', 'userRole'], 'integer'],
+            [['username', 'password', 'auth_key', 'firstname', 'lastname', 'email', 'phone', 'address'], 'string', 'max' => 255],
             [['username', 'password', ], 'required'],
-            [['username', 'password', 'auth_key', 'firstname', 'lastname', 'phone', 'address'], 'string', 'max' => 255],
+            [['userRole'], 'exist', 'skipOnError' => true, 'targetClass' => Userrole::className(), 'targetAttribute' => ['userRole' => 'roleId']],
         ];
     }
 
@@ -73,6 +76,7 @@ namespace app\models;
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
+            'userRole' => 'User Role',
         ];
     }
 
@@ -95,7 +99,6 @@ namespace app\models;
 		];
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -104,8 +107,27 @@ namespace app\models;
         return $this->hasOne(Supervisor::className(), ['id' => 'id']);
     }
 
+    public function getFullname()
+    {
+        return $this->firstname.' '.$this->lastname;
+    }
 
-    public static function findIdentity($id)
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTeacher()
+    {
+        return $this->hasOne(Teacher::className(), ['id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserRole0()
+    {
+        return $this->hasOne(Userrole::className(), ['roleId' => 'userRole']);
+    }
+     public static function findIdentity($id)
     {
         return static::findOne($id);
     }
@@ -160,5 +182,30 @@ namespace app\models;
         return $return;
     }
 
+    public static function getTeachers()  
+	{
+		$allTeames = (new \yii\db\Query())
+           ->select(['*'])
+           ->from('user')
+           ->where(['userRole' => '1'])
+           ->limit(10)
+           ->all();
+		$allTeamesArray = ArrayHelper::
+					map($allTeames, 'id', 'username');
+		return $allTeamesArray;						
+	}
+
+    public static function getSupervisors()  
+	{
+		$allTeames = (new \yii\db\Query())
+           ->select(['*'])
+           ->from('user')
+           ->where(['userRole' => '2'])
+           ->limit(10)
+           ->all();
+		$allTeamesArray = ArrayHelper::
+					map($allTeames, 'id', 'username');
+		return $allTeamesArray;						
+	}
 
 }

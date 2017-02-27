@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\models\User;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Teacher */
@@ -12,7 +13,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id')->textInput() ?>
+    <?= $form->field($model, 'id')->textInput()->dropDownList(User::getTeachers()) ?>  
 
     <?= $form->field($model, 'subject')->textInput(['maxlength' => true]) ?>
 
