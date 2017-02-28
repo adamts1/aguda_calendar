@@ -88,4 +88,9 @@ class Center extends \yii\db\ActiveRecord
 		return $allCenterArray;						
 	}   
 
+     public function getCentername()
+    {
+        return $this->name;
+    }
+
 }

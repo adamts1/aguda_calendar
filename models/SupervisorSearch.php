@@ -18,7 +18,7 @@ class SupervisorSearch extends Supervisor
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id', 'centerId'], 'integer'],
         ];
     }
 
@@ -59,6 +59,7 @@ class SupervisorSearch extends Supervisor
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'centerId' => $this->centerId,
         ]);
 
         return $dataProvider;

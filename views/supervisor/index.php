@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\SupervisorSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Supervisors';
+$this->title = 'רכזים';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="supervisor-index">
@@ -18,13 +18,36 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Create Supervisor', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            [
+				'attribute' => 'id',
+				'label' => 'שם הרכז',
+				'format' => 'raw',
+				'value' => function($model){
+					return $model->id0->fullname;  //////////Showing course name instead of course number.
+				},
+				//'filter'=>Html::dropDownList('CourseClassSearch[teacherId]', $teacher, $teachers, ['class'=>'form-control']),   //////////////// the arguments are from the controller!
+			],
+
+           
+           
+            [
+				'attribute' => 'centerId',
+				'label' => 'שם המרכז',
+				'format' => 'raw',
+				'value' => function($model){
+					return $model->center->centername;  //////////Showing course name instead of course number.
+				},
+				//'filter'=>Html::dropDownList('CourseClassSearch[teacherId]', $teacher, $teachers, ['class'=>'form-control']),   //////////////// the arguments are from the controller!
+			],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

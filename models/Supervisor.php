@@ -8,8 +8,10 @@ use Yii;
  * This is the model class for table "supervisor".
  *
  * @property integer $id
+ * @property integer $centerId
  *
  * @property Supervising[] $supervisings
+ * @property Center $center
  * @property User $id0
  */
 class Supervisor extends \yii\db\ActiveRecord
@@ -28,6 +30,8 @@ class Supervisor extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['centerId'], 'integer'],
+            [['centerId'], 'exist', 'skipOnError' => true, 'targetClass' => Center::className(), 'targetAttribute' => ['centerId' => 'id']],
             [['id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id' => 'id']],
         ];
     }
@@ -39,6 +43,7 @@ class Supervisor extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'centerId' => 'Center ID',
         ];
     }
 
@@ -48,6 +53,14 @@ class Supervisor extends \yii\db\ActiveRecord
     public function getSupervisings()
     {
         return $this->hasMany(Supervising::className(), ['supervisorid' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCenter()
+    {
+        return $this->hasOne(Center::className(), ['id' => 'centerId']);
     }
 
     /**
