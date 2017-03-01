@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Users';
+$this->title = 'ניהול עובדים';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('הוספת עובד', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -24,12 +24,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+           // 'id',
             'username',
-            'password',
-            'auth_key',
+           // 'password',
+            //'auth_key',
             'firstname',
-            //'lastname',
+           'lastname',
             //'email:email',
             // 'phone',
             // 'address',
@@ -39,7 +39,17 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'updated_at',
             // 'created_by',
             // 'updated_by',
-            'userRole',
+            //'userRole',
+
+            [
+				'attribute' => 'userRole',
+				'label' => 'תפקיד',
+				'format' => 'raw',
+				'value' => function($model){
+					return $model->userRole0->userRoleName;  //Showing role name instead of role number.
+				},
+				
+			],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

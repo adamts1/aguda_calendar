@@ -45,7 +45,7 @@ class Course extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'coursename' => 'Coursename',
+            'coursename' => 'מצוע לימוד',
         ];
     }
 
@@ -88,4 +88,9 @@ class Course extends \yii\db\ActiveRecord
 					map($allCourses, 'id', 'coursename');
 		return $allCoursesArray;						
 	}   
+
+    public function getCourseName()
+    {
+        return $this->coursename;
+    }
 }

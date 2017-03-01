@@ -62,21 +62,21 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return [
             'id' => 'ID',
-            'username' => 'Username',
+            'username' => 'שם משתמש',
             'password' => 'Password',
             'auth_key' => 'Auth Key',
-            'firstname' => 'Firstname',
-            'lastname' => 'Lastname',
-            'email' => 'Email',
-            'phone' => 'Phone',
-            'address' => 'Address',
-            'notes' => 'Notes',
+            'firstname' => 'שם',
+            'lastname' => 'שם משפחה',
+            'email' => 'דואר אלקטרוני',
+            'phone' => 'טלפון',
+            'address' => 'כתובת',
+            'notes' => 'הערות',
             'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
-            'created_by' => 'Created By',
-            'updated_by' => 'Updated By',
-            'userRole' => 'User Role',
+            'created_at' => 'תאריך כניסה למערכת',
+            'updated_at' => 'עדכון אחרון',
+            'created_by' => 'נוצר ע"י',
+            'updated_by' => 'עודכן ע"י',
+            'userRole' => 'תפקיד',
         ];
     }
 
@@ -95,6 +95,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 					ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
 					ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
 				],
+   
 			],
 		];
     }

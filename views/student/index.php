@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\StudentSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Students';
+$this->title = 'תלמידים';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="student-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Student', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('יצירת תלמיד', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -24,10 +24,21 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'centerid',
+          //      'id',
+           // 'centerid',
+
             'name',
             'lastname',
+            [
+				'attribute' => 'centerid',
+				'label' => 'מרכז',
+				'format' => 'raw',
+				'value' => function($model){
+					return $model->center->centername;  //Showing course name instead of course number.
+				},
+				//'filter'=>Html::dropDownList('CourseClassSearch[teacherId]', $teacher, $teachers, ['class'=>'form-control']),   //////////////// the arguments are from the controller!
+			],
+           
             'grade',
 
             ['class' => 'yii\grid\ActionColumn'],

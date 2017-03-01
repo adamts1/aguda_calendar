@@ -18,7 +18,7 @@ use app\models\Userrole;
 
     <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'auth_key')->textInput(['maxlength' => true]) ?>
+    <!--<?= $form->field($model, 'auth_key')->textInput(['maxlength' => true]) ?>-->
 
     <?= $form->field($model, 'firstname')->textInput(['maxlength' => true]) ?>
 
@@ -32,19 +32,19 @@ use app\models\Userrole;
 
     <?= $form->field($model, 'notes')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
+    <!--<?= $form->field($model, 'status')->textInput() ?>-->
 
-    <?= $form->field($model, 'created_at')->textInput() ?>
+    <!--<?= $form->field($model, 'created_at')->textInput() ?>-->
 
-    <?= $form->field($model, 'updated_at')->textInput() ?>
+    <!--<?= $form->field($model, 'updated_at')->textInput() ?>-->
 
-    <?= $form->field($model, 'created_by')->textInput() ?>
+    <!--<?= $form->field($model, 'created_by')->textInput() ?>-->
 
-    <?= $form->field($model, 'updated_by')->textInput() ?>
+    <!--<?= $form->field($model, 'updated_by')->textInput() ?>-->
 
     <?= $form->field($model, 'userRole')->dropDownList(Userrole::getUserrole()) ?>
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'צור חדש' : 'עדכן', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

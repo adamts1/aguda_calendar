@@ -29,9 +29,23 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'courseid',
+            //'courseid',
+             [ // the name of supervisor from user
+				'label' => $model->attributeLabels()['courseid'],
+				'format' => 'html',
+				'value' => Html::a($model->course->coursename, 
+					['course/view', 'id' => $model->course->id]),
+					
+			],          
             'teacherid',
-            'locationid',
+            
+           // 'locationid',
+             [ // the name of supervisor from user
+				'label' => $model->attributeLabels()['locationid'],
+				'format' => 'html',
+				'value' => Html::a($model->location->locationname, 
+					['location/view', 'id' => $model->location->id]),
+                    	],   
             'dayintheweek',
             'duration',
         ],

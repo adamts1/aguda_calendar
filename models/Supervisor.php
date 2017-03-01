@@ -43,7 +43,7 @@ class Supervisor extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'centerId' => 'Center ID',
+            'centerId' => 'מרכז',
         ];
     }
 

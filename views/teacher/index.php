@@ -24,9 +24,28 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            //'id',
+             [
+				'attribute' => 'id',
+				'label' => 'שם מלא',
+				'format' => 'raw',
+				'value' => function($model){
+					return $model->id0->fullname;  //Showing teacher name instead of teacher number.
+				},
+				
+			],
+
+             [
+				'attribute' => 'centerid',
+				'label' => 'מרכז',
+				'format' => 'raw',
+				'value' => function($model){
+					return $model->center->centername;  //Showing center name instead of center number.
+				},
+				
+			],
             'subject',
-            'centerid',
+           // 'centerid',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

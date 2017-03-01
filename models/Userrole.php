@@ -62,6 +62,12 @@ class Userrole extends \yii\db\ActiveRecord
 		return $allUserroleArray;						
 	}   
 
+     public function getUserRoleName()
+    {
+        return $this->roleName;
+
+    }
+
     
 
 }

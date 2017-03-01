@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
 				'attribute' => 'id',
-				'label' => 'שם הרכז',
+				'label' => 'רכז',
 				'format' => 'raw',
 				'value' => function($model){
 					return $model->id0->fullname;  //////////Showing course name instead of course number.
@@ -41,10 +41,10 @@ $this->params['breadcrumbs'][] = $this->title;
            
             [
 				'attribute' => 'centerId',
-				'label' => 'שם המרכז',
+				'label' => 'מרכז',
 				'format' => 'raw',
 				'value' => function($model){
-					return $model->center->centername;  //////////Showing course name instead of course number.
+					return $model->center->centername;  //Showing course name instead of course number.
 				},
 				//'filter'=>Html::dropDownList('CourseClassSearch[teacherId]', $teacher, $teachers, ['class'=>'form-control']),   //////////////// the arguments are from the controller!
 			],
