@@ -35,7 +35,15 @@ $this->params['breadcrumbs'][] = $this->title;
 				},
 				
 			],
-            'teacherid',
+            [
+				'attribute' => 'teacherid',
+				'label' => 'מורה',
+				'format' => 'raw',
+				'value' => function($model){
+					return $model->teacher->teachername;  //Showing center name instead of center number.
+				},
+
+			],
 
             //  [
 			//  	'attribute' => 'teacherid',
