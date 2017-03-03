@@ -57,6 +57,9 @@ class Course extends \yii\db\ActiveRecord
         return $this->hasMany(CourseCenter::className(), ['courseid' => 'id']);
     }
 
+    
+    
+
     /**
      * @return \yii\db\ActiveQuery
      */

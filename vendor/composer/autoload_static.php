@@ -25,6 +25,10 @@ class ComposerStaticInit9f9e4e27e79990b4ee47bd62041b34f3
             'yii\\bootstrap\\' => 14,
             'yii\\' => 4,
         ),
+        'v' => 
+        array (
+            'voskobovich\\behaviors\\' => 22,
+        ),
         'p' => 
         array (
             'phpDocumentor\\Reflection\\' => 25,
@@ -102,6 +106,10 @@ class ComposerStaticInit9f9e4e27e79990b4ee47bd62041b34f3
         'yii\\' => 
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2',
+        ),
+        'voskobovich\\behaviors\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/voskobovich/yii2-many-many-behavior/src',
         ),
         'phpDocumentor\\Reflection\\' => 
         array (
