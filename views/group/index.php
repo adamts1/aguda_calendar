@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\GroupSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Groups';
+$this->title = 'קבוצות לימוד';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="group-index">
@@ -24,10 +24,40 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'courseid',
+          //  'id',
+            //'courseid',
+             [
+				'attribute' => 'courseid',
+				'label' => 'מקצוע לימוד',
+				'format' => 'raw',
+				'value' => function($model){
+					return $model->course->coursename;  //Showing center name instead of center number.
+				},
+				
+			],
             'teacherid',
-            'locationid',
+
+            //  [
+			//  	'attribute' => 'teacherid',
+			//  	'label' => 'מורה',
+			//  	'format' => 'raw',
+			//  	'value' => function($model){
+			// 		return $model->teacher->id0->fullname;  //Showing center name instead of center number.
+		 	// },
+				
+			//  ],
+
+            //'locationid',
+            [
+            
+				'attribute' => 'locationid',
+				'label' => 'כיתת לימוד',
+				'format' => 'raw',
+				'value' => function($model){
+					return $model->location->locationname;  //Showing center name instead of center number.
+				},
+				
+			],
             'dayintheweek',
             // 'duration',
 

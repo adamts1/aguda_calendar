@@ -30,7 +30,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'subject',
-            'centerid',
+           // 'centerid',
+                [ // the name of supervisor from user
+				'label' => $model->attributeLabels()['centerid'],
+				'format' => 'html',
+				'value' => Html::a($model->center->centername, 
+					['center/view', 'id' => $model->center->id]),
+					
+			],          
         ],
     ]) ?>
 

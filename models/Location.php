@@ -70,4 +70,9 @@ class Location extends \yii\db\ActiveRecord
 					map($allLocation, 'id', 'name');
 		return $allLocationArray;						
 	}   
+
+     public function getLocationName()
+    {
+        return $this->name;
+    }
 }

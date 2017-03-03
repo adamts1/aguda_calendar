@@ -52,9 +52,9 @@ class Student extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'centerid' => 'Centerid',
-            'name' => 'Name',
-            'lastname' => 'Lastname',
-            'grade' => 'Grade',
+            'name' => 'שם',
+            'lastname' => 'שם משפחה',
+            'grade' => 'כיתה',
       
         ];
     }
@@ -106,4 +106,10 @@ class Student extends \yii\db\ActiveRecord
 					map($allStudentForGroup, 'id', 'name');
 		return $allStudentForGroupArray;						
 	} 
+
+    public function getStudentName()
+    {
+        return $this->name.' '.$this->lastname;
+    }
+     
 }

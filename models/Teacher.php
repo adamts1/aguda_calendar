@@ -49,8 +49,8 @@ class Teacher extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'subject' => 'Subject',
-            'centerid' => 'Centerid',
+            'subject' => 'מקצוע',
+            'centerid' => 'מרכז',
         ];
     }
 
