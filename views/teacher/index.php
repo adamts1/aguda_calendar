@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
-             [
+            /* [
 				'attribute' => 'id',
 				'label' => 'שם מלא',
 				'format' => 'raw',
@@ -33,8 +33,8 @@ $this->params['breadcrumbs'][] = $this->title;
 					return $model->id0->fullname;  //Showing teacher name instead of teacher number.
 				},
 				
-			],
-
+			],*/
+            
              [
 				'attribute' => 'centerid',
 				'label' => 'מרכז',

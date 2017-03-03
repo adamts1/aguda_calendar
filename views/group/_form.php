@@ -23,6 +23,7 @@ use app\models\Student;//check
 
 
  <!-- <?= $form->field($model, 'locationid')->dropDownList(Student::getStudentForGroup()) ?> -->
+    
     <?= $form->field($model, 'dayintheweek')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'duration')->textInput() ?>
