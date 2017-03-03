@@ -2,14 +2,11 @@
 
 namespace app\models;
 
-use Yii;
-use yii\db\ActiveRecord;
-use yii\behaviors\BlameableBehavior;
-use yii\helpers\ArrayHelper;
-use yii\db\Query;
-use yii\widgets\DetailView;
-use app\models\Userrole;
-
+    use Yii;
+	use \yii\web\IdentityInterface;
+	use yii\db\ActiveRecord;
+	use yii\behaviors\BlameableBehavior;
+    use yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "user".
  *
@@ -30,12 +27,13 @@ use app\models\Userrole;
  * @property integer $updated_by
  * @property integer $userRole
  *
+ * @property Supervisor $supervisor
+ * @property Teacher $teacher
  * @property Userrole $userRole0
  */
 class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
-    public $role; 
-	/**
+    /**
      * @inheritdoc
      */
     public static function tableName()
@@ -50,9 +48,9 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return [
             [['notes'], 'string'],
-            [[/*'status',*/ 'created_at', 'updated_at', 'created_by', 'updated_by', 'userRole'], 'integer'], /// status is cancelled
+            [['status', 'created_at', 'updated_at', 'created_by', 'updated_by', 'userRole'], 'integer'],
             [['username', 'password', 'auth_key', 'firstname', 'lastname', 'email', 'phone', 'address'], 'string', 'max' => 255],
-			['role', 'safe'], //// necessary for authorization!!!!! 
+            [['username', 'password', ], 'required'],
             [['userRole'], 'exist', 'skipOnError' => true, 'targetClass' => Userrole::className(), 'targetAttribute' => ['userRole' => 'roleId']],
         ];
     }
@@ -67,40 +65,22 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             'username' => 'Username',
             'password' => 'Password',
             'auth_key' => 'Auth Key',
-            'firstname' => 'First name',
-            'lastname' => 'Last name',
+            'firstname' => 'Firstname',
+            'lastname' => 'Lastname',
             'email' => 'Email',
             'phone' => 'Phone',
             'address' => 'Address',
             'notes' => 'Notes',
-            //'status' => 'Status', /// status is cancelled
+            'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
-            'userRole' => 'User role',
-			'role'  => 'Permission level',			
+            'userRole' => 'User Role',
         ];
     }
-	
-		public function getCreatedBy()
-    {
-		
-        return $this->hasOne(User::className(), ['id' => 'created_by']);
-    }	
-	
-		public function getUpdateddBy()
-    {
-        return $this->hasOne(User::className(), ['id' => 'updated_by']);
-    }	
-	
-	
-	public function getFullname()
-    {
-        return $this->firstname.' '.$this->lastname;
-    }
-	
-		 public function behaviors()
+
+    public function behaviors()
     {
 		return 
 		[
@@ -118,47 +98,77 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 			],
 		];
     }
-	
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSupervisor()
+    {
+        return $this->hasOne(Supervisor::className(), ['id' => 'id']);
+    }
+
+    public function getFullname()
+    {
+        return $this->firstname.' '.$this->lastname;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTeacher()
+    {
+        return $this->hasOne(Teacher::className(), ['id' => 'id']);
+    }
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getUserRole0()
     {
-       return $this->hasOne(Userrole::className(), ['roleId' => 'userRole']);
+        return $this->hasOne(Userrole::className(), ['roleId' => 'userRole']);
     }
-	
-	
-	public static function findIdentity($id)
+     public static function findIdentity($id)
     {
         return static::findOne($id);
     }
-	
-	public static function findIdentityByAccessToken($token, $type = null)
+
+	public static function findByUsername($username)
+	{
+		return static::findOne(['username' => $username]);
+	}
+
+     public static function findIdentityByAccessToken($token, $type = null)
     {
 		throw new NotSupportedException('You can only login
 							by username/password pair for now.');
     }
-	
-	 public function getId()
-    {
-        return $this->id;
-    }
 
-    /**
-     * @inheritdoc
-     */
     public function getAuthKey()
     {
         return $this->auth_key;
+    }   
+
+    public function getId()
+    {
+        return $this->id;
     }
 
     public function validateAuthKey($authKey)
     {
          return $this->getAuthKey() === $authKey;
     }	
-	
-	public function beforeSave($insert)
+
+     public function validatePassword($password)
+	{
+		return $this->isCorrectHash($password, $this->password); 
+	}
+
+	private function isCorrectHash($plaintext, $hash)
+	{
+		return Yii::$app->security->validatePassword($plaintext, $hash);
+	}
+
+    public function beforeSave($insert)
     {
         $return = parent::beforeSave($insert);
 
@@ -171,59 +181,8 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 
         return $return;
     }
-	
-	public static function getRoles()
-	{
-		$rolesObjects = Yii::$app->authManager->getRoles();
-		$roles = [];
-		foreach($rolesObjects as $id =>$rolObj){
-			$roles[$id] = $rolObj->name; 
-		}
-		return $roles; 	
-	}
-	
-	public function afterSave($insert,$changedAttributes)
-    {
-        $return = parent::afterSave($insert, $changedAttributes);
 
-        if (!\Yii::$app->user->can('updateUser')){
-			return $return;
-		}
-		$auth = Yii::$app->authManager;
-		$roleName = $this->role; 
-		$role = $auth->getRole($roleName);
-		if (\Yii::$app->authManager->getRolesByUser($this->id) == null){
-			$auth->assign($role, $this->id);
-		} else {
-			$db = \Yii::$app->db;
-			$db->createCommand()->delete('auth_assignment',
-				['user_id' => $this->id])->execute();
-			$auth->assign($role, $this->id);
-		}
-
-        return $return;	
-	}
-	
-	
-	public static function findByUsername($username)
-	{
-		return static::findOne(['username' => $username]);
-	}
-	
-	
-	
-	private function isCorrectHash($plaintext, $hash)
-	{
-		return Yii::$app->security->validatePassword($plaintext, $hash);
-	}
-	
-	
-	public function validatePassword($password)
-	{
-		return $this->isCorrectHash($password, $this->password); 
-	}
-	
-	public static function getTeames1()  
+    public static function getTeachers()  
 	{
 		$allTeames = (new \yii\db\Query())
            ->select(['*'])
@@ -235,31 +194,18 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 					map($allTeames, 'id', 'username');
 		return $allTeamesArray;						
 	}
-	
-	public static function getTeames3()  
+
+    public static function getSupervisors()  
 	{
 		$allTeames = (new \yii\db\Query())
            ->select(['*'])
            ->from('user')
-           ->where(['userRole' => '3'])
+           ->where(['userRole' => '2'])
            ->limit(10)
            ->all();
 		$allTeamesArray = ArrayHelper::
 					map($allTeames, 'id', 'username');
 		return $allTeamesArray;						
 	}
-	
-	public static function getTeames2()  
-	{
-	$allTeames = (new \yii\db\Query())
-          ->select(['*'])
-          ->from('user')
-          ->where(['userRole' => '2'])
-          ->limit(10)
-          ->all();
-		$allTeamesArray = ArrayHelper::
-					map($allTeames, 'id', 'username');
-		return $allTeamesArray;						
-	}
-	
+
 }
