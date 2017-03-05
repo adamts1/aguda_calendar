@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\GroupSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -10,6 +11,12 @@ use yii\grid\GridView;
 $this->title = 'קבוצות לימוד';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<?php 
+	var_dump($locationList);
+	die();
+?>
+
 <div class="group-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -35,15 +42,15 @@ $this->params['breadcrumbs'][] = $this->title;
 				},
 				
 			],
-            // [
-			// 	'attribute' => 'teacherid',
-			// 	'label' => 'מורה',
-			// 	'format' => 'raw',
-			// 	'value' => function($model){
-			// 		return $model->teacher->teachername;  //Showing center name instead of center number.
-			// 	},
+            [
+				'attribute' => 'teacherid',
+				'label' => 'מורה',
+				'format' => 'raw',
+				'value' => function($model){
+					return $model->teacher->teachername;  //Showing center name instead of center number.
+				},
 
-			// ],
+			],
 
             //  [
 			//  	'attribute' => 'teacherid',
