@@ -13,8 +13,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <?php 
-	var_dump($locationList);
-	die();
+//	var_dump($locationList);
+//	die();
 ?>
 
 <div class="group-index">

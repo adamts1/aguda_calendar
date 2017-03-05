@@ -5,7 +5,8 @@ use yii\widgets\ActiveForm;
 use app\models\Course;
 use app\models\Location;
 use app\models\User;
-use app\models\Student;//check
+use app\models\Student;
+//check
 /* @var $this yii\web\View */
 /* @var $model app\models\Group */
 /* @var $form yii\widgets\ActiveForm */
@@ -15,7 +16,7 @@ use app\models\Student;//check
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'courseid')->dropDownList(Course::getCourse()) ?>
+   <?= $form->field($model, 'courseid')->dropDownList(Course::getCourse()) ?>
 
     <?= $form->field($model, 'teacherid')->dropDownList(User::getTeachers()) ?>
 
@@ -26,9 +27,9 @@ use app\models\Student;//check
     
     <?= $form->field($model, 'dayintheweek')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'duration')->textInput() ?>
+ <!--  <? =$form->field($model, 'duration')->textInput() ?>  -->
 
-    <div class="form-group">
+    <div class="form-group ">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
