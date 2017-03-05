@@ -27,7 +27,7 @@ use app\assets\AppAsset;
 <div class="wrap">
     <?php
     NavBar::begin([
-        //Html::img('http://localhost/f_project/web/images/Logo-80.png')
+        //Html::img('/images/Logo-80.png')
         'brandLabel' => 'אגודה לקידום החינוך',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
@@ -38,11 +38,11 @@ use app\assets\AppAsset;
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => 'Course', 'url' => ['/site/course']],
+            ['label' => 'Teacher', 'url' => ['/site/about']],
+            ['label' => 'Location', 'url' => ['/site/about']],
+            ['label' => 'Center', 'url' => ['/site/about']],
+            ['label' => 'Student', 'url' => ['/site/contact']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
