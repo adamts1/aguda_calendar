@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Teacher;
+use app\models\User;
 use app\models\TeacherSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -64,12 +65,14 @@ class TeacherController extends Controller
     public function actionCreate()
     {
         $model = new Teacher();
+        $user = new User();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'user' => $user,
             ]);
         }
     }

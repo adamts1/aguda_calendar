@@ -68,6 +68,19 @@ class Userrole extends \yii\db\ActiveRecord
 
     }
 
+     public static function getTeachersUserRole()  
+	{
+		$allTeames = (new \yii\db\Query())
+           ->select(['*'])
+           ->from('userrole')
+           ->where(['roleId' => '1'])
+           ->limit(10)
+           ->all();
+		$allTeamesArray = ArrayHelper::
+					map($allTeames, 'roleId', 'roleName');
+		return $allTeamesArray;						
+	}
+
     
 
 }

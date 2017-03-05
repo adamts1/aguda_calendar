@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use app\models\Userrole;
 
 
+
 /* @var $this yii\web\View */
 /* @var $model app\models\User */
 /* @var $form yii\widgets\ActiveForm */
@@ -42,7 +43,14 @@ use app\models\Userrole;
 
     <!--<?= $form->field($model, 'updated_by')->textInput() ?>-->
 
+   
     <?= $form->field($model, 'userRole')->dropDownList(Userrole::getUserrole()) ?>
+
+ 
+
+  
+
+
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'צור חדש' : 'עדכן', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
