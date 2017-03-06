@@ -27,15 +27,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            [
-				'attribute' => 'id',
-				'label' => 'רכז',
-				'format' => 'raw',
-				'value' => function($model){
-					return $model->id0->fullname;  //////////Showing course name instead of course number.
-				},
-				//'filter'=>Html::dropDownList('CourseClassSearch[teacherId]', $teacher, $teachers, ['class'=>'form-control']),   //////////////// the arguments are from the controller!
-			],
+            // [
+			// 	'attribute' => 'id',
+			// 	'label' => 'רכז',
+			// 	'format' => 'raw',
+			// 	'value' => function($model){
+			// 		return $model->id0->fullname;  //////////Showing course name instead of course number.
+			// 	},
+			// 	//'filter'=>Html::dropDownList('CourseClassSearch[teacherId]', $teacher, $teachers, ['class'=>'form-control']),   //////////////// the arguments are from the controller!
+			// ],
 
            
            

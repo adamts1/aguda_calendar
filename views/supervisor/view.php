@@ -29,13 +29,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-                  [ // the name of supervisor from user
-				'label' => $model->attributeLabels()['id'],
-				'format' => 'html',
-				'value' => Html::a($model->id0->fullname, 
-					['user/view', 'id' => $model->id0->id]),
+            //       [ // the name of supervisor from user
+			// 	'label' => $model->attributeLabels()['id'],
+			// 	'format' => 'html',
+			// 	'value' => Html::a($model->id0->fullname, 
+			// 		['user/view', 'id' => $model->id0->id]),
 					
-			],            
+			// ],            
             'centerId',
                        [ // the name of supervisor from user
 				'label' => $model->attributeLabels()['centerId'],

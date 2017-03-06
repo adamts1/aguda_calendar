@@ -41,15 +41,15 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'updated_by',
             //'userRole',
 
-            [
-				'attribute' => 'userRole',
-				'label' => 'תפקיד',
-				'format' => 'raw',
-				'value' => function($model){
-					return $model->userRole0->userRoleName;  //Showing role name instead of role number.
-				},
+            // [
+			// 	'attribute' => 'userRole',
+			// 	'label' => 'תפקיד',
+			// 	'format' => 'raw',
+			// 	'value' => function($model){
+			// 		return $model->userRole0->userRoleName;  //Showing role name instead of role number.
+			// 	},
 				
-			],
+			// ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

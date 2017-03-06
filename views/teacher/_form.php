@@ -44,13 +44,12 @@ use app\models\Center;
 
     <!--<?= $form->field($user, 'updated_by')->textInput() ?>-->
 
-   
-    <!--<?= $form->field($user, 'userRole')->dropDownList(Userrole::getTeachersUserRole()) ?>-->
+        <?= $form->field($user, 'userRole')->dropDownList(Userrole::getTeachersUserRole()) ?>  
 
     <!-- as a teacher-->
 
 
-    <!--<?= $form->field($model, 'id')->textInput(['maxlength' => true]) ?>-->
+        <!--<?= $form->field($model, 'id')->textInput() ?>-->
 
 
     <?= $form->field($model, 'subject')->textInput(['maxlength' => true]) ?>

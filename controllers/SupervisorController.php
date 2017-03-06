@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Supervisor;
+use app\models\User;
 use app\models\SupervisorSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -64,12 +65,26 @@ class SupervisorController extends Controller
     public function actionCreate()
     {
         $model = new Supervisor();
+         $user = new User();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $user->load(Yii::$app->request->post())  && $model->save()) {
+             $user->id = $user->id;  //insert id to user table
+             $user->save();
+
+             $model->id = $user->id; //insert the same id as user
+             $model->save();
+
+
+
+
+
             return $this->redirect(['view', 'id' => $model->id]);
+
+             
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'user' => $user, //taking iputs from user to supervisor
             ]);
         }
     }
@@ -89,6 +104,7 @@ class SupervisorController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
+                
             ]);
         }
     }
@@ -101,6 +117,7 @@ class SupervisorController extends Controller
      */
     public function actionDelete($id)
     {
+            User::find()->where(['id' =>$id])->one()->delete();
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

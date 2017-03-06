@@ -67,7 +67,17 @@ class TeacherController extends Controller
         $model = new Teacher();
         $user = new User();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $user->load(Yii::$app->request->post())  && $model->save()) {
+         
+            $user->id = $user->id;  //insert id to user table
+            $user->save();
+
+            $model->id = $user->id; //insert the same id as user
+            $model->save();
+
+
+
+            
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -85,14 +95,26 @@ class TeacherController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $user = $this->findModel($id);
+            ///  User::find()->where(['id' =>$id])->one(); // trying to update user&techer
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $model = $this->findModel($id);
+        
+
+      
+
+     
+      
+      if ($model->load(Yii::$app->request->post())  && $user->load(Yii::$app->request->post())  && $model->save()) {
+                
+          
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
-                'model' => $model,
-            ]);
+               
+                'user' => $user,   //taking iputs from user to teacher
+                 'model' => $model,
+            ]); 
         }
     }
 
@@ -104,8 +126,11 @@ class TeacherController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
 
+         User::find()->where(['id' =>$id])->one()->delete();// delete from user table
+        $this->findModel($id)->delete();
+       
+      
         return $this->redirect(['index']);
     }
 

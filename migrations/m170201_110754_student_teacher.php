@@ -1,5 +1,6 @@
 <?php
 
+
 use yii\db\Migration;
 
 class m170201_110754_student_teacher extends Migration

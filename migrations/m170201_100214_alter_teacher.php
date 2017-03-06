@@ -12,7 +12,7 @@ class m170201_100214_alter_teacher extends Migration
         $this->addForeignKey(
             'fk-teacher-centerid',// This is the fk => the table where i want the fk will be
             'teacher',// son table
-            'centerid', // son pk	
+            'centerid', // son fk	
             'center', // father table
             'id', // father pk
             'CASCADE'

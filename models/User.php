@@ -108,6 +108,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         return $this->hasOne(Supervisor::className(), ['id' => 'id']);
     }
 
+
     public function getFullname()
     {
         return $this->firstname.' '.$this->lastname;

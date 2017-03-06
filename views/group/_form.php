@@ -27,7 +27,7 @@ use app\models\Student;
     
     <?= $form->field($model, 'dayintheweek')->textInput(['maxlength' => true]) ?>
 
- <!--  <? =$form->field($model, 'duration')->textInput() ?>  -->
+ <!--  <? = $form->field($model, 'duration')->textInput() ?>  -->
 
     <div class="form-group ">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
