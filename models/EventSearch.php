@@ -8,7 +8,7 @@ use yii\data\ActiveDataProvider;
 use app\models\Event;
 
 /**
- * EventSearch represents the model behind the search form about `app\models\Event`.
+ * EventSearch represents the model behind the search form of `app\models\Event`.
  */
 class EventSearch extends Event
 {
@@ -19,7 +19,7 @@ class EventSearch extends Event
     {
         return [
             [['id', 'groupid', 'teacherid', 'locationid'], 'integer'],
-            [['date'], 'safe'],
+            [['date', 'title', 'description', 'created_date'], 'safe'],
         ];
     }
 
@@ -64,7 +64,11 @@ class EventSearch extends Event
             'teacherid' => $this->teacherid,
             'locationid' => $this->locationid,
             'date' => $this->date,
+            'created_date' => $this->created_date,
         ]);
+
+        $query->andFilterWhere(['like', 'title', $this->title])
+            ->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProvider;
     }

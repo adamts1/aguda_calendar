@@ -7,11 +7,14 @@ use Yii;
 /**
  * This is the model class for table "event".
  *
- * @property integer $id
- * @property integer $groupid
- * @property integer $teacherid
- * @property integer $locationid
+ * @property int $id
+ * @property int $groupid
+ * @property int $teacherid
+ * @property int $locationid
  * @property string $date
+ * @property string $title
+ * @property string $description
+ * @property string $created_date
  *
  * @property Group $group
  * @property Location $location
@@ -35,7 +38,8 @@ class Event extends \yii\db\ActiveRecord
     {
         return [
             [['groupid', 'teacherid', 'locationid'], 'integer'],
-            [['date'], 'safe'],
+            [['date', 'created_date'], 'safe'],
+            [['title', 'description'], 'string', 'max' => 255],
             [['groupid'], 'exist', 'skipOnError' => true, 'targetClass' => Group::className(), 'targetAttribute' => ['groupid' => 'id']],
             [['locationid'], 'exist', 'skipOnError' => true, 'targetClass' => Location::className(), 'targetAttribute' => ['locationid' => 'id']],
             [['teacherid'], 'exist', 'skipOnError' => true, 'targetClass' => Teacher::className(), 'targetAttribute' => ['teacherid' => 'id']],
@@ -53,6 +57,9 @@ class Event extends \yii\db\ActiveRecord
             'teacherid' => 'Teacherid',
             'locationid' => 'Locationid',
             'date' => 'Date',
+            'title' => 'Title',
+            'description' => 'Description',
+            'created_date' => 'Created Date',
         ];
     }
 

@@ -21,9 +21,8 @@ use Yii;
  */
 class Teacher extends \yii\db\ActiveRecord
 {
-    /**
-     * @inheritdoc
-     */
+   
+
     public static function tableName()
     {
         return 'teacher';
