@@ -19,7 +19,7 @@ class EventSearch extends Event
     {
         return [
             [['id', 'groupid', 'teacherid', 'locationid'], 'integer'],
-            [['date', 'title', 'description', 'created_date'], 'safe'],
+            [['date', 'title', 'description', 'created_date', 'endDate'], 'safe'],
         ];
     }
 
@@ -65,6 +65,7 @@ class EventSearch extends Event
             'locationid' => $this->locationid,
             'date' => $this->date,
             'created_date' => $this->created_date,
+            'endDate' => $this->endDate,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])

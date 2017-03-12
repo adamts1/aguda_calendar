@@ -2,7 +2,11 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use yii\jui\DatePicker;
+
+
+
+
+
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Event */
@@ -24,9 +28,18 @@ use yii\jui\DatePicker;
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
+     <?= $form->field($model, 'created_date')->textInput(['maxlength' => true]) ?>
+     <!--<?= $form->field($model, 'endDate')->textInput(['maxlength' => true]) ?>-->
 
-  
-<?= $form->field($model,'created_date')->widget(DatePicker::className(),['clientOptions' => ['language' => 'he','dateFormat' => 'yy-mm-dd',]]) ?>
+<?= $form->field($model, 'endDate')->widget(\yii\jui\DatePicker::classname(), [
+    'language' => 'en',
+    //'dateFormat' => 'yyyy-MM-dd',
+]) ?>
+ 
+
+
+
+
 
 
     <div class="form-group">

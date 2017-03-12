@@ -35,7 +35,8 @@ class EventController extends Controller
      */
     public function actionIndex()
     {
-      
+      //access control
+		
       $events = Event::find()->all();
         
       $tasks=[];  
@@ -43,19 +44,23 @@ class EventController extends Controller
       //Testing
       $event = new \yii2fullcalendar\models\Event();
       $event->id = $eve->id;
-      $event->backgroundColor='#008B8B' ;
+      $event->backgroundColor='#2F4F4F' ;
+      $event->startEditable='true' ;
       $event->title = $eve->title;
-     // $event->	description = $eve->	description; 
-	     $event->start = $eve->created_date; 
+  
+	  $event->start = $eve->created_date; 
+	  $event->end = $eve->endDate; 
+    //   $event->description = $eve->description; 
+	  //$event->textColor = $eve->classNumber;
+	  //$event->url = $eve->;
 
+	  
     //  $event->start = date('Y-m-d\Th:m:s\Z',strtotime('6am'));
       $tasks[] = $event;
-    }
-        
+		}
         return $this->render('index', [
             'events' => $tasks,
-            ]);
-        
+            ]);   
     }
 
     /**

@@ -15,6 +15,7 @@ use Yii;
  * @property string $title
  * @property string $description
  * @property string $created_date
+ * @property string $endDate
  *
  * @property Group $group
  * @property Location $location
@@ -38,7 +39,7 @@ class Event extends \yii\db\ActiveRecord
     {
         return [
             [['groupid', 'teacherid', 'locationid'], 'integer'],
-            [['date', 'created_date'], 'safe'],
+            [['date', 'created_date', 'endDate'], 'safe'],
             [['title', 'description'], 'string', 'max' => 255],
             [['groupid'], 'exist', 'skipOnError' => true, 'targetClass' => Group::className(), 'targetAttribute' => ['groupid' => 'id']],
             [['locationid'], 'exist', 'skipOnError' => true, 'targetClass' => Location::className(), 'targetAttribute' => ['locationid' => 'id']],
@@ -60,6 +61,7 @@ class Event extends \yii\db\ActiveRecord
             'title' => 'Title',
             'description' => 'Description',
             'created_date' => 'Created Date',
+            'endDate' => 'End Date',
         ];
     }
 
