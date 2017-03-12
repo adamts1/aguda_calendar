@@ -3274,53 +3274,6 @@
         ]
     },
     {
-        "name": "philippfrenzel/yii2fullcalendar",
-        "version": "2.2.5",
-        "version_normalized": "2.2.5.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/philippfrenzel/yii2fullcalendar.git",
-            "reference": "ce71966d208403900d1eb0b7606b9b208c8ce508"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/philippfrenzel/yii2fullcalendar/zipball/ce71966d208403900d1eb0b7606b9b208c8ce508",
-            "reference": "ce71966d208403900d1eb0b7606b9b208c8ce508",
-            "shasum": ""
-        },
-        "require": {
-            "yiisoft/yii2": "*",
-            "yiisoft/yii2-jui": "*"
-        },
-        "time": "2015-01-11T12:30:46+00:00",
-        "type": "yii2-extension",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "yii2fullcalendar\\": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT License"
-        ],
-        "authors": [
-            {
-                "name": "Philipp Frenzel",
-                "email": "philipp@frenzel.net",
-                "homepage": "http://www.frenzel.net/",
-                "role": "Author Version Yii2"
-            }
-        ],
-        "description": "Yii2 fullcalendar Widgets",
-        "homepage": "http://www.frenzel.net/",
-        "keywords": [
-            "framework",
-            "yii",
-            "yii2 fullcalendar"
-        ]
-    },
-    {
         "name": "phpunit/phpunit",
         "version": "5.7.x-dev",
         "version_normalized": "5.7.9999999.9999999-dev",
@@ -3402,6 +3355,53 @@
             "phpunit",
             "testing",
             "xunit"
+        ]
+    },
+    {
+        "name": "philippfrenzel/yii2fullcalendar",
+        "version": "2.2.5",
+        "version_normalized": "2.2.5.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/philippfrenzel/yii2fullcalendar.git",
+            "reference": "ce71966d208403900d1eb0b7606b9b208c8ce508"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/philippfrenzel/yii2fullcalendar/zipball/ce71966d208403900d1eb0b7606b9b208c8ce508",
+            "reference": "ce71966d208403900d1eb0b7606b9b208c8ce508",
+            "shasum": ""
+        },
+        "require": {
+            "yiisoft/yii2": "*",
+            "yiisoft/yii2-jui": "*"
+        },
+        "time": "2015-01-11T12:30:46+00:00",
+        "type": "yii2-extension",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "yii2fullcalendar\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT License"
+        ],
+        "authors": [
+            {
+                "name": "Philipp Frenzel",
+                "email": "philipp@frenzel.net",
+                "homepage": "http://www.frenzel.net/",
+                "role": "Author Version Yii2"
+            }
+        ],
+        "description": "Yii2 fullcalendar Widgets",
+        "homepage": "http://www.frenzel.net/",
+        "keywords": [
+            "framework",
+            "yii",
+            "yii2 fullcalendar"
         ]
     }
 ]

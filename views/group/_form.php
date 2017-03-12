@@ -6,6 +6,7 @@ use app\models\Course;
 use app\models\Location;
 use app\models\User;
 use app\models\Student;
+use yii\jui\DatePicker;
 //check
 /* @var $this yii\web\View */
 /* @var $model app\models\Group */
@@ -26,15 +27,14 @@ use app\models\Student;
 
     <?= $form->field($model, 'locationid')->dropDownList(Location::getLocation()) ?>
 
-
- <!-- <?= $form->field($model, 'locationid')->dropDownList(Student::getStudentForGroup()) ?> -->
+ <!-- <?//= $form->field($model, 'locationid')->dropDownList(Student::getStudentForGroup()) ?> -->
     
     <?= $form->field($model, 'dayintheweek')->textInput(['maxlength' => true]) ?>
 
-   
-
-
-    <!--  $form->field($model, 'duration')->textInput()  -->
+    <?= DatePicker::widget([
+        'model' => $model,
+        'attribute' => 'dayintheweek',
+    ]);?>
 
 
     <div class="form-group ">
