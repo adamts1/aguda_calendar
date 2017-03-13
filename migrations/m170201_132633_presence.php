@@ -16,6 +16,7 @@ class m170201_132633_presence extends Migration
                 'eventid' => 'integer',
                 'date' => 'date',
                 'presence' => 'boolean',
+                'PRIMARY KEY(studentid, eventid)',
              
             ],
             'ENGINE=InnoDB'

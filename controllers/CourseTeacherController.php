@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Event;
-use app\models\EventSearch;
+use app\models\CourseTeacher;
+use app\models\CourseTeacherSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * EventController implements the CRUD actions for Event model.
+ * CourseTeacherController implements the CRUD actions for CourseTeacher model.
  */
-class EventController extends Controller
+class CourseTeacherController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,62 +30,44 @@ class EventController extends Controller
     }
 
     /**
-     * Lists all Event models.
+     * Lists all CourseTeacher models.
      * @return mixed
      */
     public function actionIndex()
     {
-      //access control
-		
-      $events = Event::find()->all();
-        
-      $tasks=[];  
-      foreach ($events AS $eve){
-      //Testing
-      $event = new \yii2fullcalendar\models\Event();
-      $event->id = $eve->id;
-      $event->backgroundColor='#2F4F4F';
-      $event->startEditable='true';
-      $event->title = $eve->title;
-  
-	  $event->start = $eve->created_date; 
-	  $event->end = $eve->endDate; 
-    //   $event->description = $eve->description; 
-	  //$event->textColor = $eve->classNumber;
-	  //$event->url = $eve->;
+        $searchModel = new CourseTeacherSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-	  
-    //  $event->start = date('Y-m-d\Th:m:s\Z',strtotime('6am'));
-      $tasks[] = $event;
-		}
         return $this->render('index', [
-            'events' => $tasks,
-            ]);   
-    }
-
-    /**
-     * Displays a single Event model.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
-     * Creates a new Event model.
+     * Displays a single CourseTeacher model.
+     * @param integer $courseid
+     * @param integer $teacherid
+     * @return mixed
+     */
+    public function actionView($courseid, $teacherid)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($courseid, $teacherid),
+        ]);
+    }
+
+    /**
+     * Creates a new CourseTeacher model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Event();
+        $model = new CourseTeacher();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'courseid' => $model->courseid, 'teacherid' => $model->teacherid]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -94,17 +76,18 @@ class EventController extends Controller
     }
 
     /**
-     * Updates an existing Event model.
+     * Updates an existing CourseTeacher model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param integer $courseid
+     * @param integer $teacherid
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdate($courseid, $teacherid)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel($courseid, $teacherid);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'courseid' => $model->courseid, 'teacherid' => $model->teacherid]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -113,28 +96,30 @@ class EventController extends Controller
     }
 
     /**
-     * Deletes an existing Event model.
+     * Deletes an existing CourseTeacher model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param integer $courseid
+     * @param integer $teacherid
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionDelete($courseid, $teacherid)
     {
-        $this->findModel($id)->delete();
+        $this->findModel($courseid, $teacherid)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Event model based on its primary key value.
+     * Finds the CourseTeacher model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Event the loaded model
+     * @param integer $courseid
+     * @param integer $teacherid
+     * @return CourseTeacher the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($courseid, $teacherid)
     {
-        if (($model = Event::findOne($id)) !== null) {
+        if (($model = CourseTeacher::findOne(['courseid' => $courseid, 'teacherid' => $teacherid])) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

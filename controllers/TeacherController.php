@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Teacher;
 use app\models\User;
+use app\models\Course;
 use app\models\TeacherSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -67,6 +68,13 @@ class TeacherController extends Controller
         $model = new Teacher();
         $user = new User();
 
+        // $model->editableUsers = [2]; //many to many
+        // $model->save();
+
+       
+      
+   
+
         if ($model->load(Yii::$app->request->post()) && $user->load(Yii::$app->request->post())  && $model->save()) {
          
             $user->id = $user->id;  //insert id to user table
@@ -74,15 +82,15 @@ class TeacherController extends Controller
 
             $model->id = $user->id; //insert the same id as user
             $model->save();
-
-
-
+            
+          
             
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
                 'user' => $user,
+               
             ]);
         }
     }
@@ -149,4 +157,7 @@ class TeacherController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+
+    
 }

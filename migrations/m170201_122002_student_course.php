@@ -11,7 +11,8 @@ class m170201_122002_student_course extends Migration
             'student_course',
             [
                 'courseid' => 'integer',
-                'studentid' => 'integer'
+                'studentid' => 'integer',
+                'PRIMARY KEY(courseid, studentid)',
              
             ],
             'ENGINE=InnoDB'

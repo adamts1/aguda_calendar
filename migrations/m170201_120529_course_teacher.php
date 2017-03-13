@@ -11,7 +11,8 @@ class m170201_120529_course_teacher extends Migration
             'course_teacher',
             [
                 'courseid' => 'integer',
-                'teacherid' => 'integer'
+                'teacherid' => 'integer',
+                'PRIMARY KEY(courseid, teacherid)',
              
             ],
             'ENGINE=InnoDB'

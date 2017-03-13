@@ -58,7 +58,6 @@ class Course extends \yii\db\ActiveRecord
     }
 
     
-    
 
     /**
      * @return \yii\db\ActiveQuery
@@ -96,4 +95,6 @@ class Course extends \yii\db\ActiveRecord
     {
         return $this->coursename;
     }
+
+
 }

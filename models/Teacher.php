@@ -3,7 +3,8 @@
 namespace app\models;
 
 use Yii;
-
+use arogachev\ManyToMany\behaviors\ManyToManyBehavior;
+use arogachev\ManyToMany\validators\ManyToManyValidator;
 /**
  * This is the model class for table "teacher".
  *
@@ -21,7 +22,7 @@ use Yii;
  */
 class Teacher extends \yii\db\ActiveRecord
 {
-   
+      public $editableUsers = [];  // many to many
 
     public static function tableName()
     {
@@ -40,6 +41,24 @@ class Teacher extends \yii\db\ActiveRecord
             [['id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id' => 'id']],
         ];
     }
+
+    public function behaviors()
+{
+    return [
+        [
+            'class' => ManyToManyBehavior::className(),
+            'relations' => [
+                [
+                    'editableAttribute' => 'editableUsers', // Editable attribute name
+                    'table' => 'course_teacher', // Name of the junction table
+                    'ownAttribute' => 'teacherid', // Name of the column in junction table that represents current model
+                    'relatedModel' => Course::className(), // Related model class
+                    'relatedAttribute' => 'courseid', // Name of the column in junction table that represents related model
+                ],
+            ],
+        ],
+    ];
+}
 
     /**
      * @inheritdoc
@@ -60,6 +79,27 @@ class Teacher extends \yii\db\ActiveRecord
     {
         return $this->hasMany(CourseTeacher::className(), ['teacherid' => 'id']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+
+    public function getCoursesViaTable()
+    {
+        return $this->hasMany(Course::className(), ['id' => 'courseid'])
+            ->viaTable('course_teacher', ['teacherid' => 'id']);
+    }
+     
+     /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCoursesViaRelation()
+    {
+        return $this->hasMany(Courses::className(), ['id' => 'courseid'])
+            ->via('CourseTeacher');
+    }
+
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -108,6 +148,8 @@ class Teacher extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'id']);
     }
+
+   
 
     
 }

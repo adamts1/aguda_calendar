@@ -31,10 +31,7 @@ use yii\jui\DatePicker;
     
     <?= $form->field($model, 'dayintheweek')->textInput(['maxlength' => true]) ?>
 
-    <?= DatePicker::widget([
-        'model' => $model,
-        'attribute' => 'dayintheweek',
-    ]);?>
+   
 
 
     <div class="form-group ">

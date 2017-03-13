@@ -4,9 +4,8 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\models\User;
 use app\models\Userrole;
-
-
 use app\models\Center;
+
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Supervisor */
@@ -14,6 +13,8 @@ use app\models\Center;
 ?>
 
 <div class="supervisor-form">
+
+     
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -46,11 +47,15 @@ use app\models\Center;
 
     <!--<?= $form->field($user, 'updated_by')->textInput() ?>-->
 
+  
+
+
         <?= $form->field($user, 'userRole')->dropDownList(Userrole::getSupervisorUserRole()) ?>
 
     <!-- as a teacher-->
 
         <!--<?= $form->field($model, 'id')->textInput() ?>-->
+
 
     <?= $form->field($model, 'centerId')->dropDownList(Center::getCenter()) ?>  
     <div class="form-group">

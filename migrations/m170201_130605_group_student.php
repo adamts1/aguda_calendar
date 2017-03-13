@@ -11,7 +11,8 @@ class m170201_130605_group_student extends Migration
             'group_student',
             [
                 'studentid' => 'integer',
-                'groupid' => 'integer'
+                'groupid' => 'integer',
+                'PRIMARY KEY(studentid, groupid)',
              
             ],
             'ENGINE=InnoDB'

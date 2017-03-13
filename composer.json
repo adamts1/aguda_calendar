@@ -22,7 +22,8 @@
         "voskobovich/yii2-many-many-behavior": "^3.0",
         "yiisoft/yii2-jui": "^2.0",
         "kartik-v/yii2-widget-datepicker": "@dev",
-        "philippfrenzel/yii2fullcalendar":"*" 
+        "philippfrenzel/yii2fullcalendar":"*",
+        "arogachev/yii2-many-to-many": "^0.2.1" 
         
 
     },

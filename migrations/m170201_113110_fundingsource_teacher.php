@@ -11,7 +11,8 @@ class m170201_113110_fundingsource_teacher extends Migration
             'fundingsource_teacher',
             [
                 'sourceid' => 'integer',
-                'teacherid' => 'integer'
+                'teacherid' => 'integer',
+                'PRIMARY KEY(sourceid, teacherid)',
              
             ],
             'ENGINE=InnoDB'

@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use app\models\User;
 use app\models\Userrole;
 use app\models\Center;
+use app\models\Course;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Teacher */
@@ -48,13 +49,16 @@ use app\models\Center;
 
     <!-- as a teacher-->
 
+    
 
-        <!--<?= $form->field($model, 'id')->textInput() ?>-->
+   
+ 
 
-
-    <?= $form->field($model, 'subject')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'subject')->dropDownList(Course::getCourse()) ?>  
 
     <?= $form->field($model, 'centerid')->dropDownList(Center::getCenter()) ?>  
+
+
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

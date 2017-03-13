@@ -12,7 +12,9 @@ class m170201_110754_student_teacher extends Migration
             'student_teacher',
             [
                 'teacherid' => 'integer',
-                'studentid' => 'integer'
+                'studentid' => 'integer',
+                'PRIMARY KEY(teacherid, studentid)',
+                
              
             ],
             'ENGINE=InnoDB'
