@@ -3,9 +3,13 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\models\User;
+use app\models\Teacher;
 use app\models\Userrole;
 use app\models\Center;
 use app\models\Course;
+use kartik\select2\Select2;
+use yii\helpers\ArrayHelper;    
+use yii\bootstrap\Alert;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Teacher */
@@ -48,13 +52,35 @@ use app\models\Course;
         <?= $form->field($user, 'userRole')->dropDownList(Userrole::getTeachersUserRole()) ?>  
 
     <!-- as a teacher-->
+    <?php $data = Teacher::getCoursesTeacher(); ?>
+
+   <?php
+echo Alert::widget([
+    'options' => [
+        'class' => 'alert-info',
+    ],
+    'body' => 'please add  all the pupils that were on this activity',
+]);
+?>
+
+  <?=  $form->field($model, 'subject')->widget(Select2::classname(), [
+   
+    'data' => [$data],
+    'language' => 'de',
+   'options' => ['multiple' => true],
+    'pluginOptions' => [
+        'allowClear' => true,
+        'tags' => true,
+    ],
+]);
+?>
 
     
 
    
  
 
-    <?= $form->field($model, 'subject')->dropDownList(Course::getCourse()) ?>  
+    <!--<?= $form->field($model, 'subject')->dropDownList(Course::getCourse()) ?>  -->
 
     <?= $form->field($model, 'centerid')->dropDownList(Center::getCenter()) ?>  
 

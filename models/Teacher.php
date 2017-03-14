@@ -5,6 +5,8 @@ namespace app\models;
 use Yii;
 use arogachev\ManyToMany\behaviors\ManyToManyBehavior;
 use arogachev\ManyToMany\validators\ManyToManyValidator;
+use app\models\Course;
+use yii\helpers\ArrayHelper;  
 /**
  * This is the model class for table "teacher".
  *
@@ -147,6 +149,12 @@ class Teacher extends \yii\db\ActiveRecord
     public function getId0()
     {
         return $this->hasOne(User::className(), ['id' => 'id']);
+    }
+
+    public static function getCoursesTeacher()
+    {
+         $courses =  ArrayHelper::map(course::find()->all(),'id','coursename');
+        return $courses;                       
     }
 
    
