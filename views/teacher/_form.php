@@ -35,6 +35,9 @@ use yii\bootstrap\Alert;
 
     <?= $form->field($user, 'phone')->textInput(['maxlength' => true]) ?>
 
+
+
+
     <?= $form->field($user, 'address')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($user, 'notes')->textarea(['rows' => 6]) ?>
@@ -52,18 +55,11 @@ use yii\bootstrap\Alert;
         <?= $form->field($user, 'userRole')->dropDownList(Userrole::getTeachersUserRole()) ?>  
 
     <!-- as a teacher-->
-    <?php $data = Teacher::getCoursesTeacher(); ?>
+ <?php $data = Teacher::getCoursesTeacher(); ?>
 
-   <?php
-echo Alert::widget([
-    'options' => [
-        'class' => 'alert-info',
-    ],
-    'body' => 'please add  all the pupils that were on this activity',
-]);
-?>
 
-  <?=  $form->field($model, 'subject')->widget(Select2::classname(), [
+
+  <?=  $form->field($course, 'id')->widget(Select2::classname(), [
    
     'data' => [$data],
     'language' => 'de',
@@ -74,14 +70,13 @@ echo Alert::widget([
     ],
 ]);
 ?>
-
     
 
+   <!--צריך לייבא תכונה מקורסים-->
+    <!--<?= $form->field($model, 'id')->checkboxlist(ArrayHelper::map($course, 'id', 'coursename'));?> -->
+
+
    
- 
-
-    <!--<?= $form->field($model, 'subject')->dropDownList(Course::getCourse()) ?>  -->
-
     <?= $form->field($model, 'centerid')->dropDownList(Center::getCenter()) ?>  
 
 

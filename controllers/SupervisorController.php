@@ -95,19 +95,51 @@ class SupervisorController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
+    // public function actionUpdate($id)
+    // {
+    //     $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
+    //     if ($model->load(Yii::$app->request->post()) && $model->save()) {
+    //         return $this->redirect(['view', 'id' => $model->id]);
+    //     } else {
+    //         return $this->render('update', [
+    //             'model' => $model,
                 
-            ]);
+    //         ]);
+    //     }
+    // }
+
+    public function actionUpdate($id)  // update teacher & user  together
+        {
+        $model = Supervisor::findOne($id);
+        if (!$model) {
+            throw new NotFoundHttpException("The supervisor was not found.");
         }
+        
+        $user = User::findOne($model->id); // userNumber is the fk
+        if (!$user) {
+            throw new NotFoundHttpException("The user has no profile.");
+        }
+        
+        //$model->scenario = 'update';
+        //$teacher->scenario = 'update';
+        
+        if ($model->load(Yii::$app->request->post()) && $user->load(Yii::$app->request->post())) {
+            //$isValid = $model->validate();
+            //$isValid = $teacher->validate() && $isValid;
+            //if ($isValid) {
+                $model->save(false);
+                $user->save(false);
+                return $this->redirect(['supervisor/view', 'id' => $id]);
+           // }
+        }
+        
+        return $this->render('update', [
+            'model' => $model,
+            'user' => $user,
+        ]);
     }
+
 
     /**
      * Deletes an existing Supervisor model.

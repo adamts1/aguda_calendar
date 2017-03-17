@@ -45,7 +45,7 @@ class Course extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'coursename' => 'מצוע לימוד',
+            'coursename' => 'מקצוע לימוד',
         ];
     }
 
@@ -95,6 +95,11 @@ class Course extends \yii\db\ActiveRecord
     {
         return $this->coursename;
     }
+
+//     public static function getCourse1()
+// {
+//     return Course::find()->select(['id', 'coursename'])->all();
+// }
 
 
 }

@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
+
 /* @var $this yii\web\View */
 /* @var $model app\models\Teacher */
 
@@ -25,19 +26,27 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
+
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
-            'subject',
+        //    'subject',
            // 'centerid',
                 [ // the name of supervisor from user
 				'label' => $model->attributeLabels()['centerid'],
 				'format' => 'html',
 				'value' => Html::a($model->center->centername, 
-					['center/view', 'id' => $model->center->id]),
-					
-			],          
+					['center/view', 'id' => $model->center->id]),	
+			],  
+
+            
+
+              
+           
+
+
+
         ],
 
 

@@ -64,7 +64,10 @@ class CourseTeacherController extends Controller
      */
     public function actionCreate()
     {
-        $model = new CourseTeacher();
+       
+
+         $model->link('teacher', $teacher);
+
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'courseid' => $model->courseid, 'teacherid' => $model->teacherid]);

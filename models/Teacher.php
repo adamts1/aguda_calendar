@@ -74,6 +74,8 @@ class Teacher extends \yii\db\ActiveRecord
         ];
     }
 
+  
+
     /**
      * @return \yii\db\ActiveQuery
      */
