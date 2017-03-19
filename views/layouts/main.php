@@ -38,6 +38,7 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
+            ['label' => 'Group', 'url' => ['/group']],
             ['label' => 'Course', 'url' => ['/course']],
             ['label' => 'Teacher', 'url' => ['/teacher']],
             ['label' => 'Location', 'url' => ['/location']],
