@@ -14,6 +14,7 @@ return array(
     'yii\\composer\\' => array($vendorDir . '/yiisoft/yii2-composer'),
     'yii\\bootstrap\\' => array($vendorDir . '/yiisoft/yii2-bootstrap'),
     'yii\\' => array($vendorDir . '/yiisoft/yii2'),
+    'yii2fullcalendar\\' => array($vendorDir . '/philippfrenzel/yii2fullcalendar'),
     'voskobovich\\manytomany\\updaters\\' => array($vendorDir . '/voskobovich/yii2-many-many-behavior/src/updaters'),
     'voskobovich\\manytomany\\interfaces\\' => array($vendorDir . '/voskobovich/yii2-many-many-behavior/src/interfaces'),
     'voskobovich\\manytomany\\' => array($vendorDir . '/voskobovich/yii2-many-many-behavior/src'),

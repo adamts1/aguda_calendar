@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9e172010b50868a2e8ccf854e8e32d52",
+    "content-hash": "4943c305ddbbda4ed1d565d65a5bcd95",
     "packages": [
         {
             "name": "arogachev/yii2-many-to-many",
@@ -538,6 +538,51 @@
                 "yii2"
             ],
             "time": "2017-03-07 10:03:08"
+        },
+        {
+            "name": "philippfrenzel/yii2fullcalendar",
+            "version": "2.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/philippfrenzel/yii2fullcalendar.git",
+                "reference": "71983f74815790799b269ccf7684454490343a5a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/philippfrenzel/yii2fullcalendar/zipball/71983f74815790799b269ccf7684454490343a5a",
+                "reference": "71983f74815790799b269ccf7684454490343a5a",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*",
+                "yiisoft/yii2-jui": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "yii2fullcalendar\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT License"
+            ],
+            "authors": [
+                {
+                    "name": "Philipp Frenzel",
+                    "email": "philipp@frenzel.net",
+                    "homepage": "http://www.frenzel.net/",
+                    "role": "Author Version Yii2"
+                }
+            ],
+            "description": "Yii2 fullcalendar Widgets",
+            "homepage": "http://www.frenzel.net/",
+            "keywords": [
+                "framework",
+                "yii",
+                "yii2 fullcalendar"
+            ],
+            "time": "2014-10-21T14:46:27+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

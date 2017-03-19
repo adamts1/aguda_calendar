@@ -93,4 +93,13 @@ return array (
       '@arogachev/ManyToMany' => $vendorDir . '/arogachev/yii2-many-to-many',
     ),
   ),
+  'philippfrenzel/yii2fullcalendar' => 
+  array (
+    'name' => 'philippfrenzel/yii2fullcalendar',
+    'version' => '2.1.1.0',
+    'alias' => 
+    array (
+      '@yii2fullcalendar' => $vendorDir . '/philippfrenzel/yii2fullcalendar',
+    ),
+  ),
 );

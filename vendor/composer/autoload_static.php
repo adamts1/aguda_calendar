@@ -25,6 +25,7 @@ class ComposerStaticInit9f9e4e27e79990b4ee47bd62041b34f3
             'yii\\composer\\' => 13,
             'yii\\bootstrap\\' => 14,
             'yii\\' => 4,
+            'yii2fullcalendar\\' => 17,
         ),
         'v' => 
         array (
@@ -123,6 +124,10 @@ class ComposerStaticInit9f9e4e27e79990b4ee47bd62041b34f3
         'yii\\' => 
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2',
+        ),
+        'yii2fullcalendar\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/philippfrenzel/yii2fullcalendar',
         ),
         'voskobovich\\manytomany\\updaters\\' => 
         array (
