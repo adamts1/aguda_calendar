@@ -4,8 +4,56 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7049130cb0543c47357fc64232ffe49e",
+    "content-hash": "9e172010b50868a2e8ccf854e8e32d52",
     "packages": [
+        {
+            "name": "arogachev/yii2-many-to-many",
+            "version": "0.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/arogachev/yii2-many-to-many.git",
+                "reference": "0c277acbfabf7675aeec213dd56e8232b5bc73cf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/arogachev/yii2-many-to-many/zipball/0c277acbfabf7675aeec213dd56e8232b5bc73cf",
+                "reference": "0c277acbfabf7675aeec213dd56e8232b5bc73cf",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "require-dev": {
+                "phpunit/dbunit": "~1.4",
+                "phpunit/phpunit": "~5.2"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "arogachev\\ManyToMany\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Alexey Rogachev",
+                    "email": "arogachev90@gmail.com"
+                }
+            ],
+            "description": "Many-to-many ActiveRecord relation for Yii 2 framework",
+            "homepage": "https://github.com/arogachev/yii2-many-to-many",
+            "keywords": [
+                "Behavior",
+                "many-to-many",
+                "relation",
+                "validator",
+                "yii2"
+            ],
+            "time": "2016-03-04T10:40:29+00:00"
+        },
         {
             "name": "bower-asset/bootstrap",
             "version": "v3.3.7",

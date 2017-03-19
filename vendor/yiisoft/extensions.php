@@ -84,4 +84,13 @@ return array (
       '@kartik/date' => $vendorDir . '/kartik-v/yii2-widget-datepicker',
     ),
   ),
+  'arogachev/yii2-many-to-many' => 
+  array (
+    'name' => 'arogachev/yii2-many-to-many',
+    'version' => '0.2.1.0',
+    'alias' => 
+    array (
+      '@arogachev/ManyToMany' => $vendorDir . '/arogachev/yii2-many-to-many',
+    ),
+  ),
 );
