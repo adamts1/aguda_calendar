@@ -52,10 +52,16 @@ use yii\bootstrap\Alert;
 
     <!--<?= $form->field($user, 'updated_by')->textInput() ?>-->
 
-        <?= $form->field($user, 'userRole')->dropDownList(Userrole::getTeachersUserRole()) ?>  
+    
+ <?= $form->field($user, 'userRole')->dropDownList(Userrole::getTeachersUserRole()) ?>  
 
-    <!-- as a teacher-->
  <?php $data = Teacher::getCoursesTeacher(); ?>
+
+   <?php  if ($model->isNewRecord) {  ?>
+
+    
+    <!-- as a teacher-->
+ 
 
 
 
@@ -70,7 +76,24 @@ use yii\bootstrap\Alert;
     ],
 ]);
 ?>
-    
+     
+
+     <?php }else { ?>
+
+    <?php $coursesids = Teacher::getInitCourses($id); ?>
+
+     <?= Select2::widget([
+        'name' => 'CourseTeacher[courseid]',
+	     'value' => $coursesids, 
+         'data' => [$data],
+        'options' => ['placeholder' => 'בחר מקצועות לימוד', 'multiple' => true],
+        'pluginOptions' => [
+            'tags' => true,
+            'maximumInputLength' => 10
+        ],
+    ]); ?>
+
+     <?php } ?>
 
    <!--צריך לייבא תכונה מקורסים-->
     <!--<?= $form->field($model, 'id')->checkboxlist(ArrayHelper::map($course, 'id', 'coursename'));?> -->

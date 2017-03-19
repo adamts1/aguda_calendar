@@ -155,8 +155,15 @@ class Teacher extends \yii\db\ActiveRecord
 
     public static function getCoursesTeacher()
     {
-         $courses =  ArrayHelper::map(course::find()->all(),'id','coursename');
+         $courses =  ArrayHelper::map(Course::find()->all(),'id','coursename');
         return $courses;                       
+    }
+
+    public static function getInitCourses($id) //This function get activityId and return an array of the existing users on this activity
+    {
+        $coursesteacher = ArrayHelper::map(CourseTeacher::find()
+        ->where(['teacherid'=>$id])->all(),'courseid', 'courseid');
+        return $coursesteacher;
     }
 
    

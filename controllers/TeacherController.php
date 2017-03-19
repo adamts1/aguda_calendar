@@ -101,6 +101,7 @@ class TeacherController extends Controller
                 'model' => $model,
                 'user' => $user,
                 'course' => $course,
+              
                 // 'course' => Course::getCourse1(),
                
             ]);
@@ -145,8 +146,9 @@ class TeacherController extends Controller
             throw new NotFoundHttpException("The user has no profile.");
         }
 
-        //  $course = ArrayHelper::map(Course::find()->all(), 'id', 'coursename');
-        //  $courseteacher = new CourseTeacher();
+
+          $course = ArrayHelper::map(Course::find()->all(), 'id', 'coursename');
+          $courseteacher = new CourseTeacher();
 
     
         //$model->scenario = 'update';
@@ -160,19 +162,19 @@ class TeacherController extends Controller
                 $user->save(false);
         //         $course->save(false);
 
-        //           CourseTeacher::deleteAll(['teacherid' => $id]);
-        //            $courseteacher->load(Yii::$app->request->post());
+                 CourseTeacher::deleteAll(['teacherid' => $id]);
+                 $courseteacher->load(Yii::$app->request->post());
 
-        //            if (!empty($courseteacher->courseid)){
-        //     foreach ($courseteacher->courseid as $courseid) {
-        //         $courseteacher = new CourseTeacher();
-        //         $courseteacher->setAttributes([
-        //             'courseid' => $location_id,
-        //             'teacherid' => $model->id,
-        //         ]);
-        //         $courseteacher->save();
-        //     }
-        // }
+                 if (!empty($courseteacher->courseid)){
+                     foreach ($courseteacher->courseid as $courseid) {
+                        $courseteacher = new CourseTeacher();
+                        $courseteacher->setAttributes([
+                        'courseid' => $courseid,
+                        'teacherid' => $id,
+                   ]);
+                   $courseteacher->save();
+                  }
+               } 
 
               
                
@@ -183,6 +185,9 @@ class TeacherController extends Controller
         return $this->render('update', [
             'model' => $model,
             'user' => $user,
+            'course' => $course,
+            'id' => $id,
+            '$courseteacher' => $courseteacher,
        
         ]);
     }
