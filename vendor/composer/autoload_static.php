@@ -9,8 +9,8 @@ class ComposerStaticInit9f9e4e27e79990b4ee47bd62041b34f3
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
-        '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
+        '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         '180092cfc969a12e06f2132a203a3184' => __DIR__ . '/..' . '/codeception/verify/src/Codeception/function.php',
     );
 
@@ -25,7 +25,6 @@ class ComposerStaticInit9f9e4e27e79990b4ee47bd62041b34f3
             'yii\\composer\\' => 13,
             'yii\\bootstrap\\' => 14,
             'yii\\' => 4,
-            'yii2fullcalendar\\' => 17,
         ),
         'v' => 
         array (
@@ -46,10 +45,6 @@ class ComposerStaticInit9f9e4e27e79990b4ee47bd62041b34f3
         'c' => 
         array (
             'cebe\\markdown\\' => 14,
-        ),
-        'a' => 
-        array (
-            'arogachev\\ManyToMany\\' => 21,
         ),
         'W' => 
         array (
@@ -125,10 +120,6 @@ class ComposerStaticInit9f9e4e27e79990b4ee47bd62041b34f3
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2',
         ),
-        'yii2fullcalendar\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/philippfrenzel/yii2fullcalendar',
-        ),
         'voskobovich\\manytomany\\updaters\\' => 
         array (
             0 => __DIR__ . '/..' . '/voskobovich/yii2-many-many-behavior/src/updaters',
@@ -162,10 +153,6 @@ class ComposerStaticInit9f9e4e27e79990b4ee47bd62041b34f3
         'cebe\\markdown\\' => 
         array (
             0 => __DIR__ . '/..' . '/cebe/markdown',
-        ),
-        'arogachev\\ManyToMany\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/arogachev/yii2-many-to-many',
         ),
         'Webmozart\\Assert\\' => 
         array (

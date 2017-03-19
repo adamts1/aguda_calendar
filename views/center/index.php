@@ -14,7 +14,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+ <?php   $text="laury";
+$mysplit = mb_split(' ',$text);
+$mysplit = array_reverse($mysplit);?>
     <p>
         <?= Html::a('Create Center', ['create'], ['class' => 'btn btn-success']) ?>
     </p>

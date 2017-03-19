@@ -931,6 +931,15 @@ echo $faker->dni; // '77446565E'
 echo $faker->vat;           // "A35864370"
 ```
 
+### `Faker\Provider\es_PE\Person`
+
+```php
+<?php
+
+// Generates a Peruvian Documento Nacional de Identidad (DNI) number
+echo $faker->dni; // '83367512'
+```
+
 ### `Faker\Provider\fi_FI\Payment`
 
 ```php
@@ -1113,6 +1122,9 @@ echo $faker->bankAccountNumber; // "KZ1076321LO4H6X41I37"
 
 // Generates an individual identification number
 echo $faker->individualIdentificationNumber; // "780322300455"
+
+// Generates an individual identification number based on his/her birth date
+echo $faker->individualIdentificationNumber(new \DateTime('1999-03-01')); // "990301300455"
 ```
 
 ### `Faker\Provider\ko_KR\Address`
@@ -1422,6 +1434,7 @@ echo $faker->VAT; //23456789
 * [images-generator](https://github.com/bruceheller/images-generator): An image generator provider using GD for placeholder type pictures
 * [pattern-lab/plugin-php-faker](https://github.com/pattern-lab/plugin-php-faker): Pattern Lab is a Styleguide, Component Library, and Prototyping tool. This creates unique content each time Pattern Lab is generated.
 * [guidocella/eloquent-populator](https://github.com/guidocella/eloquent-populator): Adapter for Laravel's Eloquent ORM.
+* [tamperdata/exiges](https://github.com/tamperdata/exiges): Faker provider for generating random temperatures
 
 ## License
 
