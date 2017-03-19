@@ -38,11 +38,11 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Course', 'url' => ['/site/course']],
-            ['label' => 'Teacher', 'url' => ['/site/about']],
-            ['label' => 'Location', 'url' => ['/site/about']],
-            ['label' => 'Center', 'url' => ['/site/about']],
-            ['label' => 'Student', 'url' => ['/site/contact']],
+            ['label' => 'Course', 'url' => ['/course']],
+            ['label' => 'Teacher', 'url' => ['/teacher']],
+            ['label' => 'Location', 'url' => ['/location']],
+            ['label' => 'Center', 'url' => ['/center']],
+            ['label' => 'Event', 'url' => ['/event']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
