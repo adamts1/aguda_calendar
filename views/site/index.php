@@ -6,12 +6,11 @@ $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
 
-    <div class="jumbotron">
-        <h1></h1>
+    <div class="jumbotron centered">
+        <h1>אגודה לקידום החינוך</h1>
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
+        <p class="lead"></p>
+        <img src="http://www.kidum-edu.org.il/wp-content/uploads/2016/08/lr-5243.jpg" class="img-site-homepage img-responsive"></img>
     </div>
 
     <div class="body-content">
