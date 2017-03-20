@@ -25,6 +25,7 @@ use yii\helpers\ArrayHelper;
 class Teacher extends \yii\db\ActiveRecord
 {
       public $editableUsers = [];  // many to many
+    
 
     public static function tableName()
     {
@@ -165,6 +166,15 @@ class Teacher extends \yii\db\ActiveRecord
         ->where(['teacherid'=>$id])->all(),'courseid', 'courseid');
         return $coursesteacher;
     }
+
+    public function getCoursesOfTeacher() //import all the courses of one teacher used in teacher/view
+{
+    $course = [];
+    foreach($this->courseTeachers as $id) {
+        $course[] = $id->course->courseName;
+    }
+    return implode("\n,", $course);
+}
 
    
 

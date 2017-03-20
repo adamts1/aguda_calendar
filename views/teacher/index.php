@@ -28,6 +28,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
+            
+
             //'id',
             /* [
 				'attribute' => 'id',
@@ -48,8 +50,20 @@ $this->params['breadcrumbs'][] = $this->title;
 				},
 				
 			],
-            'subject',
-           // 'centerid',
+
+             [  // Shows all  the courses
+                'attribute' => 'שם',
+                'label' => 'שם ושם משפחה',
+                'format' => 'raw',
+               	'value' => function($model){
+					return $model->id0->fullName;
+                    },
+              
+            ],
+
+             
+
+
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

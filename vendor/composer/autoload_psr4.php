@@ -20,6 +20,8 @@ return array(
     'voskobovich\\manytomany\\' => array($vendorDir . '/voskobovich/yii2-many-many-behavior/src'),
     'phpDocumentor\\Reflection\\' => array($vendorDir . '/phpdocumentor/reflection-docblock/src', $vendorDir . '/phpdocumentor/type-resolver/src', $vendorDir . '/phpdocumentor/reflection-common/src'),
     'kartik\\select2\\' => array($vendorDir . '/kartik-v/yii2-widget-select2'),
+    'kartik\\helpers\\' => array($vendorDir . '/kartik-v/yii2-helpers'),
+    'kartik\\detail\\' => array($vendorDir . '/kartik-v/yii2-detail-view'),
     'kartik\\date\\' => array($vendorDir . '/kartik-v/yii2-widget-datepicker'),
     'kartik\\base\\' => array($vendorDir . '/kartik-v/yii2-krajee-base'),
     'cebe\\markdown\\' => array($vendorDir . '/cebe/markdown'),

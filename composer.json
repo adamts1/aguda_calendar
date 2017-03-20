@@ -24,7 +24,8 @@
         "kartik-v/yii2-widget-datepicker": "@dev",
         "philippfrenzel/yii2fullcalendar":"~2.1.1",
         "arogachev/yii2-many-to-many": "^0.2.1",
-        "kartik-v/yii2-widget-select2": "@dev"
+        "kartik-v/yii2-widget-select2": "@dev",
+        "kartik-v/yii2-detail-view": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
