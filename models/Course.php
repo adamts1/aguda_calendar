@@ -44,7 +44,7 @@ class Course extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'id' => 'מקצועות',
             'coursename' => 'מקצוע לימוד',
         ];
     }
