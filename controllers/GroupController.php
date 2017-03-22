@@ -4,8 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Group;
-use app\models\User;
-use app\models\Location;
+use app\models\Student;
 use app\models\GroupSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -41,9 +40,6 @@ class GroupController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'studentsList' => '',
-            'teachersList' => User::getTeachers(),
-            'locationList'=> Location::getLocation(),
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -69,8 +65,17 @@ class GroupController extends Controller
     public function actionCreate()
     {
         $model = new Group();
+        // $student = new Student();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        //       foreach ($_POST['Student']['id'] as $id) {
+        //       $courseTeacher = new CourseTeacher; //instantiate new CourseTeacher model
+        //      $questionCategory->teacherid = $model->id;
+        //       $questionCategory->courseid = $id;
+        //       $questionCategory->save();
+        //    } // due to multiple courses for for one teacher
+
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [

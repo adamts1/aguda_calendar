@@ -7,18 +7,20 @@ use Yii;
 /**
  * This is the model class for table "group".
  *
- * @property integer $id
- * @property integer $courseid
- * @property integer $teacherid
- * @property integer $locationid
- * @property string $dayintheweek
- * @property string $duration
+ * @property int $id
+ * @property int $courseid
+ * @property int $teacherid
+ * @property int $locationid
+ * @property string $day
+ * @property string $start
+ * @property string $end
  *
  * @property Event[] $events
  * @property Course $course
  * @property Location $location
  * @property Teacher $teacher
  * @property GroupStudent[] $groupStudents
+ * @property Student[] $students
  */
 class Group extends \yii\db\ActiveRecord
 {
@@ -37,9 +39,8 @@ class Group extends \yii\db\ActiveRecord
     {
         return [
             [['courseid', 'teacherid', 'locationid'], 'integer'],
-            [['duration'], 'safe'],
-           // [['student'], 'integer'],  //check
-            [['dayintheweek'], 'string', 'max' => 255],
+            [['start', 'end'], 'safe'],
+            [['day'], 'string', 'max' => 255],
             [['courseid'], 'exist', 'skipOnError' => true, 'targetClass' => Course::className(), 'targetAttribute' => ['courseid' => 'id']],
             [['locationid'], 'exist', 'skipOnError' => true, 'targetClass' => Location::className(), 'targetAttribute' => ['locationid' => 'id']],
             [['teacherid'], 'exist', 'skipOnError' => true, 'targetClass' => Teacher::className(), 'targetAttribute' => ['teacherid' => 'id']],
@@ -53,12 +54,12 @@ class Group extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'courseid' => 'Courseid',
-            'teacherid' => 'Teacherid',
-            'locationid' => 'Locationid',
-            'dayintheweek' => 'Dayintheweek',
-            'duration' => 'Duration',
-            //'student' => 'student',//check
+            'courseid' => 'מקצוע',
+            'teacherid' => 'מורה ',
+            'locationid' => 'כיתת לימוד',
+            'day' => 'יום',
+            'start' => 'שעת התחלה',
+            'end' => 'שעת סיום',
         ];
     }
 
@@ -102,5 +103,11 @@ class Group extends \yii\db\ActiveRecord
         return $this->hasMany(GroupStudent::className(), ['groupid' => 'id']);
     }
 
-    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getStudents()
+    {
+        return $this->hasMany(Student::className(), ['id' => 'studentid'])->viaTable('group_student', ['groupid' => 'id']);
+    }
 }

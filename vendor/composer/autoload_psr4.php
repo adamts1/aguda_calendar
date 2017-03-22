@@ -19,6 +19,7 @@ return array(
     'voskobovich\\manytomany\\interfaces\\' => array($vendorDir . '/voskobovich/yii2-many-many-behavior/src/interfaces'),
     'voskobovich\\manytomany\\' => array($vendorDir . '/voskobovich/yii2-many-many-behavior/src'),
     'phpDocumentor\\Reflection\\' => array($vendorDir . '/phpdocumentor/reflection-docblock/src', $vendorDir . '/phpdocumentor/type-resolver/src', $vendorDir . '/phpdocumentor/reflection-common/src'),
+    'kartik\\time\\' => array($vendorDir . '/kartik-v/yii2-widget-timepicker'),
     'kartik\\select2\\' => array($vendorDir . '/kartik-v/yii2-widget-select2'),
     'kartik\\helpers\\' => array($vendorDir . '/kartik-v/yii2-helpers'),
     'kartik\\detail\\' => array($vendorDir . '/kartik-v/yii2-detail-view'),

@@ -6,7 +6,6 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Group */
 
-
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Groups', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
@@ -30,25 +29,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            //'courseid',
-             [ // the name of supervisor from user
-				'label' => $model->attributeLabels()['courseid'],
-				'format' => 'html',
-				'value' => Html::a($model->course->coursename, 
-					['course/view', 'id' => $model->course->id]),
-					
-			],          
+            'courseid',
             'teacherid',
-            
-           // 'locationid',
-             [ // the name of supervisor from user
-				'label' => $model->attributeLabels()['locationid'],
-				'format' => 'html',
-				'value' => Html::a($model->location->locationname, 
-					['location/view', 'id' => $model->location->id]),
-                    	],   
-            'dayintheweek',
-            'duration',
+            'locationid',
+            'day',
+            'start',
+            'end',
         ],
     ]) ?>
 

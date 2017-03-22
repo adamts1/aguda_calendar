@@ -8,7 +8,7 @@ use yii\data\ActiveDataProvider;
 use app\models\Group;
 
 /**
- * GroupSearch represents the model behind the search form about `app\models\Group`.
+ * GroupSearch represents the model behind the search form of `app\models\Group`.
  */
 class GroupSearch extends Group
 {
@@ -19,7 +19,7 @@ class GroupSearch extends Group
     {
         return [
             [['id', 'courseid', 'teacherid', 'locationid'], 'integer'],
-            [['dayintheweek', 'duration'], 'safe'],
+            [['day', 'start', 'end'], 'safe'],
         ];
     }
 
@@ -63,10 +63,11 @@ class GroupSearch extends Group
             'courseid' => $this->courseid,
             'teacherid' => $this->teacherid,
             'locationid' => $this->locationid,
-            'duration' => $this->duration,
+            'start' => $this->start,
+            'end' => $this->end,
         ]);
 
-        $query->andFilterWhere(['like', 'dayintheweek', $this->dayintheweek]);
+        $query->andFilterWhere(['like', 'day', $this->day]);
 
         return $dataProvider;
     }

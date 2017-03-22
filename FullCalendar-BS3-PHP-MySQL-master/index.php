@@ -89,7 +89,7 @@ $events = $req->fetchAll();
         <div class="row">
             <div class="col-lg-12 text-center">
                 <h1>מערכת שיבוץ שיעורים</h1>
-                <!--<p class="lead">Complete with pre-defined file paths that you won't have to change!</p>-->
+               <p class="lead"></p>
                 <div id="calendar" class="col-centered">
                 </div>
             </div>
@@ -173,9 +173,14 @@ $events = $req->fetchAll();
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title" id="myModalLabel">Edit Event</h4>
 			  </div>
-			  <div class="modal-body">
 
-					
+			  <div class="modal-body">
+				  <div class="form-group">
+					<label for="location" class="col-sm-2 control-label">Location</label>
+					<div class="col-sm-10">
+					  <input type="text" name="location" class="form-control" id="location" placeholder="location">
+					</div>
+				  </div>	
 
 
 				
@@ -270,6 +275,7 @@ $events = $req->fetchAll();
 					$('#ModalEdit #id').val(event.id);
 					$('#ModalEdit #title').val(event.title);
 					$('#ModalEdit #color').val(event.color);
+					$('#ModalEdit #location').val(event.location);
 					$('#ModalEdit').modal('show');
 				});
 			},
@@ -301,6 +307,7 @@ $events = $req->fetchAll();
 		?>
 				{
 					id: '<?php echo $event['id']; ?>',
+					location: '<?php echo $event['location']; ?>',
 					title: '<?php echo $event['title']; ?>',
 					start: '<?php echo $start; ?>',
 					end: '<?php echo $end; ?>',
@@ -324,6 +331,7 @@ $events = $req->fetchAll();
 			Event[0] = id;
 			Event[1] = start;
 			Event[2] = end;
+			
 			
 			$.ajax({
 			 url: 'editEventDate.php',
