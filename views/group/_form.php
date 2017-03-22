@@ -3,12 +3,22 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\models\Course;
+use app\models\Group;
 use app\models\Location;
 use app\models\User;
 use app\models\Student;
 use yii\jui\DatePicker;
+<<<<<<< HEAD
 
 //check
+=======
+use \kartik\time\TimePicker;
+use kartik\select2\Select2;
+
+
+
+
+>>>>>>> 541d5d2a5d0025d1237fa7a20a70ab137e54e999
 /* @var $this yii\web\View */
 /* @var $model app\models\Group */
 /* @var $form yii\widgets\ActiveForm */
@@ -18,14 +28,11 @@ use yii\jui\DatePicker;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?php // if(!$model->isNewRecord):?>
-    <?php //endif ?>
- 
-
-   <?= $form->field($model, 'courseid')->dropDownList(Course::getCourse()) ?>
+    <?= $form->field($model, 'courseid')->dropDownList(Course::getCourse()) ?>
 
    <?= $form->field($model, 'teacherid')->dropDownList(User::getTeachers()) ?>
 
+<<<<<<< HEAD
    <?= $form->field($model, 'locationid')->dropDownList(Location::getLocation()) ?>
     
    <?=  $form->field($model, 'dayintheweek')->dropDownList([
@@ -73,10 +80,39 @@ use yii\jui\DatePicker;
  
 
  <!-- <?//= $form->field($model, 'locationid')->dropDownList(Student::getStudentForGroup()) ?> -->
+=======
+   <?= $form->field($model, 'day')->dropDownList(['א' => 'א', 'ב' => 'ב', 'ג' => 'ג', 'ד' => 'ד', 'ה' => 'ה', 'ו' => 'ו', 'ש' => 'ש']); ?>
+
+>>>>>>> 541d5d2a5d0025d1237fa7a20a70ab137e54e999
+
+   <?=  $form->field($model, 'start')->widget(TimePicker::classname(), [
+    'pluginOptions' => [
+        'showSeconds' => false,
+        'showMeridian' => false,
+        'minuteStep' => 60,
+        'secondStep' => 5,
+    ]
+    ]); 
+    ?>
+
+   <?=  $form->field($model, 'end')->widget(TimePicker::classname(), [
+    'pluginOptions' => [
+        'showSeconds' => false,
+        'showMeridian' => false,
+        'minuteStep' => 60,
+        'secondStep' => 5,
+    ]
+    ]); 
+    ?> 
 
 
-    <div class="form-group ">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+
+
+
+   
+
+    <div class="form-group">
+        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

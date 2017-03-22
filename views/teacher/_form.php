@@ -60,7 +60,7 @@ use yii\bootstrap\Alert;
    <?php  if ($model->isNewRecord) {  ?>
 
     
-    <!-- as a teacher-->
+  
  
 
 
@@ -95,7 +95,9 @@ use yii\bootstrap\Alert;
 
      <?php } ?>
 
-   <!--צריך לייבא תכונה מקורסים-->
+
+
+     <!-- as a teacher-->
     <!--<?= $form->field($model, 'id')->checkboxlist(ArrayHelper::map($course, 'id', 'coursename'));?> -->
 
 

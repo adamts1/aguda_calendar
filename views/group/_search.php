@@ -23,9 +23,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'locationid') ?>
 
-    <?= $form->field($model, 'dayintheweek') ?>
+    <?= $form->field($model, 'day') ?>
 
-    <?php // echo $form->field($model, 'duration') ?>
+    <?php // echo $form->field($model, 'start') ?>
+
+    <?php // echo $form->field($model, 'end') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

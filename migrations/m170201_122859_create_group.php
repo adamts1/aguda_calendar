@@ -14,8 +14,9 @@ class m170201_122859_create_group extends Migration
                 'courseid' => 'integer',
                 'teacherid' => 'integer',
                 'locationid' => 'integer',
-                'dayintheweek' => 'string',
-                'duration' => 'time'
+                'day' => 'string',
+                'start' => 'time',
+                'end' => 'time'
                 
 
                

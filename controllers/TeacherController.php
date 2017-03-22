@@ -102,7 +102,6 @@ class TeacherController extends Controller
                 'user' => $user,
                 'course' => $course,
               
-                // 'course' => Course::getCourse1(),
                
             ]);
         }

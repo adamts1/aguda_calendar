@@ -18,13 +18,14 @@ if (isset($_POST['delete']) && isset($_POST['id'])){
 	 die ('Erreur execute');
 	}
 	
-}elseif (isset($_POST['title']) && isset($_POST['color']) && isset($_POST['id'])){
+}elseif (isset($_POST['title']) && isset($_POST['color']) && isset($_POST['id']) && isset($_POST['location'])){
 	
 	$id = $_POST['id'];
 	$title = $_POST['title'];
 	$color = $_POST['color'];
+	$location = $_POST['location'];
 	
-	$sql = "UPDATE events SET  title = '$title', color = '$color' WHERE id = $id ";
+	$sql = "UPDATE events SET  title = '$title', color = '$color', location = '$location'  WHERE id = $id ";
 
 	
 	$query = $bdd->prepare( $sql );
