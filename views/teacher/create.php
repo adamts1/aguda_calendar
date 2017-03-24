@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'user' => $user,
         'course' => $course,
+        'fundingsource' => $fundingsource,
         
       
     ]) ?>

@@ -39,7 +39,7 @@ class FundingSource extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'sourcename' => 'Sourcename',
+            'sourcename' => 'sourcename',
         ];
     }
 

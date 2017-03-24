@@ -7,6 +7,8 @@ use app\models\Teacher;
 use app\models\User;
 use app\models\Course;
 use app\models\CourseTeacher;
+use app\models\FundingsourceTeacher;
+use app\models\FundingSource;
 use app\models\TeacherSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -74,11 +76,10 @@ class TeacherController extends Controller
         $model = new Teacher();
         $user = new User();
         $course = new Course();
+        $fundingsource = new FundingSource();
         
        
 
-    //    $model->editableUsers = [2,3,4]; //many to many
-    //     $model->save();
 
         if ($model->load(Yii::$app->request->post()) && $user->load(Yii::$app->request->post())  && $model->save()) {
          
@@ -90,10 +91,19 @@ class TeacherController extends Controller
 
           foreach ($_POST['Course']['id'] as $id) {
               $questionCategory = new CourseTeacher; //instantiate new CourseTeacher model
-             $questionCategory->teacherid = $model->id;
+              $questionCategory->teacherid = $model->id;
               $questionCategory->courseid = $id;
               $questionCategory->save();
-           } // due to multiple courses for for one teacher
+           }
+
+           foreach ($_POST['FundingSource']['id'] as $id) {
+              $fundingsourceteacher = new FundingsourceTeacher; //instantiate new FundingsouceTeacher model
+              $fundingsourceteacher->teacherid = $model->id;
+              $fundingsourceteacher->sourceid = $id;
+              $fundingsourceteacher->save();
+           }
+           
+            // due to multiple courses for for one teacher
 
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -101,6 +111,7 @@ class TeacherController extends Controller
                 'model' => $model,
                 'user' => $user,
                 'course' => $course,
+                'fundingsource' => $fundingsource,
               
                
             ]);
@@ -149,6 +160,9 @@ class TeacherController extends Controller
           $course = ArrayHelper::map(Course::find()->all(), 'id', 'coursename');
           $courseteacher = new CourseTeacher();
 
+          $fundingsource = ArrayHelper::map(FundingSource::find()->all(), 'id', 'sourcename');
+          $fundingsourceteacher = new FundingsourceTeacher();
+
     
         //$model->scenario = 'update';
         //$teacher->scenario = 'update';
@@ -173,7 +187,21 @@ class TeacherController extends Controller
                    ]);
                    $courseteacher->save();
                   }
-               } 
+               }
+
+                 FundingsourceTeacher::deleteAll(['teacherid' => $id]);
+                 $fundingsourceteacher->load(Yii::$app->request->post()); 
+
+                  if (!empty($fundingsourceteacher->sourceid)){
+                     foreach ($fundingsourceteacher->sourceid as $sourceid) {
+                        $fundingsourceteacher = new FundingsourceTeacher();
+                        $fundingsourceteacher->setAttributes([
+                        'sourceid' => $sourceid,
+                        'teacherid' => $id,
+                   ]);
+                   $fundingsourceteacher->save();
+                  }
+               }
 
               
                
@@ -185,6 +213,7 @@ class TeacherController extends Controller
             'model' => $model,
             'user' => $user,
             'course' => $course,
+            'fundingsource' => $fundingsource,
             'id' => $id,
             '$courseteacher' => $courseteacher,
        

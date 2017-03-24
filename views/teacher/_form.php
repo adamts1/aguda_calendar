@@ -55,16 +55,10 @@ use yii\bootstrap\Alert;
     
  <?= $form->field($user, 'userRole')->dropDownList(Userrole::getTeachersUserRole()) ?>  
 
- <?php $data = Teacher::getCoursesTeacher(); ?>
+   <?php $data = Teacher::getCoursesTeacher(); ?>
+   <?php $datafunding = Teacher::getFundinSourceTeacher(); ?>
 
    <?php  if ($model->isNewRecord) {  ?>
-
-    
-  
- 
-
-
-
   <?=  $form->field($course, 'id')->widget(Select2::classname(), [
    
     'data' => [$data],
@@ -76,17 +70,51 @@ use yii\bootstrap\Alert;
     ],
 ]);
 ?>
+
+<?=  $form->field($fundingsource, 'id')->widget(Select2::classname(), [
+   
+    'data' => [$datafunding],
+    'language' => 'de',
+   'options' => ['multiple' => true],
+    'pluginOptions' => [
+        'allowClear' => true,
+        'tags' => true,
+    ],
+]);
+?>
+
+  
      
 
      <?php }else { ?>
 
     <?php $coursesids = Teacher::getInitCourses($id); ?>
+    <?php $sourcesids = Teacher::getInitFunding($id); ?>
+
+    <label class="control-label">מלמד קורסים</label>
 
      <?= Select2::widget([
+         
+        'attribute' => 'id',
         'name' => 'CourseTeacher[courseid]',
 	     'value' => $coursesids, 
          'data' => [$data],
         'options' => ['placeholder' => 'בחר מקצועות לימוד', 'multiple' => true],
+        'pluginOptions' => [
+            'tags' => true,
+            'maximumInputLength' => 10
+        ],
+    ]); ?>
+
+     
+<label class="control-label">מקור מימון</label>
+
+   <?= Select2::widget([
+      
+        'name' => 'FundingsourceTeacher[sourceid]',
+	     'value' => $sourcesids, 
+         'data' => [$datafunding],
+        'options' => ['placeholder' => 'הזן מקור מימון', 'multiple' => true],
         'pluginOptions' => [
             'tags' => true,
             'maximumInputLength' => 10

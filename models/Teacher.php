@@ -6,6 +6,7 @@ use Yii;
 use arogachev\ManyToMany\behaviors\ManyToManyBehavior;
 use arogachev\ManyToMany\validators\ManyToManyValidator;
 use app\models\Course;
+use app\models\FundingSource;
 use yii\helpers\ArrayHelper;  
 /**
  * This is the model class for table "teacher".
@@ -89,20 +90,22 @@ class Teacher extends \yii\db\ActiveRecord
      * @return \yii\db\ActiveQuery
      */
 
-    public function getCoursesViaTable()
-    {
-        return $this->hasMany(Course::className(), ['id' => 'courseid'])
-            ->viaTable('course_teacher', ['teacherid' => 'id']);
-    }
+    // public function getCoursesViaTable()
+    // {
+    //     return $this->hasMany(Course::className(), ['id' => 'courseid'])
+    //         ->viaTable('course_teacher', ['teacherid' => 'id']);
+    // }
+
+   
      
      /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCoursesViaRelation()
-    {
-        return $this->hasMany(Courses::className(), ['id' => 'courseid'])
-            ->via('CourseTeacher');
-    }
+    // public function getCoursesViaRelation()
+    // {
+    //     return $this->hasMany(Courses::className(), ['id' => 'courseid'])
+    //         ->via('CourseTeacher');
+    // }
 
 
 
@@ -160,11 +163,24 @@ class Teacher extends \yii\db\ActiveRecord
         return $courses;                       
     }
 
-    public static function getInitCourses($id) //This function get activityId and return an array of the existing users on this activity
+    public static function getFundinSourceTeacher()
+   {
+         $fundingsource =  ArrayHelper::map(FundingSource::find()->all(),'id', 'sourcename');
+         return $fundingsource;                       
+     }
+
+    public static function getInitCourses($id) //This function get courseId and return an array of the existing users on this activity
     {
         $coursesteacher = ArrayHelper::map(CourseTeacher::find()
         ->where(['teacherid'=>$id])->all(),'courseid', 'courseid');
         return $coursesteacher;
+    }
+
+    public static function getInitFunding($id) //This function get fundingId and return an array of the existing users on this activity
+    {
+        $fundingsourceteacher = ArrayHelper::map(FundingsourceTeacher::find()
+        ->where(['teacherid'=>$id])->all(),'sourceid', 'sourceid');
+        return $fundingsourceteacher;
     }
 
     public function getCoursesOfTeacher() //import all the courses of one teacher used in teacher/view
@@ -175,6 +191,8 @@ class Teacher extends \yii\db\ActiveRecord
     }
     return implode("\n,", $course);
 }
+
+
 
    
 
