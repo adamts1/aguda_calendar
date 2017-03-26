@@ -114,6 +114,11 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         return $this->firstname.' '.$this->lastname;
     }
 
+     public function getUserName()
+    {
+        return $this->username;
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */

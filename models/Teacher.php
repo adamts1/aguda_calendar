@@ -73,6 +73,7 @@ class Teacher extends \yii\db\ActiveRecord
             'id' => 'ID',
             'subject' => 'מקצוע',
             'centerid' => 'מרכז',
+            'user' => 'שם ושם משפחה',
         ];
     }
 
@@ -176,6 +177,9 @@ class Teacher extends \yii\db\ActiveRecord
         return $coursesteacher;
     }
 
+   
+
+
     public static function getInitFunding($id) //This function get fundingId and return an array of the existing users on this activity
     {
         $fundingsourceteacher = ArrayHelper::map(FundingsourceTeacher::find()
@@ -184,15 +188,22 @@ class Teacher extends \yii\db\ActiveRecord
     }
 
     public function getCoursesOfTeacher() //import all the courses of one teacher used in teacher/view
-{
+    {
     $course = [];
     foreach($this->courseTeachers as $id) {
         $course[] = $id->course->courseName;
     }
     return implode("\n,", $course);
-}
+    }
 
-
+    public function getSourceOfTeacher() //import all the source of one teacher used in teacher/view
+    {
+    $source = [];
+    foreach($this->fundingsourceTeachers as $id) {
+        $source[] = $id->source->fundingSourceName;
+    }
+    return implode("\n,", $source);
+    }
 
    
 

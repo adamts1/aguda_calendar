@@ -12,7 +12,7 @@ use app\models\Course;
 /* @var $this yii\web\View */
 /* @var $model app\models\Teacher */
 
-$this->title = $model->id;
+$this->title = $model->id0->userName;
 $this->params['breadcrumbs'][] = ['label' => 'Teachers', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -43,8 +43,14 @@ $this->params['breadcrumbs'][] = $this->title;
               
             ],
 
+            [  // Shows all  the courses
+                'attribute' => 'מומן ע"י',
+                'value' => $model->getSourceOfTeacher(),
+              
+            ],
+
              [  // Shows all  the courses
-                'attribute' => 'שם',
+                'attribute' => 'שם ושם משפחה',
                 'value' => $model->id0->fullName,
               
             ],

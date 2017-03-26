@@ -91,6 +91,8 @@ class Course extends \yii\db\ActiveRecord
 		return $allCoursesArray;						
 	}   
 
+    
+
     public function getCourseName()
     {
         return $this->coursename;

@@ -28,6 +28,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
+
+            [
+              'attribute' => 'user',
+               	'value' => function($model){
+					return $model->id0->fullName;
+                    }, ],
+            
             
 
             //'id',
@@ -51,16 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				
 			],
 
-             [  // Shows all  the courses
-                'attribute' => 'שם',
-                'label' => 'שם ושם משפחה',
-                'format' => 'raw',
-               	'value' => function($model){
-					return $model->id0->fullName;
-                    },
-              
-            ],
-
+                
              
 
 

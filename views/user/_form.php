@@ -44,7 +44,7 @@ use app\models\Userrole;
     <!--<?= $form->field($model, 'updated_by')->textInput() ?>-->
 
    
-    <?= $form->field($model, 'userRole')->dropDownList(Userrole::getUserrole()) ?>
+    <?= $form->field($model, 'userRole')->dropDownList(Userrole::getAdminstratorUserRole()) ?>
 
  
 

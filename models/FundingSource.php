@@ -38,7 +38,7 @@ class FundingSource extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'id' => 'מקורות מימון',
             'sourcename' => 'sourcename',
         ];
     }
@@ -49,5 +49,12 @@ class FundingSource extends \yii\db\ActiveRecord
     public function getFundingsourceTeachers()
     {
         return $this->hasMany(FundingsourceTeacher::className(), ['sourceid' => 'id']);
+    }
+
+    
+
+    public function getFundingSourceName()
+    {
+        return $this->sourcename;
     }
 }

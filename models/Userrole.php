@@ -94,6 +94,19 @@ class Userrole extends \yii\db\ActiveRecord
 		return $allTeamesArray;						
 	}
 
+    public static function getAdminstratorUserRole()  //return only supervisors
+	{
+		$allTeames = (new \yii\db\Query())
+           ->select(['*'])
+           ->from('userrole')
+           ->where(['roleId' => '3'])
+           ->limit(10)
+           ->all();
+		$allTeamesArray = ArrayHelper::
+					map($allTeames, 'roleId', 'roleName');
+		return $allTeamesArray;						
+	}
+
     
 
 }

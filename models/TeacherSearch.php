@@ -12,6 +12,9 @@ use app\models\Teacher;
  */
 class TeacherSearch extends Teacher
 {
+
+        public $user;
+
     /**
      * @inheritdoc
      */
@@ -19,7 +22,7 @@ class TeacherSearch extends Teacher
     {
         return [
             [['id', 'centerid'], 'integer'],
-            [['subject'], 'safe'],
+            [['subject', 'user'], 'safe'],
         ];
     }
 
@@ -43,11 +46,21 @@ class TeacherSearch extends Teacher
     {
         $query = Teacher::find();
 
+        $query->joinWith(['id0']);
+
+
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+        $dataProvider->sort->attributes['user'] = [
+        // The tables are the ones our relation are configured to
+        // in my case they are prefixed with "tbl_"
+        'asc' => ['user.firstname' => SORT_ASC],
+        'desc' => ['user.firstname' => SORT_DESC],
+    ];
 
         $this->load($params);
 
@@ -60,10 +73,12 @@ class TeacherSearch extends Teacher
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'centerid' => $this->centerid,
+            'centerid' => $this->id,
         ]);
 
         $query->andFilterWhere(['like', 'subject', $this->subject]);
+        $query->andFilterWhere(['like', 'user.firstname' ,  $this->user]);
+        // $query->andFilterWhere(['like', 'user.lastname ', $this->user]);
 
         return $dataProvider;
     }
