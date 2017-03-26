@@ -26,7 +26,7 @@ use kartik\select2\Select2;
 
    <?= $form->field($model, 'locationid')->dropDownList(Location::getLocation()) ?>
     
-   <?=  $form->field($model, 'day')->dropDownList([
+   <?/*=  $form->field($model, 'day')->dropDownList([
             '1'=>'Monday',
             '2'=>'Tuesday', 
             '3'=>'Wednesday',
@@ -34,9 +34,9 @@ use kartik\select2\Select2;
             '5'=>'Friday',
             '6'=>'Saturday',
             '7'=>'Sunday'
-            ]) ?>
+            ]) */?>
 
-   <?=  $form->field($model, 'duration')->dropDownList([
+   <?/*=  $form->field($model, 'duration')->dropDownList([
             '1'=>'8:00',
             '2'=>'8:30',
             '3'=>'9:00',
@@ -59,15 +59,15 @@ use kartik\select2\Select2;
             '20'=>'17:30',
             '21'=>'18:00',
 
-            ]) ?>
+            ])*/ ?>
 
-    <?=  $form->field($model, 'duration')->dropDownList([
+    <?/*=  $form->field($model, 'duration')->dropDownList([
             '1'=>'1:00',
             '2'=>'1:30',
             '3'=>'2:00',
             '4'=>'2:30',
             '5'=>'3:00',
-            ]) ?>
+            ])*/ ?>
  
 
  <!-- <?//= $form->field($model, 'locationid')->dropDownList(Student::getStudentForGroup()) ?> -->
