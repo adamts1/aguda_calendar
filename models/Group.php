@@ -110,4 +110,9 @@ class Group extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Student::className(), ['id' => 'studentid'])->viaTable('group_student', ['groupid' => 'id']);
     }
+     public static function getStudentList() //This function get students and return an array of the existing students list
+    {
+        $studentList = ArrayHelper::map(Student::find()->all());
+        return $studentList;
+    }
 }
