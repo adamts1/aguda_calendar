@@ -32,8 +32,14 @@ $this->params['breadcrumbs'][] = $this->title;
             [
               'attribute' => 'user',
                	'value' => function($model){
-					return $model->id0->fullName;
-                    }, ],
+					return $model->id0->fullName;},
+         ],
+
+         [
+              'attribute' => 'center',
+               	'value' => function($model){
+					return $model->center->centername;},
+         ],
             
             
 
@@ -48,15 +54,15 @@ $this->params['breadcrumbs'][] = $this->title;
 				
 			],*/
             
-             [
-				'attribute' => 'centerid',
-				'label' => 'מרכז',
-				'format' => 'raw',
-				'value' => function($model){
-					return $model->center->centername;  //Showing center name instead of center number.
-				},
+            //  [
+			// 	'attribute' => 'centerid',
+			// 	'label' => 'מרכז',
+			// 	'format' => 'raw',
+			// 	'value' => function($model){
+			// 		return $model->center->centername;  //Showing center name instead of center number.
+			// 	},
 				
-			],
+			// ],
 
                 
              

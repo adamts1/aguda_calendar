@@ -254,7 +254,7 @@ $events = $req->fetchAll();
 		
 		$('#calendar').fullCalendar({
 			header: {
-				left: 'prev,next today',
+				left: 'prev  today next',
 				center: 'title',
 				right: 'month,agendaWeek,agendaDay'
 			},

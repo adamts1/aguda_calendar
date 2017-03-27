@@ -14,6 +14,7 @@ class TeacherSearch extends Teacher
 {
 
         public $user;
+        public $center;
 
     /**
      * @inheritdoc
@@ -22,7 +23,7 @@ class TeacherSearch extends Teacher
     {
         return [
             [['id', 'centerid'], 'integer'],
-            [['subject', 'user'], 'safe'],
+            [['subject', 'user', 'center'], 'safe'],
         ];
     }
 
@@ -47,6 +48,7 @@ class TeacherSearch extends Teacher
         $query = Teacher::find();
 
         $query->joinWith(['id0']);
+        $query->joinWith(['center']);
 
 
         // add conditions that should always apply here
@@ -62,6 +64,13 @@ class TeacherSearch extends Teacher
         'desc' => ['user.firstname' => SORT_DESC],
     ];
 
+    $dataProvider->sort->attributes['center'] = [
+        // The tables are the ones our relation are configured to
+        // in my case they are prefixed with "tbl_"
+        'asc' => ['center.name' => SORT_ASC],
+        'desc' => ['center.name' => SORT_DESC],
+    ];
+
         $this->load($params);
 
         if (!$this->validate()) {
@@ -71,13 +80,10 @@ class TeacherSearch extends Teacher
         }
 
         // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'centerid' => $this->id,
-        ]);
-
+        // $query->andFilterWhere(['id' => $this->id,'centerid' => $this->centerid]);
         $query->andFilterWhere(['like', 'subject', $this->subject]);
         $query->andFilterWhere(['like', 'user.firstname' ,  $this->user]);
+        $query->andFilterWhere(['like', 'center.name' ,  $this->center]);
         // $query->andFilterWhere(['like', 'user.lastname ', $this->user]);
 
         return $dataProvider;
