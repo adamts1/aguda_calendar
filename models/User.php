@@ -77,6 +77,8 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             'created_by' => 'נוצר ע"י',
             'updated_by' => 'עודכן ע"י',
             'userRole' => 'תפקיד',
+            'createUserName' => Yii::t('app', 'נוצר ע"י'),
+            'updateUserName' => Yii::t('app', 'נערך ע"י'),
         ];
     }
 
@@ -107,6 +109,32 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return $this->hasOne(Supervisor::className(), ['id' => 'id']);
     }
+
+  ////////////// functions for blamable behaviors
+    public function getCreateUser()
+    {
+
+        return $this->hasOne(User::className(), ['id' => 'created_by']);
+    }
+
+    public function getCreateUserName() 
+    {
+        return $this->createUser ? $this->createUser->fullname : 'לא קיים'; // The fullName will showen in the "created by" field (view.php)
+    }
+
+    public function getUpdateUser()
+    {
+    return $this->hasOne(User::className(), ['id' => 'updated_by']);
+    }
+
+    public function getUpdateUserName() 
+    {
+      return $this->createUser ? $this->updateUser->fullname : 'לא קיים'; // The fullName will showen in the "update by" field (view.php)
+   }
+    /////////////
+
+
+
 
 
     public function getFullname()

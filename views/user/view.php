@@ -41,7 +41,9 @@ $this->params['breadcrumbs'][] = $this->title;
             //'status',
             'created_at:datetime',//shows date time instead integer
             'updated_at:datetime',//shows date time instead integer
-            'created_by',
+           // 'created_by',
+           ['attribute'=>'createUserName', 'format'=>'raw'],
+           ['attribute'=>'updateUserName', 'format'=>'raw'],
 
             // [  // Shows all  the courses
             //     'attribute' => 'created_by',
