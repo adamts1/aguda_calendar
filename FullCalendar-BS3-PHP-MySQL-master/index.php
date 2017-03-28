@@ -128,13 +128,13 @@ $events = $req->fetchAll();
 					<div class="col-sm-10">
 					  <select name="color" class="form-control" id="color">
 						  <option value="">Choose</option>
-						  <option style="color:#0071c5;" value="#0071c5">&#9724; Dark blue</option>
-						  <option style="color:#40E0D0;" value="#40E0D0">&#9724; Turquoise</option>
-						  <option style="color:#008000;" value="#008000">&#9724; Green</option>						  
-						  <option style="color:#FFD700;" value="#FFD700">&#9724; Yellow</option>
-						  <option style="color:#FF8C00;" value="#FF8C00">&#9724; Orange</option>
-						  <option style="color:#FF0000;" value="#FF0000">&#9724; Red</option>
-						  <option style="color:#000;" value="#000">&#9724; Black</option>
+						  <option style="color:#0071c5;" value="#0071c5">&#9724; כחול כהה</option>
+						  <option style="color:#40E0D0;" value="#40E0D0">&#9724; טורקיז</option>
+						  <option style="color:#008000;" value="#008000">&#9724; ירוק</option>						  
+						  <option style="color:#FFD700;" value="#FFD700">&#9724; צהוב</option>
+						  <option style="color:#FF8C00;" value="#FF8C00">&#9724; כתום</option>
+						  <option style="color:#FF0000;" value="#FF0000">&#9724; אדום</option>
+						  <option style="color:#000;" value="#000">&#9724; שחור</option>
 						  
 						</select>
 					</div>
@@ -197,13 +197,13 @@ $events = $req->fetchAll();
 					<div class="col-sm-10">
 					  <select name="color" class="form-control" id="color">
 						  <option value="">Choose</option>
-						  <option style="color:#0071c5;" value="#0071c5">&#9724; Dark blue</option>
-						  <option style="color:#40E0D0;" value="#40E0D0">&#9724; Turquoise</option>
-						  <option style="color:#008000;" value="#008000">&#9724; Green</option>						  
-						  <option style="color:#FFD700;" value="#FFD700">&#9724; Yellow</option>
-						  <option style="color:#FF8C00;" value="#FF8C00">&#9724; Orange</option>
-						  <option style="color:#FF0000;" value="#FF0000">&#9724; Red</option>
-						  <option style="color:#000;" value="#000">&#9724; Black</option>
+						  <option style="color:#0071c5;" value="#0071c5">&#9724; כחול כהה</option>
+						  <option style="color:#40E0D0;" value="#40E0D0">&#9724; טורקיז</option>
+						  <option style="color:#008000;" value="#008000">&#9724; ירוק</option>						  
+						  <option style="color:#FFD700;" value="#FFD700">&#9724; צהוב</option>
+						  <option style="color:#FF8C00;" value="#FF8C00">&#9724; כתום</option>
+						  <option style="color:#FF0000;" value="#FF0000">&#9724; אדום</option>
+						  <option style="color:#000;" value="#000">&#9724; שחור</option>
 						  
 						</select>
 					</div>
@@ -254,15 +254,26 @@ $events = $req->fetchAll();
 		
 		$('#calendar').fullCalendar({
 			header: {
-				left: 'prev  today next',
+				left: 'next  today prev',
 				center: 'title',
 				right: 'month,agendaWeek,agendaDay'
 			},
+
+			buttonText: { // Values dor cuttons 
+                    today: 'היום',
+                    month: 'חודשי',
+                    week: 'שבועי',
+                    day: 'יומי'
+      },
+
+
+
 			defaultDate: d,
 			lang: initialLangCode,
 			editable: true,
 			eventLimit: true, // allow "more" link when too many events
 			selectable: true,
+			// nowIndicator: true,
 			selectHelper: true,
 			select: function(start, end) {
 				
