@@ -1,8 +1,58 @@
 <?php
 require_once('bdd.php');
 
+   ?>
 
-$sql = "SELECT id, title, start, end, color, location FROM events ";
+<!--check-------------------------------------------------------->
+
+		<body>
+
+    <form method="post" action="index.php">
+        
+        <select id="cd" name="cd"  >
+        
+            <?php
+            
+            $mysqlserver="localhost";
+            $mysqlusername="root";
+            $mysqlpassword="";
+            $link=mysql_connect(localhost, $mysqlusername, $mysqlpassword) or die ("Error connecting to mysql server: ".mysql_error());
+            
+            $dbname = 'adam_project';
+            mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
+            
+            $cdquery="SELECT location FROM events";
+            $cdresult=mysql_query($cdquery) or die ("Query to get data from events failed: ".mysql_error());
+            while ($cdrow=mysql_fetch_array($cdresult)) {
+            $location=$cdrow["location"];
+                echo "<option>
+                    $location
+                </option>";
+            
+            }
+
+                
+            ?>
+    
+        </select>
+         <input type="submit" name="submit"/>
+    </form>
+
+		<?php
+
+		if ( isset( $_POST['submit'] ) ) {
+    //is submitted
+    $variable = $_POST['cd'];
+    //DO STUFF WITH DATA
+}
+
+?>
+
+		<!--check-------------------------------------------------------->
+
+<?php
+
+$sql = "SELECT id, title, start, end, color, location FROM events WHERE location = '$variable'  ";
 
 $req = $bdd->prepare($sql);
 $req->execute();
@@ -12,6 +62,11 @@ $events = $req->fetchAll();
 ?>
 
 <!DOCTYPE html>
+
+
+
+
+
 <html lang="en">
 
 <head>
@@ -23,6 +78,10 @@ $events = $req->fetchAll();
     <meta name="author" content="">
 
     <title>Bare - Start Bootstrap Template</title>
+
+		
+
+
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -60,6 +119,8 @@ $events = $req->fetchAll();
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
+
+				
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -69,6 +130,8 @@ $events = $req->fetchAll();
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="#">Free Calendar</a>
+
+								
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -91,10 +154,13 @@ $events = $req->fetchAll();
                 <h1>מערכת שיבוץ שיעורים</h1>
                <p class="lead"></p>
                 <div id="calendar" class="col-centered">
+
+							
                 </div>
             </div>
 			
         </div>
+				
         <!-- /.row -->
 		
 			<!-- Modal -->
@@ -323,6 +389,8 @@ $events = $req->fetchAll();
 					start: '<?php echo $start; ?>',
 					end: '<?php echo $end; ?>',
 					color: '<?php echo $event['color']; ?>',
+					textColor: 'black', // I added this for black text color instead of white
+					borderColor: 'black', // I added this for black border color instead of nothing
 				},
 			<?php endforeach; ?>
 			]
