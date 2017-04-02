@@ -24,9 +24,27 @@ class TeacherController extends Controller
     /**
      * @inheritdoc
      */
-    public function behaviors()
+    public function behaviors()  
     {
+
         return [
+             'access' => [
+            'class' => \yii\filters\AccessControl::className(),  //due to aloww crud only if connected
+            'only' => ['create', 'update'],
+            'rules' => [
+                // deny all POST requests
+                [
+                    'allow' => true,
+                    'verbs' => ['POST']
+                ],
+                // allow authenticated users
+                [
+                    'allow' => true,
+                    'roles' => ['@'],
+                ],
+                // everything else is denied
+            ],
+        ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -34,7 +52,7 @@ class TeacherController extends Controller
                 ],
             ],
         ];
-    }
+    }  
 
     /**
      * Lists all Teacher models.

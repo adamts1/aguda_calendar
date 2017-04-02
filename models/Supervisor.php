@@ -24,6 +24,8 @@ class Supervisor extends \yii\db\ActiveRecord
         return 'supervisor';
     }
 
+    
+
     /**
      * @inheritdoc
      */

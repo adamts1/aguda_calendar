@@ -44,7 +44,7 @@ require_once('bdd.php');
     //is submitted
     $variable = $_POST['cd'];
     //DO STUFF WITH DATA
-}
+
 
 ?>
 
@@ -59,6 +59,20 @@ $req->execute();
 
 $events = $req->fetchAll();
 
+}else {
+
+	$sql = "SELECT id, title, start, end, color, location FROM events   ";
+
+$req = $bdd->prepare($sql);
+$req->execute();
+
+$events = $req->fetchAll();
+
+
+
+
+
+}
 ?>
 
 <!DOCTYPE html>

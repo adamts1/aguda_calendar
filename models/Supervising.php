@@ -35,6 +35,8 @@ class Supervising extends \yii\db\ActiveRecord
         ];
     }
 
+   
+
     /**
      * @inheritdoc
      */

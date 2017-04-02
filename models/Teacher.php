@@ -51,6 +51,8 @@ class Teacher extends \yii\db\ActiveRecord
     return [
         [
             'class' => ManyToManyBehavior::className(),
+
+            
             'relations' => [
                 [
                     'editableAttribute' => 'editableUsers', // Editable attribute name
