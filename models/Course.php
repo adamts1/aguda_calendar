@@ -6,6 +6,9 @@ use Yii;
 use yii\helpers\ArrayHelper;
 use yii\db\ActiveRecord;
 use yii\behaviors\BlameableBehavior;
+use app\models\Teacher;
+use app\models\CourseTeacher;
+// use arogachev\ManyToMany\behaviors\ManyToManyBehavior;
 
 /**
  * This is the model class for table "course".
@@ -37,6 +40,19 @@ class Course extends \yii\db\ActiveRecord
             [['coursename'], 'string', 'max' => 255],
         ];
     }
+
+   //////////////////////////////////////////// using for show only courses of conected teacher by many to many realation
+    public function getCoursesTeachers()
+{
+    return $this->hasMany(CourseTeacher::className(), ['courseid' => 'id']);
+}
+
+public function getTeachers()
+{
+    return $this->hasMany(Teacher::className(), ['id' => 'teacherid'])
+    ->via('coursesTeachers');
+}
+///////////////////////////////////////////////////
 
     /**
      * @inheritdoc

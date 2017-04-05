@@ -5,7 +5,7 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Course;
+// use app\models\Course;
 
 /**
  * CourseSearch represents the model behind the search form about `app\models\Course`.
@@ -22,6 +22,8 @@ class CourseSearch extends Course
             [['coursename'], 'safe'],
         ];
     }
+
+
 
     /**
      * @inheritdoc
@@ -45,8 +47,12 @@ class CourseSearch extends Course
 
         // add conditions that should always apply here
 
+        // $dataProvider = new ActiveDataProvider([
+        //     'query' => $query,
+        // ]);
+        /////////// qury that provide only courses of conected teacher 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+        'query' => Course::find()->joinWith(['teachers'])->where(['teacherid'=> Yii::$app->user->identity->id]),
         ]);
 
         $this->load($params);
