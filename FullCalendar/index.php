@@ -8,9 +8,27 @@ require_once('bdd.php');
 		<body>
 
     <form method="post" action="index.php">
-        
-        <select id="cd" name="cd"  >
-        
+			<style>
+          div.ex1 {
+              direction: rtl;
+    position: relative;
+    right: 8%;
+    font-weight: bold;
+    font-style: italic;
+          }
+
+
+       </style>
+
+       
+        <div class="ex1">הצג מערכת עבור:</div>
+				
+
+               <input type="submit" class="form-control1"  name="submit" value="הצג" />
+
+        <select dir="rtl" id="cd" name="cd" class="form-control1"  >
+    
+   
             <?php
             
             $mysqlserver="localhost";
@@ -33,9 +51,12 @@ require_once('bdd.php');
 
                 
             ?>
-    
         </select>
-         <input type="submit" name="submit"/>
+
+				
+
+			
+				 
     </form>
 
 		<?php
@@ -61,7 +82,7 @@ $events = $req->fetchAll();
 
 }else {
 
-	$sql = "SELECT id, title, start, end, color, location FROM events   ";
+$sql = "SELECT id, title, start, end, color, location FROM events   ";
 
 $req = $bdd->prepare($sql);
 $req->execute();
@@ -117,6 +138,34 @@ $events = $req->fetchAll();
 		float: none;
 		margin: 0 auto;
 	}
+
+	/*div.fixed {
+    position: fixed;
+    width: 100px;
+    height: 50px;
+		right: 100px;
+		
+    
+} 
+div.fixed_title {
+    position: fixed;
+    width: 100px;
+    height: 50px;
+		right: 500px;
+		
+    
+} 
+
+	div.fixed_submit {
+    position: fixed;
+    width: 50px;
+    height: 40px;
+		right: 210px;
+    
+} */
+
+
+}
     </style>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -165,8 +214,16 @@ $events = $req->fetchAll();
 
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h1>מערכת שיבוץ שיעורים</h1>
-               <p class="lead"></p>
+						<?php		if ( isset( $_POST['submit'] ) ) {
+    //is submitted
+    $variable = $_POST['cd'];
+    //DO STUFF WITH DATA
+		?>
+                <h1><?php echo $variable."  מערכת שעות עבור";?></h1><?php }
+								 else { ?> <h1> מערכת שיבוץ שיעורים </h1>
+                <?php }?>
+
+								 <p class="lead"></p>
                 <div id="calendar" class="col-centered">
 
 							
@@ -174,6 +231,10 @@ $events = $req->fetchAll();
             </div>
 			
         </div>
+
+				
+
+        
 				
         <!-- /.row -->
 		
@@ -334,7 +395,7 @@ $events = $req->fetchAll();
 		
 		$('#calendar').fullCalendar({
 			header: {
-				left: 'next  today prev',
+				left: 'next  today prev ',
 				center: 'title',
 				right: 'month,agendaWeek,agendaDay'
 			},

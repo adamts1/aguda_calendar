@@ -9,6 +9,9 @@ html {
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
 }
+
+.rtl { direction: rtl; }
+.rtl .dropdown-menu-right { text-align: right; }
 body {
   margin: 0;
 }
@@ -27,6 +30,8 @@ section,
 summary {
   display: block;
 }
+
+
 audio,
 canvas,
 progress,

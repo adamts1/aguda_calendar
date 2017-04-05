@@ -30,7 +30,7 @@ class TeacherController extends Controller
         return [
              'access' => [
             'class' => \yii\filters\AccessControl::className(),  //due to aloww crud only if connected
-            'only' => ['create', 'update'],
+            'only' => ['create', 'update' ,'index'],
             'rules' => [
                 // deny all POST requests
                 [
