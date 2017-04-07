@@ -46,25 +46,25 @@ class Teacher extends \yii\db\ActiveRecord
         ];
     }
 
-    public function behaviors()
-{
-    return [
-        [
-            'class' => ManyToManyBehavior::className(),
+//     public function behaviors()
+// {
+//     return [
+//         [
+//             'class' => ManyToManyBehavior::className(),
 
             
-            'relations' => [
-                [
-                    'editableAttribute' => 'editableUsers', // Editable attribute name
-                    'table' => 'course_teacher', // Name of the junction table
-                    'ownAttribute' => 'teacherid', // Name of the column in junction table that represents current model
-                    'relatedModel' => Course::className(), // Related model class
-                    'relatedAttribute' => 'courseid', // Name of the column in junction table that represents related model
-                ],
-            ],
-        ],
-    ];
-}
+//             'relations' => [
+//                 [
+//                     'editableAttribute' => 'editableUsers', // Editable attribute name
+//                     'table' => 'course_teacher', // Name of the junction table
+//                     'ownAttribute' => 'teacherid', // Name of the column in junction table that represents current model
+//                     'relatedModel' => Course::className(), // Related model class
+//                     'relatedAttribute' => 'courseid', // Name of the column in junction table that represents related model
+//                 ],
+//             ],
+//         ],
+//     ];
+// }
 
     /**
      * @inheritdoc

@@ -5,7 +5,7 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\FundingSource;
+// use app\models\FundingSource;
 
 /**
  * FundingSourceSearch represents the model behind the search form about `app\models\FundingSource`.
@@ -44,9 +44,10 @@ class FundingSourceSearch extends FundingSource
         $query = FundingSource::find();
 
         // add conditions that should always apply here
-
+        
+        /////////// query that provide only funding of conected teacher 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+        'query' => FundingSource::find()->joinWith(['teachers'])->where(['teacherid'=> Yii::$app->user->identity->id]),
         ]);
 
         $this->load($params);

@@ -41,18 +41,18 @@ class Course extends \yii\db\ActiveRecord
         ];
     }
 
-   //////////////////////////////////////////// using for show only courses of conected teacher by many to many realation
+    //////////////////////////////////////////// using for show only courses of conected teacher by many to many realation
     public function getCoursesTeachers()
-{
-    return $this->hasMany(CourseTeacher::className(), ['courseid' => 'id']);
-}
+    {
+      return $this->hasMany(CourseTeacher::className(), ['courseid' => 'id']);
+    }
 
-public function getTeachers()
-{
+    public function getTeachers()
+    {
     return $this->hasMany(Teacher::className(), ['id' => 'teacherid'])
     ->via('coursesTeachers');
-}
-///////////////////////////////////////////////////
+    }
+    //////////////////////////////////////////////////
 
     /**
      * @inheritdoc

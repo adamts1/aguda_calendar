@@ -50,7 +50,8 @@ class CourseSearch extends Course
         // $dataProvider = new ActiveDataProvider([
         //     'query' => $query,
         // ]);
-        /////////// qury that provide only courses of conected teacher 
+        
+        /////////// query that provide only courses of conected teacher 
         $dataProvider = new ActiveDataProvider([
         'query' => Course::find()->joinWith(['teachers'])->where(['teacherid'=> Yii::$app->user->identity->id]),
         ]);
