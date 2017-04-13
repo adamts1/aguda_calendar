@@ -21,9 +21,11 @@ class SupervisorController extends Controller
     public function behaviors() //due to aloww crud only if connected
     {
         return [
+
+            
              'access' => [
             'class' => \yii\filters\AccessControl::className(),
-            'only' => ['create', 'update'],
+            'only' => ['create', 'update', 'index'],
             'rules' => [
                 // deny all POST requests
                 [

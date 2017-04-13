@@ -20,6 +20,23 @@ class CenterController extends Controller
     public function behaviors()
     {
         return [
+             'access' => [
+            'class' => \yii\filters\AccessControl::className(),  //due to aloww crud only if connected
+            'only' => ['create', 'update', 'index'],
+            'rules' => [
+                // deny all POST requests
+                [
+                    'allow' => true,
+                    'verbs' => ['POST']
+                ],
+                // allow authenticated users
+                [
+                    'allow' => true,
+                    'roles' => ['@'],
+                ],
+                // everything else is denied
+            ],
+        ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

@@ -71,6 +71,8 @@ class TeacherController extends Controller
         ]);
     }
 
+    
+
     /**
      * Displays a single Teacher model.
      * @param integer $id
@@ -125,11 +127,13 @@ class TeacherController extends Controller
 
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+            			$roles = Teacher::getRoles(); 
             return $this->render('create', [
                 'model' => $model,
                 'user' => $user,
                 'course' => $course,
                 'fundingsource' => $fundingsource,
+                'roles' => $roles,
               
                
             ]);
@@ -226,7 +230,7 @@ class TeacherController extends Controller
                 return $this->redirect(['teacher/view', 'id' => $id]);
            // }
         }
-        
+        $roles = Teacher::getRoles(); 
         return $this->render('update', [
             'model' => $model,
             'user' => $user,
@@ -234,6 +238,7 @@ class TeacherController extends Controller
             'fundingsource' => $fundingsource,
             'id' => $id,
             '$courseteacher' => $courseteacher,
+             'roles' => $roles,
        
         ]);
     }

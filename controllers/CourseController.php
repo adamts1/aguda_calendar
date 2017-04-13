@@ -23,7 +23,7 @@ class CourseController extends Controller
 
              'access' => [
             'class' => \yii\filters\AccessControl::className(),  //due to aloww crud only if connected
-            'only' => ['create', 'update'],
+            'only' => ['create', 'update', 'index'],
             'rules' => [
                 // deny all POST requests
                 [
@@ -81,6 +81,8 @@ class CourseController extends Controller
      */
     public function actionCreate()
     {
+
+        if (Yii::$app->user->can('createStudent')){
         $model = new Course();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -90,6 +92,11 @@ class CourseController extends Controller
                 'model' => $model,
             ]);
         }
+    }else{
+        throw new NotFoundHttpException('The requested page does not exist.');
+
+
+    }
     }
 
     /**

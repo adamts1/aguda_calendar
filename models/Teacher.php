@@ -26,6 +26,7 @@ use yii\helpers\ArrayHelper;
 class Teacher extends \yii\db\ActiveRecord
 {
       public $editableUsers = [];  // many to many
+      public $role; 
     
 
     public static function tableName()
@@ -41,6 +42,7 @@ class Teacher extends \yii\db\ActiveRecord
         return [
             [['centerid'], 'integer'],
             [['subject'], 'string', 'max' => 255],
+            ['role', 'safe'],
             [['centerid'], 'exist', 'skipOnError' => true, 'targetClass' => Center::className(), 'targetAttribute' => ['centerid' => 'id']],
             [['id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id' => 'id']],
         ];
@@ -76,8 +78,11 @@ class Teacher extends \yii\db\ActiveRecord
             'subject' => 'מקצוע',
             'centerid' => 'מרכז',
             'user' => 'שם ושם משפחה',
+            'role'  => 'User role',
         ];
     }
+
+    
 
   
 
@@ -172,6 +177,25 @@ class Teacher extends \yii\db\ActiveRecord
          return $fundingsource;                       
      }
 
+     public function afterSave($insert,$changedAttributes)
+    {
+        $return = parent::afterSave($insert, $changedAttributes);
+
+        $auth = Yii::$app->authManager;
+		$roleName = $this->role; 
+		$role = $auth->getRole($roleName);
+		if (\Yii::$app->authManager->getRolesByUser($this->id) == null){
+			$auth->assign($role, $this->id);
+		} else {
+			$db = \Yii::$app->db;
+			$db->createCommand()->delete('auth_assignment',
+				['user_id' => $this->id])->execute();
+			$auth->assign($role, $this->id);
+		}
+
+        return $return;
+    }
+
     public static function getInitCourses($id) //This function get courseId and return an array of the existing users on this activity
     {
         $coursesteacher = ArrayHelper::map(CourseTeacher::find()
@@ -206,6 +230,24 @@ class Teacher extends \yii\db\ActiveRecord
     }
     return implode("\n,", $source);
     }
+
+    public function getUserole()
+    {
+		$roleArray = Yii::$app->authManager->
+					getRolesByUser($this->id);
+		$role = array_keys($roleArray)[0];				
+		return	$role;
+    }
+
+    	public static function getRoles()
+	{
+		$rolesObjects = Yii::$app->authManager->getRoles();
+		$roles = [];
+		foreach($rolesObjects as $id =>$rolObj){
+			$roles[$id] = $rolObj->name; 
+		}
+		return $roles; 	
+	}
 
    
 

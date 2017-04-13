@@ -20,6 +20,8 @@ $this->params['breadcrumbs'][] = 'Update';
        'course' => $course,
        'fundingsource' => $fundingsource,
        'id' => $id,
+       'roles' => $roles,
+
        
       
 

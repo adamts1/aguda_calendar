@@ -35,6 +35,9 @@ use yii\bootstrap\Alert;
 
     <?= $form->field($user, 'phone')->textInput(['maxlength' => true]) ?>
 
+    	<?= $form->field($model, 'role')->dropDownList($roles) ?>		
+
+
 
 
 

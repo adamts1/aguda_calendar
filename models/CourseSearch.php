@@ -52,9 +52,20 @@ class CourseSearch extends Course
         // ]);
         
         /////////// query that provide only courses of conected teacher 
-        $dataProvider = new ActiveDataProvider([
-        'query' => Course::find()->joinWith(['teachers'])->where(['teacherid'=> Yii::$app->user->identity->id]),
+
+        if (Yii::$app->user->can('createStudent'))
+         {
+           $dataProvider = new ActiveDataProvider([
+           'query' => $query,
+
+         ]);}
+         else{
+            $dataProvider = new ActiveDataProvider([
+            'query' => Course::find()->joinWith(['teachers'])->where(['teacherid'=> Yii::$app->user->identity->id]),
+
         ]);
+               
+        }
 
         $this->load($params);
 
