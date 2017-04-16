@@ -47,6 +47,9 @@ use app\models\Center;
 
     <!--<?= $form->field($user, 'updated_by')->textInput() ?>-->
 
+        	<?= $form->field($model, 'role')->dropDownList($roles) ?>		
+
+
   
 
 

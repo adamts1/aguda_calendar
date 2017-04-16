@@ -16,12 +16,34 @@ use Yii;
  */
 class Supervisor extends \yii\db\ActiveRecord
 {
+
+          public $role; 
+
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
         return 'supervisor';
+    }
+
+     public function afterSave($insert,$changedAttributes)
+    {
+        $return = parent::afterSave($insert, $changedAttributes);
+
+        $auth = Yii::$app->authManager;
+		$roleName = $this->role; 
+		$role = $auth->getRole($roleName);
+		if (\Yii::$app->authManager->getRolesByUser($this->id) == null){
+			$auth->assign($role, $this->id);
+		} else {
+			$db = \Yii::$app->db;
+			$db->createCommand()->delete('auth_assignment',
+				['user_id' => $this->id])->execute();
+			$auth->assign($role, $this->id);
+		}
+
+        return $return;
     }
 
     
@@ -33,6 +55,7 @@ class Supervisor extends \yii\db\ActiveRecord
     {
         return [
             [['centerId'], 'integer'],
+            ['role', 'safe'],
             [['centerId'], 'exist', 'skipOnError' => true, 'targetClass' => Center::className(), 'targetAttribute' => ['centerId' => 'id']],
             [['id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id' => 'id']],
         ];
@@ -46,6 +69,8 @@ class Supervisor extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'centerId' => 'מרכז',
+            'role'  => 'User role',
+
         ];
     }
 
@@ -72,4 +97,14 @@ class Supervisor extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'id']);
     }
+
+    public static function getRoles()
+	{
+		$rolesObjects = Yii::$app->authManager->getRoles();
+		$roles = [];
+		foreach($rolesObjects as $id =>$rolObj){
+			$roles[$id] = $rolObj->name; 
+		}
+		return $roles; 	
+	}
 }

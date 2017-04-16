@@ -58,7 +58,7 @@ use yii\bootstrap\Alert;
     
  <?= $form->field($user, 'userRole')->dropDownList(Userrole::getTeachersUserRole()) ?>  
 
-   <?php $data = Teacher::getCoursesTeacher(); ?>
+   <?php $data = Teacher::getCourseByCenter(); ?>
    <?php $datafunding = Teacher::getFundinSourceTeacher(); ?>
 
    <?php  if ($model->isNewRecord) {  ?>

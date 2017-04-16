@@ -25,7 +25,7 @@ class SupervisorController extends Controller
             
              'access' => [
             'class' => \yii\filters\AccessControl::className(),
-            'only' => ['create', 'update', 'index'],
+            'only' => [ 'update' ],
             'rules' => [
                 // deny all POST requests
                 [
@@ -105,9 +105,13 @@ class SupervisorController extends Controller
 
              
         } else {
+
+             $roles = Supervisor::getRoles(); 
             return $this->render('create', [
                 'model' => $model,
                 'user' => $user, //taking iputs from user to supervisor
+                'roles' => $roles,
+
             ]);
         }
     }
@@ -156,10 +160,12 @@ class SupervisorController extends Controller
                 return $this->redirect(['supervisor/view', 'id' => $id]);
            // }
         }
-        
+        $roles = Supervisor::getRoles(); 
         return $this->render('update', [
             'model' => $model,
             'user' => $user,
+            'roles' => $roles,
+
         ]);
     }
 

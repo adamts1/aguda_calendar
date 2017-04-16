@@ -55,8 +55,8 @@ class TeacherSearch extends Teacher
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
-            //  'query' => $query,
-            'query' => Teacher::find()->where(['id'=> Yii::$app->user->identity->id]),
+             'query' => $query,
+            // 'query' => Teacher::find()->where(['id'=> Yii::$app->user->identity->id]),
             // 'query' => Supevisor::find()->where(['id'=> Yii::$app->user->identity->id]),
         ]);
 

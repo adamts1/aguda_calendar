@@ -30,7 +30,7 @@ class TeacherController extends Controller
         return [
              'access' => [
             'class' => \yii\filters\AccessControl::className(),  //due to aloww crud only if connected
-            'only' => ['create', 'update' ,'index'],
+            'only' => [ 'update' ],
             'rules' => [
                 // deny all POST requests
                 [
@@ -230,6 +230,7 @@ class TeacherController extends Controller
                 return $this->redirect(['teacher/view', 'id' => $id]);
            // }
         }
+        
         $roles = Teacher::getRoles(); 
         return $this->render('update', [
             'model' => $model,

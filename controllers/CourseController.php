@@ -4,10 +4,16 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Course;
+use app\models\Supervisor;
+use app\models\User;
 use app\models\CourseSearch;
+use app\models\CourseCenter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\VarDumper;
+use yii\db\QueryBuilder;  
+
 
 /**
  * CourseController implements the CRUD actions for Course model.
@@ -82,17 +88,32 @@ class CourseController extends Controller
     public function actionCreate()
     {
 
-        if (Yii::$app->user->can('createStudent')){
+        if (Yii::$app->user->can('createStudent'))
+        {
         $model = new Course();
+        $supervisor = new Supervisor();
+        $user = new User();
+        // $user = new User();
+  
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+          if ($model->load(Yii::$app->request->post()) && $model->save()) {
+ ///////////////////////////////////////////////////////////////////////////////////////////////////
+              
+             $coursecenter = new CourseCenter; //instantiate new CourseTeacher model
+             $coursecenter->centerid = (new \yii\db\Query())
+               ->select(['centerId'])
+               ->from('supervisor')
+               ->where(['id'=> Yii::$app->user->identity->id ])->scalar();
+             $coursecenter->courseid = $model->id;
+             $coursecenter->save();
+/////////////////////////////////////////////////////////////////////////////////////////////////////
             return $this->redirect(['view', 'id' => $model->id]);
-        } else {
+           } else {
             return $this->render('create', [
                 'model' => $model,
             ]);
         }
-    }else{
+        }else{
         throw new NotFoundHttpException('The requested page does not exist.');
 
 
