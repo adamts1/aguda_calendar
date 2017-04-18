@@ -165,13 +165,13 @@ class Teacher extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'id']);
     }
 
-    public static function getCoursesTeacher() //bring all the courses in all organization
+    public static function getCoursesTeacher0() //bring all the courses in all organization
     {
          $courses =  ArrayHelper::map(Course::find()->all(),'id','coursename');
         return $courses;                       
     }
 
-     public static function getCourseByCenter()  //provide courses according to center
+     public static function getCourseByCenter()  //provide courses according to center supervisor
 	{
 		$coursebycenter = (new \yii\db\Query())
            ->select(['course.id','course.coursename'])
@@ -185,6 +185,22 @@ class Teacher extends \yii\db\ActiveRecord
 		$allcoursebycenter = ArrayHelper::
 					map($coursebycenter, 'id', 'coursename');
 		return $allcoursebycenter;						
+	}
+
+     public static function getCoursesCenterTeacher()  //provide courses according to teacher
+	{
+		$coursebyTeacher = (new \yii\db\Query())
+           ->select(['course.id','course.coursename'])
+           ->from('course')
+           ->join(' JOIN','course_center','course_center.courseid=course.id')
+           ->join('JOIN','center','course_center.centerid=center.id')
+           ->join(' JOIN','teacher','center.id=teacher.centerId')
+           ->where(['teacher.id' => Yii::$app->user->identity->id])
+           ->limit(50)
+           ->all();
+		$allcoursebyTeacher = ArrayHelper::
+					map($coursebyTeacher, 'id', 'coursename');
+		return $allcoursebyTeacher;						
 	}
 
     public static function getFundinSourceTeacher()

@@ -56,9 +56,13 @@ use yii\bootstrap\Alert;
     <!--<?= $form->field($user, 'updated_by')->textInput() ?>-->
 
     
- <?= $form->field($user, 'userRole')->dropDownList(Userrole::getTeachersUserRole()) ?>  
 
-   <?php $data = Teacher::getCourseByCenter(); ?>
+   <?php if (Yii::$app->user->can('createStudent'))
+         {
+      $data = Teacher::getCourseByCenter();}else{
+      
+      $data = Teacher::getCoursesCenterTeacher();} ?>
+
    <?php $datafunding = Teacher::getFundinSourceTeacher(); ?>
 
    <?php  if ($model->isNewRecord) {  ?>
@@ -129,11 +133,10 @@ use yii\bootstrap\Alert;
 
 
      <!-- as a teacher-->
-    <!--<?= $form->field($model, 'id')->checkboxlist(ArrayHelper::map($course, 'id', 'coursename'));?> -->
+  
 
 
    
-    <?= $form->field($model, 'centerid')->dropDownList(Center::getCenter()) ?>  
 
 
     <div class="form-group">

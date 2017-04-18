@@ -104,9 +104,16 @@ class TeacherController extends Controller
         if ($model->load(Yii::$app->request->post()) && $user->load(Yii::$app->request->post())  && $model->save()) {
          
             $user->id = $user->id;  //insert id to user table
+            $user->userRole = '1'; //insert id to user table
             $user->save();
 
             $model->id = $user->id; //insert the same id as user
+            $model->centerid = (new \yii\db\Query())
+           ->select(['center.id'])
+           ->from('center')
+           ->join(' JOIN','supervisor','center.id=supervisor.centerId')
+           ->where(['supervisor.id' => Yii::$app->user->identity->id])->scalar();
+        
             $model->save();
 
           foreach ($_POST['Course']['id'] as $id) {

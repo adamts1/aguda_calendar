@@ -92,6 +92,8 @@ class SupervisorController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $user->load(Yii::$app->request->post())  && $model->save()) {
              $user->id = $user->id;  //insert id to user table
+             $user->userRole = '2'; //insert id to user table
+
              $user->save();
 
              $model->id = $user->id; //insert the same id as user

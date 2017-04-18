@@ -100,7 +100,7 @@ class CourseController extends Controller
  ///////////////////////////////////////////////////////////////////////////////////////////////////
               
              $coursecenter = new CourseCenter; //instantiate new CourseTeacher model
-             $coursecenter->centerid = (new \yii\db\Query())
+             $coursecenter->centerid = (new \yii\db\Query()) //insert course according to center
                ->select(['centerId'])
                ->from('supervisor')
                ->where(['id'=> Yii::$app->user->identity->id ])->scalar();

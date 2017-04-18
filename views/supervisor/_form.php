@@ -53,7 +53,6 @@ use app\models\Center;
   
 
 
-        <?= $form->field($user, 'userRole')->dropDownList(Userrole::getSupervisorUserRole()) ?>
 
     <!-- as a teacher-->
 
