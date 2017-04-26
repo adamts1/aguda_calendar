@@ -53,12 +53,21 @@ class TeacherSearch extends Teacher
 
 
         // add conditions that should always apply here
-
+        if (Yii::$app->user->can('createSchoolDir')){
         $dataProvider = new ActiveDataProvider([
-             'query' => $query,
+             'query' => $query,                             // provide for admin
             // 'query' => Teacher::find()->where(['id'=> Yii::$app->user->identity->id]),
             // 'query' => Supevisor::find()->where(['id'=> Yii::$app->user->identity->id]),
         ]);
+        }else{
+            $dataProvider = new ActiveDataProvider([
+             'query' => Teacher::find()
+           ->join('JOIN','center','teacher.centerid=center.id')
+           ->join('JOIN','supervisor','center.id=supervisor.centerId')
+           ->where(['supervisor.id' => Yii::$app->user->identity->id])
+
+             ]);// provide for supervisor
+        }
 
 
         $dataProvider->sort->attributes['user'] = [

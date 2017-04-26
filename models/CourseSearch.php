@@ -53,7 +53,7 @@ class CourseSearch extends Course
         
         /////////// query that provide only courses of conected teacher 
 
-        if (Yii::$app->user->can('createStudent'))
+        if (Yii::$app->user->can('createSchoolDir'))
          {
            $dataProvider = new ActiveDataProvider([
            'query' => $query,
@@ -61,7 +61,11 @@ class CourseSearch extends Course
          ]);}
          else{
             $dataProvider = new ActiveDataProvider([
-            'query' => Course::find()->joinWith(['teachers'])->where(['teacherid'=> Yii::$app->user->identity->id]),
+              'query' => Course::find()
+           ->join('JOIN','course_center','course_center.courseid=course.id')
+           ->join('JOIN','center','course_center.centerid=center.id')
+           ->join('JOIN','supervisor','center.id=supervisor.centerId')
+           ->where(['supervisor.id' => Yii::$app->user->identity->id])
 
         ]);
                

@@ -57,15 +57,14 @@ use yii\bootstrap\Alert;
 
     
 
-   <?php if (Yii::$app->user->can('createStudent'))
-         {
-      $data = Teacher::getCourseByCenter();}else{
-      
-      $data = Teacher::getCoursesCenterTeacher();} ?>
+  
+    <?php 
+    
+    $data = Teacher::getCourseByCenter(); 
 
-   <?php $datafunding = Teacher::getFundinSourceTeacher(); ?>
+    $datafunding = Teacher::getFundinSourceTeacher();
 
-   <?php  if ($model->isNewRecord) {  ?>
+    if ($model->isNewRecord) {  ?>
   <?=  $form->field($course, 'id')->widget(Select2::classname(), [
    
     'data' => [$data],

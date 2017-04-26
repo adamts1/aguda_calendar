@@ -1,5 +1,6 @@
 <?php
 require_once('bdd.php');
+header('Content-Type: text/html; charset=utf-8');
 
    ?>
 
@@ -23,7 +24,7 @@ require_once('bdd.php');
        
         <div class="ex1">הצג מערכת עבור:</div>
 				
-
+<!--filter-->
                <input type="submit" class="form-control1"  name="submit" value="הצג" />
 
         <select dir="rtl" id="cd" name="cd" class="form-control1"  >
@@ -38,42 +39,38 @@ require_once('bdd.php');
             
             $dbname = 'adam_project';
             mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
-            
-            $cdquery="SELECT location FROM events";
+            mysql_query("SET NAMES 'utf8'",$link);
+            $cdquery="SELECT id, name FROM center";
             $cdresult=mysql_query($cdquery) or die ("Query to get data from events failed: ".mysql_error());
             while ($cdrow=mysql_fetch_array($cdresult)) {
-            $location=$cdrow["location"];
-                echo "<option>
-                    $location
-                </option>";
-            
-            }
 
-                
+					?>	<option value="<?php echo $cdrow['id'];?>"><?php echo $cdrow['name']; ?></option> 
+		
+
+
+<?php
+
+               
+            }   
             ?>
         </select>
-
-				
-
-			
-				 
     </form>
 
 		<?php
 
-		if ( isset( $_POST['submit'] ) ) {
+		if ( isset( $_POST['submit'] )  ) {
     //is submitted
     $variable = $_POST['cd'];
     //DO STUFF WITH DATA
 
 
 ?>
-
+<!--filter-->
 		<!--check-------------------------------------------------------->
 
 <?php
 
-$sql = "SELECT id, title, start, end, color, location FROM events WHERE location = '$variable'  ";
+$sql = "SELECT id, title, start, end, color, centerid, location FROM events WHERE centerid = '$variable' ";
 
 $req = $bdd->prepare($sql);
 $req->execute();
@@ -82,7 +79,7 @@ $events = $req->fetchAll();
 
 }else {
 
-$sql = "SELECT id, title, start, end, color, location FROM events   ";
+$sql = "SELECT id, title, start, end, color, centerid, location FROM events ";
 
 $req = $bdd->prepare($sql);
 $req->execute();
@@ -215,11 +212,15 @@ div.fixed_title {
         <div class="row">
             <div class="col-lg-12 text-center">
 						<?php		if ( isset( $_POST['submit'] ) ) {
-    //is submitted
-    $variable = $_POST['cd'];
-    //DO STUFF WITH DATA
+
+							  $nameofcenter="SELECT name FROM center WHERE id = '$variable'";
+								$req1 = $bdd->prepare($nameofcenter);
+                 $req1->execute();
+								 
+                 $result =  $req1->fetch(\PDO::FETCH_ASSOC);
+			
 		?>
-                <h1><?php echo $variable."  מערכת שעות עבור";?></h1><?php }
+                <h1>  מערכת שעות עבור <?php echo implode($result," ");?></h1><?php }
 								 else { ?> <h1> מערכת שיבוץ שיעורים </h1>
                 <?php }?>
 
@@ -250,6 +251,14 @@ div.fixed_title {
 			  </div>
 			  <div class="modal-body">
 
+
+						<div class="form-group">
+					<label for="centerid" class="col-sm-2 control-label">centerid</label>
+					<div class="col-sm-10">
+					  <input type="text" name="centerid" class="form-control" id="centerid" placeholder="centerid">
+					</div>
+					</div>
+
 				  <div class="form-group">
 					<label for="title" class="col-sm-2 control-label">Title</label>
 					<div class="col-sm-10">
@@ -262,8 +271,37 @@ div.fixed_title {
 					<div class="col-sm-10">
 					  <input type="text" name="location" class="form-control" id="location" placeholder="location">
 					</div>
-				  
 				  </div>
+<!--/////////////////////////////////////////////////////////-->
+				<!--   Create studentactivity Multiple Select - nice bootrsap code (link folders: doc, dist and demo)   -->
+					<div class="form-group">
+					<label for="students" class="col-sm-2 control-label">תלמידים</label>
+					<div class="col-sm-10">
+					<select class="multipleSelect" name="students_known[]" multiple name="language">
+					<?php
+					//$users_language = explode(",",$users["languages_known"]);
+					$languages_result = mysql_query("SELECT id, name FROM student");
+					$i=0;
+					while($languages_stack = mysql_fetch_array($languages_result)) {
+						if(in_array($users_stack["lang_name"],$users_language)) 
+							$str_flag = "selected";
+						else $str_flag=""; 
+						?>
+						<option value="<?=$languages_stack["id"];?>" <?php echo $str_flag; ?>><?=$languages_stack["name"];?></option>
+						<!-- 	We want to display nickName but to send studentId  -->
+						<?php
+						$i++;
+					} ?>
+					</select>
+						<script>
+									$('.multipleSelect').fastselect(); //script code for multiple select
+						</script>
+					</div>
+				  </div>
+	  
+				
+
+					<!--//////////////////////////////////-->
 				  <div class="form-group">
 					<label for="color" class="col-sm-2 control-label">Color</label>
 					<div class="col-sm-10">
@@ -280,12 +318,14 @@ div.fixed_title {
 						</select>
 					</div>
 				  </div>
+
+					
 				  <div class="form-group">
 					<label for="start" class="col-sm-2 control-label">Start date</label>
 					<div class="col-sm-10">
 					  <input type="text" name="start" class="form-control" id="start" readonly>
 					</div>
-				  </div>
+				  </div>	
 				  <div class="form-group">
 					<label for="end" class="col-sm-2 control-label">End date</label>
 					<div class="col-sm-10">
@@ -305,7 +345,7 @@ div.fixed_title {
 		
 		
 		
-	<!-- Modal -->
+	<!-- duble click on created event -->
 		<div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		  <div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -320,6 +360,13 @@ div.fixed_title {
 					<label for="location" class="col-sm-2 control-label">Location</label>
 					<div class="col-sm-10">
 					  <input type="text" name="location" class="form-control" id="location" placeholder="location">
+					</div>
+				  </div>	
+
+				  <div class="form-group">
+					<label for="centerid" class="col-sm-2 control-label">centerid</label>
+					<div class="col-sm-10">
+					  <input type="text" name="centerid" class="form-control" id="centerid" placeholder="centerid">
 					</div>
 				  </div>	
 
@@ -421,13 +468,14 @@ div.fixed_title {
 				$('#ModalAdd #start').val(moment(start).format('YYYY-MM-DD HH:mm:ss'));
 				$('#ModalAdd #end').val(moment(end).format('YYYY-MM-DD HH:mm:ss'));
 				$('#ModalAdd').modal('show');
-			},
+			}, //provid the exist value when edut by click
 			eventRender: function(event, element) {
 				element.bind('dblclick', function() {
 					$('#ModalEdit #id').val(event.id);
 					$('#ModalEdit #title').val(event.title);
 					$('#ModalEdit #color').val(event.color);
 					$('#ModalEdit #location').val(event.location);
+					$('#ModalEdit #centerid').val(event.centerid);
 					$('#ModalEdit').modal('show');
 				});
 			},
@@ -461,6 +509,7 @@ div.fixed_title {
 					id: '<?php echo $event['id']; ?>',
 					location: '<?php echo $event['location']; ?>',
 					title: '<?php echo $event['title']; ?>',
+					centerid: '<?php echo $event['centerid']; ?>',
 					start: '<?php echo $start; ?>',
 					end: '<?php echo $end; ?>',
 					color: '<?php echo $event['color']; ?>',

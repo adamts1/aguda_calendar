@@ -47,7 +47,9 @@ class FundingSourceSearch extends FundingSource
         
         /////////// query that provide only funding of conected teacher 
         $dataProvider = new ActiveDataProvider([
-        'query' => FundingSource::find()->joinWith(['teachers'])->where(['teacherid'=> Yii::$app->user->identity->id]),
+        // 'query' => FundingSource::find()->joinWith(['teachers'])->where(['teacherid'=> Yii::$app->user->identity->id]),
+                   'query' => $query,
+
         ]);
 
         $this->load($params);
