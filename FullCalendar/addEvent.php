@@ -3,19 +3,20 @@
 // Connexion à la base de données
 require_once('bdd.php');
 //echo $_POST['title'];
-if (isset($_POST['title']) && isset($_POST['start']) && isset($_POST['end']) && isset($_POST['color']) && isset($_POST['color']) && isset($_POST['location'])){
+if (isset($_POST['title']) && isset($_POST['start']) && isset($_POST['end']) && isset($_POST['color']) && isset($_POST['color']) && isset($_POST['locationId'])){
 	
 	$title = $_POST['title'];
 	$start = $_POST['start'];
 	$end = $_POST['end'];
 	$color = $_POST['color'];
-	$location = $_POST['location'];
-	$centerid = $_POST['centerid'];
+	$centerId = $_POST['centerId'];
+	$locationId = $_POST['locationId'];
+	$centerid = $_POST['centerId'];
 	$students = $_POST['students_known']; // studentId array from Select2 
 
 
 
-	$sql = "INSERT INTO events(title, start, end, color, location ,centerid) values ('$title', '$start', '$end', '$color', '$location', '$centerid')";
+	$sql = "INSERT INTO events(title, start, end, color, locationid ,centerid) values ('$title', '$start', '$end', '$color', '$locationId', '$centerid')";
 	//$req = $bdd->prepare($sql);
 	//$req->execute();
 	
@@ -32,16 +33,23 @@ if (isset($_POST['title']) && isset($_POST['start']) && isset($_POST['end']) && 
 	 die ('Erreur execute');
 	}
 
+	// Fetch the last activityId inserted
+	$select = "SELECT MAX(id) FROM events";
+	$selects = $bdd->prepare($select); 
+	$selects->execute();
+	$names = $selects->fetch(); // names is 2 arrays and we need to execute them
+	$eventsNumberInt =  $names[0]; // This is the first execute
+
 	for( $i =0; $i < count( $students ); $i++ )
 	{    
 		$c[$i] = (int) $students[$i];
 	}
 
 		// Insertion to studentactivity table
-	for($test = 0; $test < count($d); $test++)
+	for($test = 0; $test < count($c); $test++)
 	{
 	$studentName=$c[$test];
-	$insertToStudentactivity = "INSERT INTO `group_student`(`id`, `groupid`) VALUES ('$studentName','$centerid')"; // Insert to studentactivity table
+	$insertToStudentactivity = "INSERT INTO `student_events`(`studentid`, `eventsid`) VALUES ('$studentName','$eventsNumberInt')"; // Insert to studentactivity table
 	
 	$insertToStudentactivitys = $bdd->prepare( $insertToStudentactivity ); // We must this line to insert values into table!!!!!
 	if ($insertToStudentactivitys == false) {

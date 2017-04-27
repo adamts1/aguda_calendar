@@ -2,84 +2,13 @@
 require_once('bdd.php');
 header('Content-Type: text/html; charset=utf-8');
 
-   ?>
-
-<!--check-------------------------------------------------------->
-
-		<body>
-
-    <form method="post" action="index.php">
-			<style>
-          div.ex1 {
-              direction: rtl;
-    position: relative;
-    right: 8%;
-    font-weight: bold;
-    font-style: italic;
-          }
 
 
-       </style>
-
-       
-        <div class="ex1">הצג מערכת עבור:</div>
-				
-<!--filter-->
-               <input type="submit" class="form-control1"  name="submit" value="הצג" />
-
-        <select dir="rtl" id="cd" name="cd" class="form-control1"  >
-    
-   
-            <?php
-            
-            $mysqlserver="localhost";
-            $mysqlusername="root";
-            $mysqlpassword="";
-            $link=mysql_connect(localhost, $mysqlusername, $mysqlpassword) or die ("Error connecting to mysql server: ".mysql_error());
-            
-            $dbname = 'adam_project';
-            mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
-            mysql_query("SET NAMES 'utf8'",$link);
-            $cdquery="SELECT id, name FROM center";
-            $cdresult=mysql_query($cdquery) or die ("Query to get data from events failed: ".mysql_error());
-            while ($cdrow=mysql_fetch_array($cdresult)) {
-
-					?>	<option value="<?php echo $cdrow['id'];?>"><?php echo $cdrow['name']; ?></option> 
-		
 
 
-<?php
-
-               
-            }   
-            ?>
-        </select>
-    </form>
-
-		<?php
-
-		if ( isset( $_POST['submit'] )  ) {
-    //is submitted
-    $variable = $_POST['cd'];
-    //DO STUFF WITH DATA
 
 
-?>
-<!--filter-->
-		<!--check-------------------------------------------------------->
-
-<?php
-
-$sql = "SELECT id, title, start, end, color, centerid, location FROM events WHERE centerid = '$variable' ";
-
-$req = $bdd->prepare($sql);
-$req->execute();
-
-$events = $req->fetchAll();
-
-}else {
-
-$sql = "SELECT id, title, start, end, color, centerid, location FROM events ";
+$sql = "SELECT id, title, start, end, color, centerid, locationid, teacherid, courseid FROM events ";
 
 $req = $bdd->prepare($sql);
 $req->execute();
@@ -90,8 +19,21 @@ $events = $req->fetchAll();
 
 
 
-}
+
 ?>
+
+        
+        <style>
+
+            .fstElement { font-size: 1.2em; }
+            .fstToggleBtn { min-width: 16.5em; }
+
+            .submitBtn { display: none; }
+
+            .fstMultipleMode { display: block; }
+            .fstMultipleMode .fstControls { width: 100%; }
+
+        </style>
 
 <!DOCTYPE html>
 
@@ -102,6 +44,22 @@ $events = $req->fetchAll();
 <html lang="en">
 
 <head>
+
+	
+	
+	
+
+
+    <link rel="stylesheet" href="dist/fastselect.min.css">
+    <script src="dist/fastselect.standalone.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700,900&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://rawgit.com/dbrekalo/attire/master/dist/css/build.min.css">
+    <script src="https://rawgit.com/dbrekalo/attire/master/dist/js/build.min.js"></script>
+
+    <!--select2-->
+    <link rel="stylesheet" href="dist/fastselect.min.css">  
+    <script src="dist/fastselect.standalone.js"></script>
+    <!---->
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -123,7 +81,8 @@ $events = $req->fetchAll();
 
 
     <!-- Custom CSS -->
-    <style>
+
+		<style>
     body {
         padding-top: 70px;
         /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
@@ -135,35 +94,8 @@ $events = $req->fetchAll();
 		float: none;
 		margin: 0 auto;
 	}
-
-	/*div.fixed {
-    position: fixed;
-    width: 100px;
-    height: 50px;
-		right: 100px;
-		
-    
-} 
-div.fixed_title {
-    position: fixed;
-    width: 100px;
-    height: 50px;
-		right: 500px;
-		
-    
-} 
-
-	div.fixed_submit {
-    position: fixed;
-    width: 50px;
-    height: 40px;
-		right: 210px;
-    
-} */
-
-
-}
     </style>
+ 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -207,27 +139,13 @@ div.fixed_title {
     </nav>
 
     <!-- Page Content -->
-    <div class="container">
+  <div class="container">
 
         <div class="row">
             <div class="col-lg-12 text-center">
-						<?php		if ( isset( $_POST['submit'] ) ) {
-
-							  $nameofcenter="SELECT name FROM center WHERE id = '$variable'";
-								$req1 = $bdd->prepare($nameofcenter);
-                 $req1->execute();
-								 
-                 $result =  $req1->fetch(\PDO::FETCH_ASSOC);
-			
-		?>
-                <h1>  מערכת שעות עבור <?php echo implode($result," ");?></h1><?php }
-								 else { ?> <h1> מערכת שיבוץ שיעורים </h1>
-                <?php }?>
-
-								 <p class="lead"></p>
+                <h1>מערכת שיבוץ שיעורים</h1>
+               <p class="lead"></p>
                 <div id="calendar" class="col-centered">
-
-							
                 </div>
             </div>
 			
@@ -253,9 +171,26 @@ div.fixed_title {
 
 
 						<div class="form-group">
-					<label for="centerid" class="col-sm-2 control-label">centerid</label>
+					<label for="centerid" class="col-sm-2 control-label">מרכז</label>
 					<div class="col-sm-10">
-					  <input type="text" name="centerid" class="form-control" id="centerid" placeholder="centerid">
+					  <select id="centerId" class="form-control"  name="centerId">
+						             					<?php
+							$mysqlserver="localhost";
+ 							$mysqlusername="root";
+ 							$mysqlpassword="";
+ 							$link=mysql_connect(localhost, $mysqlusername, $mysqlpassword) or die ("Error connecting to mysql server: ".mysql_error());
+ 							$dbname = 'adam_project';
+ 							mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
+							mysql_query("SET NAMES 'utf8'",$link); // Generate utf8 for hebrew
+ 							$sql = "SELECT id, name FROM center";
+ 							$result = mysql_query($sql);
+ 
+ 							
+ 							while ($row = mysql_fetch_array($result)) {
+ 							echo "<option value='" . $row['id'] ."'>" . $row['name'] ."</option>";
+ 							}
+ 					?>
+         	</select>
 					</div>
 					</div>
 
@@ -267,9 +202,26 @@ div.fixed_title {
           </div>
 
 					<div class="form-group">
-					<label for="location" class="col-sm-2 control-label">Location</label>
+					<label for="location" class="col-sm-2 control-label">כיתת לימוד</label>
 					<div class="col-sm-10">
-					  <input type="text" name="location" class="form-control" id="location" placeholder="location">
+					  <select id="locationId" class="form-control"  name="locationId">
+						<?php
+							$mysqlserver="localhost";
+ 							$mysqlusername="root";
+ 							$mysqlpassword="";
+ 							$link=mysql_connect(localhost, $mysqlusername, $mysqlpassword) or die ("Error connecting to mysql server: ".mysql_error());
+ 							$dbname = 'adam_project';
+ 							mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
+							mysql_query("SET NAMES 'utf8'",$link); // Generate utf8 for hebrew
+ 							$sql = "SELECT id, name FROM location";
+ 							$result = mysql_query($sql);
+ 
+ 							
+ 							while ($row = mysql_fetch_array($result)) {
+ 							echo "<option value='" . $row['id'] ."'>" . $row['name'] ."</option>";
+ 							}
+ 					?>
+         	</select>
 					</div>
 				  </div>
 <!--/////////////////////////////////////////////////////////-->
@@ -345,7 +297,7 @@ div.fixed_title {
 		
 		
 		
-	<!-- duble click on created event -->
+	<!-- edit -->
 		<div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		  <div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -357,16 +309,68 @@ div.fixed_title {
 
 			  <div class="modal-body">
 				  <div class="form-group">
-					<label for="location" class="col-sm-2 control-label">Location</label>
+					<label for="locationId" class="col-sm-2 control-label">Location</label>
 					<div class="col-sm-10">
-					  <input type="text" name="location" class="form-control" id="location" placeholder="location">
+					  <select id="locationId" class="form-control"  name="locationId">
+						<?php
+            
+            $mysqlserver="localhost";
+            $mysqlusername="root";
+            $mysqlpassword="";
+            $link=mysql_connect(localhost, $mysqlusername, $mysqlpassword) or die ("Error connecting to mysql server: ".mysql_error());
+            
+            $dbname = 'adam_project';
+            mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
+            
+            $cdquery="SELECT id, name FROM location";
+            $cdresult=mysql_query($cdquery) or die ("Query to get data from firsttable failed: ".mysql_error());
+            
+            while ($cdrow=mysql_fetch_array($cdresult)) {
+ 							echo "<option value='" . $cdrow['id'] ."'>" . $cdrow['name'] ."</option>";
+			
+			
+			
+                
+            
+            }  ?>
+                </p>
+				<?php
+            ?>
+    
+        </select>
 					</div>
 				  </div>	
 
 				  <div class="form-group">
 					<label for="centerid" class="col-sm-2 control-label">centerid</label>
 					<div class="col-sm-10">
-					  <input type="text" name="centerid" class="form-control" id="centerid" placeholder="centerid">
+					  <select id="centerId" class="form-control"  name="centerId">
+						<?php
+            
+            $mysqlserver="localhost";
+            $mysqlusername="root";
+            $mysqlpassword="";
+            $link=mysql_connect(localhost, $mysqlusername, $mysqlpassword) or die ("Error connecting to mysql server: ".mysql_error());
+            
+            $dbname = 'adam_project';
+            mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
+            
+            $cdquery="SELECT id, name FROM center";
+            $cdresult=mysql_query($cdquery) or die ("Query to get data from firsttable failed: ".mysql_error());
+            
+            while ($cdrow=mysql_fetch_array($cdresult)) {
+ 							echo "<option value='" . $cdrow['id'] ."'>" . $cdrow['name'] ."</option>";
+			
+			
+			
+                
+            
+            }  ?>
+                </p>
+				<?php
+            ?>
+    
+        </select>
 					</div>
 				  </div>	
 
@@ -376,6 +380,32 @@ div.fixed_title {
 					<label for="title" class="col-sm-2 control-label">Title</label>
 					<div class="col-sm-10">
 					  <input type="text" name="title" class="form-control" id="title" placeholder="Title">
+					</div>
+				  </div>
+
+					<!--   Update studentEvents Multiple Select - nice bootrsap code (link folders: doc, dist and demo)   -->
+					<div class="form-group">
+					<label for="users" class="col-sm-2 control-label">תלמידים</label>
+					<div class="col-sm-10">
+					<select class="multipleSelect" name="students_known[]" multiple name="language">
+					<?php
+					$languages_result = mysql_query("SELECT id, name FROM student");
+					$i=0;
+					while($languages_stack = mysql_fetch_array($languages_result)) {
+						if(in_array($users_stack["lang_name"],$users_language)) 
+							$str_flag = "selected";
+						else $str_flag="";
+						?>
+						<option value="<?=$languages_stack["id"];?>" <?php echo $str_flag; ?>><?=$languages_stack["name"];?></option>
+						<!-- 	We want to display nickName but to send studentId  -->
+						<?php
+						$i++;
+					}
+					?>
+					</select>
+						<script>
+							$('.multipleSelect').fastselect(); //script to make nice multiple select
+						</script>
 					</div>
 				  </div>
            
@@ -507,7 +537,7 @@ div.fixed_title {
 		?>
 				{
 					id: '<?php echo $event['id']; ?>',
-					location: '<?php echo $event['location']; ?>',
+					location: '<?php echo $event['locationid']; ?>',
 					title: '<?php echo $event['title']; ?>',
 					centerid: '<?php echo $event['centerid']; ?>',
 					start: '<?php echo $start; ?>',
