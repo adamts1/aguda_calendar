@@ -3,7 +3,7 @@
 // Connexion à la base de données
 require_once('bdd.php');
 //echo $_POST['title'];
-if (isset($_POST['title']) && isset($_POST['start']) && isset($_POST['end']) && isset($_POST['color']) && isset($_POST['color']) && isset($_POST['locationId'])){
+if (isset($_POST['title']) && isset($_POST['start']) && isset($_POST['end']) && isset($_POST['color']) && isset($_POST['color']) && isset($_POST['locationId']) && isset($_POST['teacherId'])&& isset($_POST['locationId']) && isset($_POST['courseId'])){
 	
 	$title = $_POST['title'];
 	$start = $_POST['start'];
@@ -12,11 +12,13 @@ if (isset($_POST['title']) && isset($_POST['start']) && isset($_POST['end']) && 
 	$centerId = $_POST['centerId'];
 	$locationId = $_POST['locationId'];
 	$centerid = $_POST['centerId'];
+	$teacherid = $_POST['teacherId'];
+	$courseid = $_POST['courseId'];
 	$students = $_POST['students_known']; // studentId array from Select2 
 
 
 
-	$sql = "INSERT INTO events(title, start, end, color, locationid ,centerid) values ('$title', '$start', '$end', '$color', '$locationId', '$centerid')";
+	$sql = "INSERT INTO events(title, start, end, color, locationid ,centerid ,teacherid, courseid ) values ('$title', '$start', '$end', '$color', '$locationId', '$centerid', '$teacherid', '$courseid')";
 	//$req = $bdd->prepare($sql);
 	//$req->execute();
 	

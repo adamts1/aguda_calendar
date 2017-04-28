@@ -194,6 +194,30 @@ $events = $req->fetchAll();
 					</div>
 					</div>
 
+											<div class="form-group">
+					<label for="courseId" class="col-sm-2 control-label">מקצוע לימוד</label>
+					<div class="col-sm-10">
+					  <select id="courseId" class="form-control"  name="courseId">
+						             					<?php
+							$mysqlserver="localhost";
+ 							$mysqlusername="root";
+ 							$mysqlpassword="";
+ 							$link=mysql_connect(localhost, $mysqlusername, $mysqlpassword) or die ("Error connecting to mysql server: ".mysql_error());
+ 							$dbname = 'adam_project';
+ 							mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
+							mysql_query("SET NAMES 'utf8'",$link); // Generate utf8 for hebrew
+ 							$sql = "SELECT id, 	coursename FROM course";
+ 							$result = mysql_query($sql);
+ 
+ 							
+ 							while ($row = mysql_fetch_array($result)) {
+ 							echo "<option value='" . $row['id'] ."'>" . $row['coursename'] ."</option>";
+ 							}
+ 					?>
+         	</select>
+					</div>
+					</div>
+
 				  <div class="form-group">
 					<label for="title" class="col-sm-2 control-label">Title</label>
 					<div class="col-sm-10">
@@ -221,6 +245,38 @@ $events = $req->fetchAll();
  							echo "<option value='" . $row['id'] ."'>" . $row['name'] ."</option>";
  							}
  					?>
+         	</select>
+					</div>
+				  </div>
+
+
+<!--/////////////////////teacher-dropdown////////////////////-->
+
+					<div class="form-group">
+					<label for="teacherId" class="col-sm-2 control-label">מורה</label>
+					<div class="col-sm-10">
+					  <select id="teacherId" class="form-control"  name="teacherId">
+						<?php
+							$mysqlserver="localhost";
+ 							$mysqlusername="root";
+ 							$mysqlpassword="";
+ 							$link=mysql_connect(localhost, $mysqlusername, $mysqlpassword) or die ("Error connecting to mysql server: ".mysql_error());
+ 							$dbname = 'adam_project';
+ 							mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
+							mysql_query("SET NAMES 'utf8'",$link); // Generate utf8 for hebrew
+ 							$query = "SELECT user.username, teacher.id
+              FROM teacher
+              JOIN user
+              ON teacher.id=user.id;";
+ 							$result = mysql_query($query);
+ 
+ 							
+ 							while ($row = mysql_fetch_array($result)) {
+ 							echo "<option value='" . $row['id'] ."'>" . $row['username'] ."</option>";
+ 							}
+ 					?>
+					 
+
          	</select>
 					</div>
 				  </div>
@@ -334,8 +390,7 @@ $events = $req->fetchAll();
             
             }  ?>
                 </p>
-				<?php
-            ?>
+				
     
         </select>
 					</div>
@@ -373,6 +428,66 @@ $events = $req->fetchAll();
         </select>
 					</div>
 				  </div>	
+
+					<div class="form-group">
+					<label for="teacherId" class="col-sm-2 control-label">מורה מלמד</label>
+					<div class="col-sm-10">
+					  <select id="teacherId" class="form-control"  name="teacherId">
+						<?php
+            
+            	
+							$mysqlserver="localhost";
+ 							$mysqlusername="root";
+ 							$mysqlpassword="";
+ 							$link=mysql_connect(localhost, $mysqlusername, $mysqlpassword) or die ("Error connecting to mysql server: ".mysql_error());
+ 							$dbname = 'adam_project';
+ 							mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
+							mysql_query("SET NAMES 'utf8'",$link); // Generate utf8 for hebrew
+ 							$query = "SELECT user.username, teacher.id
+              FROM teacher
+              JOIN user
+              ON teacher.id=user.id;";
+ 							$result = mysql_query($query);
+ 
+ 							
+ 							while ($row = mysql_fetch_array($result)) {
+ 							echo "<option value='" . $row['id'] ."'>" . $row['username'] ."</option>";
+ 							}
+ 					?>
+					 
+
+         	</select>
+					</div>
+				  </div>
+
+					<div class="form-group">
+					<label for="courseId" class="col-sm-2 control-label">מקצוע לימוד</label>
+					<div class="col-sm-10">
+					  <select id="courseId" class="form-control"  name="courseId">
+						<?php
+            
+            	
+							$mysqlserver="localhost";
+ 							$mysqlusername="root";
+ 							$mysqlpassword="";
+ 							$link=mysql_connect(localhost, $mysqlusername, $mysqlpassword) or die ("Error connecting to mysql server: ".mysql_error());
+ 							$dbname = 'adam_project';
+ 							mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
+							mysql_query("SET NAMES 'utf8'",$link); // Generate utf8 for hebrew
+ 							$query="SELECT id, coursename FROM course";
+
+ 							$result = mysql_query($query);
+ 
+ 							
+ 							while ($row = mysql_fetch_array($result)) {
+ 							echo "<option value='" . $row['id'] ."'>" . $row['coursename'] ."</option>";
+ 							}
+ 					?>
+					 
+
+         	</select>
+					</div>
+				  </div>
 
 
 				
