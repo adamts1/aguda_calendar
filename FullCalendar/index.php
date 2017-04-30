@@ -340,6 +340,8 @@ $events = $req->fetchAll();
 					  <input type="text" name="end" class="form-control" id="end" readonly>
 					</div>
 				  </div>
+					  Quantity (between 1 and 5):
+ 											 <input type="number" name="quantity" min="1" max="5">
 				
 			  </div>
 			  <div class="modal-footer">

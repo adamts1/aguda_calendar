@@ -15,8 +15,15 @@ if (isset($_POST['title']) && isset($_POST['start']) && isset($_POST['end']) && 
 	$teacherid = $_POST['teacherId'];
 	$courseid = $_POST['courseId'];
 	$students = $_POST['students_known']; // studentId array from Select2 
+    $endNumber1 = strtotime("$end");
+	$startNumber1 = strtotime("$start");
+	$start = date("Y-m-d H:i:s",$startNumber1); 
+	$end = date("Y-m-d H:i:s",$endNumber1);
+	$quantity = $_POST['quantity'];
 
 
+    for ($i1=0; $i1<$quantity; $i1++)
+	{
 
 	$sql = "INSERT INTO events(title, start, end, color, locationid ,centerid ,teacherid, courseid ) values ('$title', '$start', '$end', '$color', '$locationId', '$centerid', '$teacherid', '$courseid')";
 	//$req = $bdd->prepare($sql);
@@ -66,7 +73,14 @@ if (isset($_POST['title']) && isset($_POST['start']) && isset($_POST['end']) && 
 		}
 	}
 
+        $startNumber1 = $startNumber1+60*60*24*7;
+		$start = date("Y-m-d H:i:s",$startNumber1); 
+		$endNumber1 = $endNumber1+60*60*24*7;
+		$end = date("Y-m-d H:i:s",$endNumber1); 
+	}
 }
+
+
 header('Location: '.$_SERVER['HTTP_REFERER']);
 
 	
