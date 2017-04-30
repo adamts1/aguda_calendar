@@ -18,7 +18,39 @@ if (isset($_POST['delete']) && isset($_POST['id'])){
 	 die ('Erreur execute');
 	}
 	
-}elseif (isset($_POST['title']) && isset($_POST['color']) && isset($_POST['id']) && isset($_POST['locationId']) && isset($_POST['teacherId']) && isset($_POST['courseId'])){
+}
+//////////////////////multy delete///////////
+if (isset($_POST['deleteAll']) && isset($_POST['id'])){
+
+ 	$id = $_POST['id'];
+	$start1 = $_POST['start'];
+	$startNumber1 = strtotime("$start1");
+	$startNumber1 = $startNumber1-'9000';
+	$start2 = date("Y-m-d H:i:s",$startNumber1); 
+	$courseId = $_POST['courseId'];
+    $locationId = $_POST['locationId'];	
+    $groupNumber = $_POST['groupNumber'];	
+
+	 
+	
+	$sql = "DELETE FROM events WHERE locationid = $locationId AND groupNumber = $groupNumber AND courseId = $courseId AND start > '$start2'";
+//var_dump($sql);
+
+	$query = $bdd->prepare( $sql );
+	if ($query == false) {
+	 print_r($bdd->errorInfo());
+	 die ('Erreur prepare');
+	}
+	$res = $query->execute();
+	if ($res == false) {
+	 print_r($query->errorInfo());
+	 die ('Erreur execute');
+	}
+
+}
+////////////////////////////////!multy delete///////////
+
+elseif (isset($_POST['title']) && isset($_POST['color']) && isset($_POST['id']) && isset($_POST['locationId']) && isset($_POST['teacherId']) && isset($_POST['courseId'])){
 	
 	$id = $_POST['id'];
 	$title = $_POST['title'];

@@ -8,7 +8,7 @@ header('Content-Type: text/html; charset=utf-8');
 
 
 
-$sql = "SELECT id, title, start, end, color, centerid, locationid, teacherid, courseid FROM events ";
+$sql = "SELECT id, title, start, end, color, centerid, locationid, teacherid, courseid, groupNumber FROM events ";
 
 $req = $bdd->prepare($sql);
 $req->execute();
@@ -340,8 +340,12 @@ $events = $req->fetchAll();
 					  <input type="text" name="end" class="form-control" id="end" readonly>
 					</div>
 				  </div>
-					  Quantity (between 1 and 5):
- 											 <input type="number" name="quantity" min="1" max="5">
+					
+					<div class="form-group">
+				<label for="comment" class="col-sm-2 control-label">מספר שבועות</label>					<div class="col-sm-10">
+					  <input type="number" name="quantity" class="form-control" value="1" min="1" max="54">
+					</div>
+				  </div>
 				
 			  </div>
 			  <div class="modal-footer">
@@ -543,10 +547,52 @@ $events = $req->fetchAll();
 						</select>
 					</div>
 				  </div>
+
+						<div class="form-group">
+					<label for="start" class="col-sm-2 control-label">start</label>
+				<div class="col-sm-10">
+
+				  <input type="input" name="start" class="form-control" id="start" placeholder="start">
+				</div>
+				  </div>
+
+											<div class="form-group">
+
+				<label for="groupNumber" class="col-sm-2 control-label">work2 (multi delete)</label>
+					<div class="col-sm-10">
+					  <input type="input" name="groupNumber" class="form-control" id="groupNumber" placeholder="groupNumber">
+					</div>
+				  </div>
+
+
+
+					
+				
+
 				    <div class="form-group"> 
 						<div class="col-sm-offset-2 col-sm-10">
 						  <div class="checkbox">
 							<label class="text-danger"><input type="checkbox"  name="delete"> Delete event</label>
+						  </div>
+						</div>
+					</div>
+
+					
+
+				 <div class="form-group"> 
+						<div class="col-sm-offset-2 col-sm-10">
+						  <div class="checkbox">
+
+							<label class="text-danger"><input type="checkbox" id="home" name="deleteAll" > מחק פעילות קבועה</label>
+							<script>
+						$("#home").click(function() {
+  				  // this function will get executed every time the #home element is clicked (or tab-spacebar changed)
+  				  if($(this).is(":checked")) // "this" refers to the element that fired the event
+  				  {
+     		   alert('שים לב, כעת סימנת שינוי קבוע !!');
+   					 }
+						});
+					</script>
 						  </div>
 						</div>
 					</div>
@@ -621,8 +667,11 @@ $events = $req->fetchAll();
 					$('#ModalEdit #id').val(event.id);
 					$('#ModalEdit #title').val(event.title);
 					$('#ModalEdit #color').val(event.color);
-					$('#ModalEdit #location').val(event.location);
+					$('#ModalEdit #start').val(event.start); 
+					$('#ModalEdit #locationid').val(event.locationid);
+					$('#ModalEdit #groupNumber').val(event.groupNumber); 
 					$('#ModalEdit #centerid').val(event.centerid);
+					$('#ModalEdit #courseid').val(event.courseid);
 					$('#ModalEdit').modal('show');
 				});
 			},
@@ -654,12 +703,17 @@ $events = $req->fetchAll();
 		?>
 				{
 					id: '<?php echo $event['id']; ?>',
-					location: '<?php echo $event['locationid']; ?>',
+					locationid: '<?php echo $event['locationid']; ?>',
 					title: '<?php echo $event['title']; ?>',
 					centerid: '<?php echo $event['centerid']; ?>',
 					start: '<?php echo $start; ?>',
 					end: '<?php echo $end; ?>',
 					color: '<?php echo $event['color']; ?>',
+					groupNumber: '<?php echo $event['groupNumber']; ?>',
+					courseid: '<?php echo $event['courseid']; ?>',
+
+				
+
 					textColor: 'black', // I added this for black text color instead of white
 					borderColor: 'black', // I added this for black border color instead of nothing
 				},

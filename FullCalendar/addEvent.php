@@ -5,6 +5,15 @@ require_once('bdd.php');
 //echo $_POST['title'];
 if (isset($_POST['title']) && isset($_POST['start']) && isset($_POST['end']) && isset($_POST['color']) && isset($_POST['color']) && isset($_POST['locationId']) && isset($_POST['teacherId'])&& isset($_POST['locationId']) && isset($_POST['courseId'])){
 	
+
+	$adder1 = "SELECT MAX(groupNumber) FROM events";
+	
+		$selects1 = $bdd->prepare($adder1); 
+		$selects1->execute();
+		$names1 = $selects1->fetch();
+		$addNumber =  $names1[0]+'1'; 
+      
+		
 	$title = $_POST['title'];
 	$start = $_POST['start'];
 	$end = $_POST['end'];
@@ -25,7 +34,7 @@ if (isset($_POST['title']) && isset($_POST['start']) && isset($_POST['end']) && 
     for ($i1=0; $i1<$quantity; $i1++)
 	{
 
-	$sql = "INSERT INTO events(title, start, end, color, locationid ,centerid ,teacherid, courseid ) values ('$title', '$start', '$end', '$color', '$locationId', '$centerid', '$teacherid', '$courseid')";
+	$sql = "INSERT INTO events(title, start, end, color, locationid ,centerid ,teacherid, courseid, groupNumber ) values ('$title', '$start', '$end', '$color', '$locationId', '$centerid', '$teacherid', '$courseid', '$addNumber')";
 	//$req = $bdd->prepare($sql);
 	//$req->execute();
 	
