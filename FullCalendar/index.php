@@ -165,7 +165,7 @@ $events = $req->fetchAll();
 			
 			  <div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Add Event</h4>
+				<h4 class="modal-title" id="myModalLabel">הוספת שיבוץ</h4>
 			  </div>
 			  <div class="modal-body">
 
@@ -219,7 +219,7 @@ $events = $req->fetchAll();
 					</div>
 
 				  <div class="form-group">
-					<label for="title" class="col-sm-2 control-label">Title</label>
+					<label for="title" class="col-sm-2 control-label">תיאור שיבוץ</label>
 					<div class="col-sm-10">
 					  <input type="text" name="title" class="form-control" id="title" placeholder="Title">
 					</div>
@@ -329,15 +329,15 @@ $events = $req->fetchAll();
 
 					
 				  <div class="form-group">
-					<label for="start" class="col-sm-2 control-label">Start date</label>
+					<label for="start" class="col-sm-2 control-label"></label>
 					<div class="col-sm-10">
-					  <input type="text" name="start" class="form-control" id="start" readonly>
+					  <input type="hidden" name="start" class="form-control" id="start" readonly>
 					</div>
 				  </div>	
 				  <div class="form-group">
-					<label for="end" class="col-sm-2 control-label">End date</label>
+					<label for="end" class="col-sm-2 control-label"></label>
 					<div class="col-sm-10">
-					  <input type="text" name="end" class="form-control" id="end" readonly>
+					  <input type="hidden" name="end" class="form-control" id="end" readonly>
 					</div>
 				  </div>
 					
@@ -366,12 +366,12 @@ $events = $req->fetchAll();
 			<form class="form-horizontal" method="POST" action="editEventTitle.php">
 			  <div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Edit Event</h4>
+				<h4 class="modal-title" id="myModalLabel">עריכת שיבוץ </h4>
 			  </div>
 
 			  <div class="modal-body">
 				  <div class="form-group">
-					<label for="locationId" class="col-sm-2 control-label">Location</label>
+					<label for="locationId" class="col-sm-2 control-label">כיתת לימוד</label>
 					<div class="col-sm-10">
 					  <select id="locationId" class="form-control"  name="locationId">
 						<?php
@@ -403,7 +403,7 @@ $events = $req->fetchAll();
 				  </div>	
 
 				  <div class="form-group">
-					<label for="centerid" class="col-sm-2 control-label">centerid</label>
+					<label for="centerid" class="col-sm-2 control-label">מרכז</label>
 					<div class="col-sm-10">
 					  <select id="centerId" class="form-control"  name="centerId">
 						<?php
@@ -498,7 +498,7 @@ $events = $req->fetchAll();
 
 				
 				  <div class="form-group">
-					<label for="title" class="col-sm-2 control-label">Title</label>
+					<label for="title" class="col-sm-2 control-label">תיאור שיבוץ</label>
 					<div class="col-sm-10">
 					  <input type="text" name="title" class="form-control" id="title" placeholder="Title">
 					</div>
@@ -532,7 +532,7 @@ $events = $req->fetchAll();
            
 
 				  <div class="form-group">
-					<label for="color" class="col-sm-2 control-label">Color</label>
+					<label for="color" class="col-sm-2 control-label">צבע</label>
 					<div class="col-sm-10">
 					  <select name="color" class="form-control" id="color">
 						  <option value="">Choose</option>
@@ -549,7 +549,7 @@ $events = $req->fetchAll();
 				  </div>
 
 						<div class="form-group">
-					<label for="start" class="col-sm-2 control-label">start</label>
+					<label for="start" class="col-sm-2 control-label"></label>
 				<div class="col-sm-10">
 
 				  <input type="input" name="start" class="form-control" id="start" placeholder="start">
@@ -558,9 +558,9 @@ $events = $req->fetchAll();
 
 											<div class="form-group">
 
-				<label for="groupNumber" class="col-sm-2 control-label">work2 (multi delete)</label>
+				<label for="groupNumber" class="col-sm-2 control-label"></label>
 					<div class="col-sm-10">
-					  <input type="input" name="groupNumber" class="form-control" id="groupNumber" placeholder="groupNumber">
+					  <input type="hidden" name="groupNumber" class="form-control" id="groupNumber" placeholder="groupNumber">
 					</div>
 				  </div>
 
@@ -572,7 +572,7 @@ $events = $req->fetchAll();
 				    <div class="form-group"> 
 						<div class="col-sm-offset-2 col-sm-10">
 						  <div class="checkbox">
-							<label class="text-danger"><input type="checkbox"  name="delete"> Delete event</label>
+							<label class="text-danger"><input type="checkbox"  name="delete"> מחק שיבוץ זה בלבד</label>
 						  </div>
 						</div>
 					</div>
@@ -583,7 +583,7 @@ $events = $req->fetchAll();
 						<div class="col-sm-offset-2 col-sm-10">
 						  <div class="checkbox">
 
-							<label class="text-danger"><input type="checkbox" id="home" name="deleteAll" > מחק פעילות קבועה</label>
+							<label class="text-danger"><input type="checkbox" id="home" name="deleteAll" > מחק כל פעילות מסוג זה</label>
 							<script>
 						$("#home").click(function() {
   				  // this function will get executed every time the #home element is clicked (or tab-spacebar changed)
@@ -650,6 +650,8 @@ $events = $req->fetchAll();
 
 
 			defaultDate: d,
+			defaultView: 'agendaWeek', // Default view is now agendaWeek instead of month. we can allso use agendaDay
+
 			lang: initialLangCode,
 			editable: true,
 			eventLimit: true, // allow "more" link when too many events
