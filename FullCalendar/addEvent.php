@@ -26,20 +26,25 @@ if (isset($_POST['title']) && isset($_POST['start']) && isset($_POST['end']) && 
 	$students = $_POST['students_known']; // studentId array from Select2 
     $endNumber1 = strtotime("$end");
 	$startNumber1 = strtotime("$start");
+	$startNumber44 = strtotime("$start");
 	$start = date("Y-m-d H:i:s",$startNumber1); 
 	$end = date("Y-m-d H:i:s",$endNumber1);
 	$quantity = $_POST['quantity'];
+	$quantity1 = strtotime("$quantity")+86401;
 
 
-    for ($i1=0; $i1<$quantity; $i1++)
+   while ( $startNumber44<$quantity1)
 	{
 
+
+    $endNumber2 = $startNumber1+60*60*24;
+ 	$end2 = date("Y-m-d H:i:s",$endNumber2);
 	$sql = "INSERT INTO events(title, start, end, color, locationid ,centerid ,teacherid, courseid, groupNumber ) values ('$title', '$start', '$end', '$color', '$locationId', '$centerid', '$teacherid', '$courseid', '$addNumber')";
-	//$req = $bdd->prepare($sql);
-	//$req->execute();
+	// $req = $bdd->prepare($sql);
+	// $req->execute();
 	
-	echo $sql;
-	
+	$endNumber2 = $startNumber1+60*60*24;
+	$end2 = date("Y-m-d H:i:s",$endNumber2);
 	$query = $bdd->prepare( $sql );
 	if ($query == false) {
 	 print_r($bdd->errorInfo());
@@ -86,6 +91,8 @@ if (isset($_POST['title']) && isset($_POST['start']) && isset($_POST['end']) && 
 		$start = date("Y-m-d H:i:s",$startNumber1); 
 		$endNumber1 = $endNumber1+60*60*24*7;
 		$end = date("Y-m-d H:i:s",$endNumber1); 
+		$startNumber44 = $startNumber44+86400*7;
+
 	}
 }
 

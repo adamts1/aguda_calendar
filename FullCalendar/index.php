@@ -342,8 +342,10 @@ $events = $req->fetchAll();
 				  </div>
 					
 					<div class="form-group">
-				<label for="comment" class="col-sm-2 control-label">מספר שבועות</label>					<div class="col-sm-10">
-					  <input type="number" name="quantity" class="form-control" value="1" min="1" max="54">
+				<label for="comment" class="col-sm-2 control-label">מספר שבועות</label>		
+				          	<div class="col-sm-10">
+		
+					  <input type="text" name="quantity" class="form-control" id="end">
 					</div>
 				  </div>
 				
@@ -568,7 +570,7 @@ $events = $req->fetchAll();
 						<div class="form-group"> 
 						<div class="col-sm-offset-2 col-sm-10">
 						  <div class="checkbox">
-							<label class="text-danger"><input type="checkbox" id="updateAll"  name="updateAll" ><p style="color:green;">עדכון כל פעיליוית מסוג זה</p></label>
+							<label class="text-danger"><input type="checkbox" id="home"  name="updateAll" ><p style="color:green;">עדכון כל פעיליוית מסוג זה</p></label>
 						  </div>
 						</div>
 					</div>
