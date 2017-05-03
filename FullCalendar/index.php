@@ -565,6 +565,16 @@ $events = $req->fetchAll();
 				  </div>
 
 
+						<div class="form-group"> 
+						<div class="col-sm-offset-2 col-sm-10">
+						  <div class="checkbox">
+							<label class="text-danger"><input type="checkbox" id="updateAll"  name="updateAll" ><p style="color:green;">עדכון כל פעיליוית מסוג זה</p></label>
+						  </div>
+						</div>
+					</div>
+
+
+
 
 					
 				
@@ -577,6 +587,7 @@ $events = $req->fetchAll();
 						</div>
 					</div>
 
+				
 					
 
 				 <div class="form-group"> 
