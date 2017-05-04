@@ -12,6 +12,11 @@ if (isset($_POST['title']) && isset($_POST['start']) && isset($_POST['end']) && 
 		$selects1->execute();
 		$names1 = $selects1->fetch();
 		$addNumber =  $names1[0]+'1'; 
+		$quantity = $_POST['quantity'];
+		if($quantity == NULL) {
+
+		$quantity = $_POST['end'];
+	}
       
 		
 	$title = $_POST['title'];
@@ -29,7 +34,6 @@ if (isset($_POST['title']) && isset($_POST['start']) && isset($_POST['end']) && 
 	$startNumber44 = strtotime("$start");
 	$start = date("Y-m-d H:i:s",$startNumber1); 
 	$end = date("Y-m-d H:i:s",$endNumber1);
-	$quantity = $_POST['quantity'];
 	$quantity1 = strtotime("$quantity")+86401;
 
 

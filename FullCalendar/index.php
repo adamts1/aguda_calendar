@@ -345,7 +345,7 @@ $events = $req->fetchAll();
 				<label for="comment" class="col-sm-2 control-label">מספר שבועות</label>		
 				          	<div class="col-sm-10">
 		
-					  <input type="text" name="quantity" class="form-control" id="end">
+					  <input type="date" name="quantity" class="form-control" id="end">
 					</div>
 				  </div>
 				
