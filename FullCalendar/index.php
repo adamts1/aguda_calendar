@@ -1,39 +1,37 @@
 <?php
-require_once('bdd.php');
 header('Content-Type: text/html; charset=utf-8');
+require_once('bdd.php');
+include "connectdb.php";   // Nisim's db file2
+include "connectdb2.php";   // Nisim's db file2
 
 
 
 
+function filterTable($sql)
+ {
+  $connect = mysqli_connect("localhost","root","","adam_project");
+  $filter_Result = mysqli_query($connect,$sql);
+  return $filter_Result;
+ }
 
 
 
-$sql = "SELECT id, title, start, end, color, centerid, locationid, teacherid, courseid, groupNumber FROM events ";
+ $req = $bdd->prepare($sql);
+ $req->execute();
 
-$req = $bdd->prepare($sql);
-$req->execute();
-
-$events = $req->fetchAll();
-
-
-
-
-
+ $events = $req->fetchAll();
 
 ?>
 
-        
-        <style>
+  
+<style>
 
-            .fstElement { font-size: 1.2em; }
-            .fstToggleBtn { min-width: 16.5em; }
-
-            .submitBtn { display: none; }
-
-            .fstMultipleMode { display: block; }
-            .fstMultipleMode .fstControls { width: 100%; }
-
-        </style>
+  .fstElement { font-size: 1.2em; }
+  .fstToggleBtn { min-width: 16.5em; }
+  .submitBtn { display: none; }
+  .fstMultipleMode { display: block; }
+  .fstMultipleMode .fstControls { width: 100%; }
+</style>
 
 <!DOCTYPE html>
 
@@ -77,7 +75,33 @@ $events = $req->fetchAll();
     <link href="css/bootstrap.min.css" rel="stylesheet">
 	
 	<!-- FullCalendar -->
-	<link href='css/fullcalendar.css' rel='stylesheet' />
+	  <link href='css/fullcalendar.css' rel='stylesheet' />
+
+    <script>
+
+function showUser(str) {
+ 
+    if (str == "") {
+        document.getElementById("txtHint").innerHTML = "";
+        return;
+    } else { 
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("txtHint").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("POST","index.php?q="+str,true);
+        xmlhttp.send();
+    }
+}
+</script>
 
 
     <!-- Custom CSS -->
@@ -107,37 +131,60 @@ $events = $req->fetchAll();
 </head>
 
 <body>
+  <!-- 4(LAST) FILTER - here html botton and input send as POST up to function 1/2/3 -->
+<!--
+<div style ="float:right;margin-right: 120px;">
+<form action="index.php" method="post">
+<input type="text" name="valueToSearch" placeholder="value to search" style="float: right;">                      
+<input type="submit" name="search" value="חפש">
+</form>
+</div>-->
+ <!-- ajax of th multiple search PART2 -->
+<?php include "connectdb.php"; ?>
+<script type="text/javascript">
+function getData(val)
+{
+	$.ajax({
+		type:"POST",
+		url:"get_Data.php",
+    data: 'fatherFilterValue='+val,		
+		success: function(data){
+		$("#state-list").html(data);
+		}});
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
+		}
 
-				
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Free Calendar</a>
+</script>
 
-								
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="#">Menu</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
+<!-- ajax PART2 done here-->
 
+<!-- MULTIPLE SEARCH PART 1 -->
+
+<form action="index.php" method="get">
+<div style="float:right;margin-right:700px;">
+<label>:נתון </label>
+<select id="state-list"   name="valueToSearch">
+<option value="0">נתון</option> 
+</select>
+<label>:חפש לפי </label>
+<select id ="country-list"  name="titleToSearch" onChange="getData(this.value);">
+<option value="0">חיפוש לפי</option>
+<option value="1">כיתת לימוד</option>
+<option value="2">סוג פעילות</option>
+</select>
+</form>	
+<br>
+<div style="float:right; padding-right:100px;">
+<button value="submit">סנן</button>
+<input type="button" value="נקה סינון" onclick="location.href = 'http://localhost/adam_project/fullcalendar/';">
+</div>
+ <!-- MULTIPLE SEARCH PART 1 done here-->
+</div>
+
+  <!-- FILTER DONE -->
+ 
+
+  
     <!-- Page Content -->
   <div class="container">
 
@@ -508,23 +555,16 @@ $events = $req->fetchAll();
 
 					<!--   Update studentEvents Multiple Select - nice bootrsap code (link folders: doc, dist and demo)   -->
 					<div class="form-group">
-					<label for="users" class="col-sm-2 control-label">תלמידים</label>
+					<label for="student" class="col-sm-2 control-label">תלמידים</label>
 					<div class="col-sm-10">
-					<select class="multipleSelect" name="students_known[]" multiple name="language">
+					<select class="multipleSelect" name="student_known[]" multiple name="language" id="userNumber">
 					<?php
-					$languages_result = mysql_query("SELECT id, name FROM student");
-					$i=0;
-					while($languages_stack = mysql_fetch_array($languages_result)) {
-						if(in_array($users_stack["lang_name"],$users_language)) 
-							$str_flag = "selected";
-						else $str_flag="";
-						?>
-						<option value="<?=$languages_stack["id"];?>" <?php echo $str_flag; ?>><?=$languages_stack["name"];?></option>
-						<!-- 	We want to display nickName but to send studentId  -->
-						<?php
-						$i++;
-					}
-					?>
+									
+							$result = mysql_query("SELECT id, name FROM student");	
+							while ($row = mysql_fetch_array($result)) {
+								echo "<option value='" . $row['id'] ."'>" . $row['name'] ."</option>";
+							}
+							?>
 					</select>
 						<script>
 							$('.multipleSelect').fastselect(); //script to make nice multiple select
@@ -772,4 +812,4 @@ $events = $req->fetchAll();
 
 </body>
 
-</html>
+</html> 

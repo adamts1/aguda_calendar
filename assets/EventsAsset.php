@@ -13,13 +13,14 @@ use yii\web\AssetBundle;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class AppAsset extends AssetBundle
+class EventsAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
-    public $css = [
-        'css/site.css',
-        'css/bootstrap-rtl.min.css' // for hebrew
+    public $css = [                 // Decleration on the css fules that will affect activity index
+        'css/events.css',
+        'css/bootstrap.css',
+        'css/bootstrap-rtl.min.css', // for hebrew
     ];
     public $js = [
         'js/main.js',
