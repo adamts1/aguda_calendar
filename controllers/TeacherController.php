@@ -86,6 +86,11 @@ class TeacherController extends Controller
         ]);
     }
 
+        // public function actionChart()
+        // {
+        //     return $this->redirect(['bdika/data.php']);
+        // }
+
     /**
      * Creates a new Teacher model.
      * If creation is successful, the browser will be redirected to the 'view' page.

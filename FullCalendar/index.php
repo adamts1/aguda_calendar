@@ -1,8 +1,8 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');
 require_once('bdd.php');
-include "connectdb.php";   // Nisim's db file2
-include "connectdb2.php";   // Nisim's db file2
+include "connectdb.php";   
+include "connectdb2.php";   
 
 
 
@@ -244,7 +244,7 @@ function getData(val)
 											<div class="form-group">
 					<label for="courseId" class="col-sm-2 control-label">מקצוע לימוד</label>
 					<div class="col-sm-10">
-					  <select id="courseId" class="form-control"  name="courseId">
+					  <select id="courseId" class="form-control"  name="courseId" dir="rtl">
 						             					<?php
 							$mysqlserver="localhost";
  							$mysqlusername="root";

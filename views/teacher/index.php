@@ -19,6 +19,10 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Teacher', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
+    
+
+    
+
  
 
 
@@ -26,9 +30,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         
+
+    
         
-        'columns' => [
+            'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+             
+            
 
 
             [
@@ -69,6 +77,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			// 	},
 				
 			// ],
+            
 
                 
              

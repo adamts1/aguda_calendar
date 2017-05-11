@@ -26,7 +26,8 @@
         "arogachev/yii2-many-to-many": "^0.2.1",
         "kartik-v/yii2-widget-select2": "@dev",
         "kartik-v/yii2-detail-view": "*",
-        "kartik-v/yii2-widget-timepicker": "*"
+        "kartik-v/yii2-widget-timepicker": "*",
+        "miloschuman/yii2-highcharts-widget": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
