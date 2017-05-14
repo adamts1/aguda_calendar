@@ -86,6 +86,16 @@ class TeacherController extends Controller
         ]);
     }
 
+    public function actionChart() ////important for the chart of teacher
+    { 
+        $searchModel = new TeacherSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        return $this->render('chart.php', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
         // public function actionChart()
         // {
         //     return $this->redirect(['bdika/data.php']);
@@ -274,6 +284,8 @@ class TeacherController extends Controller
       
         return $this->redirect(['index']);
     }
+
+
 
     /**
      * Finds the Teacher model based on its primary key value.
