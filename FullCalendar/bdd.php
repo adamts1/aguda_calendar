@@ -1,4 +1,5 @@
 <?php
+
 try
 {
 	$bdd = new PDO('mysql:host=localhost;dbname=adam_project;charset=utf8', 'root', '');

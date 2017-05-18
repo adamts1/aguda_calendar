@@ -725,6 +725,7 @@ function getData(val)
 					$('#ModalEdit #start').val(event.start); 
 					$('#ModalEdit #locationid').val(event.locationid);
 					$('#ModalEdit #groupNumber').val(event.groupNumber); 
+					$('#ModalEdit #teacherid').val(event.teacherid); 
 					$('#ModalEdit #centerid').val(event.centerid);
 					$('#ModalEdit #courseid').val(event.courseid);
 					$('#ModalEdit').modal('show');
@@ -764,6 +765,7 @@ function getData(val)
 					start: '<?php echo $start; ?>',
 					end: '<?php echo $end; ?>',
 					color: '<?php echo $event['color']; ?>',
+					teacherid: '<?php echo $event['teacherid']; ?>',
 					groupNumber: '<?php echo $event['groupNumber']; ?>',
 					courseid: '<?php echo $event['courseid']; ?>',
 

@@ -62,8 +62,7 @@ class TeacherController extends Controller
     {
         $searchModel = new TeacherSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-       
+        
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -80,6 +79,7 @@ class TeacherController extends Controller
      */
     public function actionView($id)
     {
+
         return $this->render('view', [
             'model' => $this->findModel($id),
 
