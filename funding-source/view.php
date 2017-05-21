@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Event */
+/* @var $model app\models\FundingSource */
 
-$this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Events', 'url' => ['index']];
+$this->title = $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Funding Sources', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="event-view">
+<div class="funding-source-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -29,13 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'groupid',
-            'teacherid',
-            'locationid',
-            'date',
-            'title',
-            'description',
-            'created_date',
+            'sourcename',
         ],
     ]) ?>
 

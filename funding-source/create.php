@@ -4,13 +4,13 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Event */
+/* @var $model app\models\FundingSource */
 
-$this->title = 'Create Event';
-$this->params['breadcrumbs'][] = ['label' => 'Events', 'url' => ['index']];
+$this->title = 'Create Funding Source';
+$this->params['breadcrumbs'][] = ['label' => 'Funding Sources', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="event-create">
+<div class="funding-source-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\EventSearch */
+/* @var $model app\models\FundingSourceSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="event-search">
+<div class="funding-source-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -17,19 +17,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'groupid') ?>
-
-    <?= $form->field($model, 'teacherid') ?>
-
-    <?= $form->field($model, 'locationid') ?>
-
-    <?= $form->field($model, 'date') ?>
-
-    <?php // echo $form->field($model, 'title') ?>
-
-    <?php // echo $form->field($model, 'description') ?>
-
-    <?php // echo $form->field($model, 'created_date') ?>
+    <?= $form->field($model, 'sourcename') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
