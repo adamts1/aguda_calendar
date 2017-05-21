@@ -13,7 +13,7 @@ if(isset($_GET['valueToSearch'])  && $_GET['valueToSearch'] !=0 && $_GET['titleT
 //    die;
 
 
-       if($titleToSearch == '1')
+       if($titleToSearch == '2')
        {
        
 		// 1.Filter - here we get the value that user want filering
@@ -22,7 +22,7 @@ if(isset($_GET['valueToSearch'])  && $_GET['valueToSearch'] !=0 && $_GET['titleT
        }
 
 
-        elseif($titleToSearch == '2')
+        elseif($titleToSearch == '1')
         {
        
 		 // 1.Filter - here we get the value that user want filering

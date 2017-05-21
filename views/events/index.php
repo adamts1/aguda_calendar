@@ -9,19 +9,6 @@ use yii\grid\GridView;
 
 // $this->title = 'Events';
 ?>
-<style>
-	.calendar{
-	 	
-	margin: 0px 0px 0px 0px;
-    padding: 0px 0px 0px 0px;
-    width: 250%;
-    height: 1500px;
-    border: 0px solid black;
-     position: fixed;
-    right: 50px;
-		
-	}
-</style>         
 <div class="events-index">
 
     <h1><?= Html::encode($this->title) ?></h1>

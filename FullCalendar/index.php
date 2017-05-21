@@ -65,7 +65,7 @@ function filterTable($sql)
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Bare - Start Bootstrap Template</title>
+    <title>שיבוץ שיעורים</title>
 
 		
 
@@ -76,6 +76,10 @@ function filterTable($sql)
 	
 	<!-- FullCalendar -->
 	  <link href='css/fullcalendar.css' rel='stylesheet' />
+
+
+	
+	
 
     <script>
 
@@ -149,7 +153,7 @@ function getData(val)
 		url:"get_Data.php",
     data: 'fatherFilterValue='+val,		
 		success: function(data){
-		$("#state-list").html(data);
+		$("#mainselection").html(data);
 		}});
 
 		}
@@ -159,27 +163,27 @@ function getData(val)
 <!-- ajax PART2 done here-->
 
 <!-- MULTIPLE SEARCH PART 1 -->
+<!--<div id="divfilters"  name="divfilters" >-->
 
 <form action="index.php" method="get">
-<div style="float:right;margin-right:700px;">
-<label>:נתון </label>
-<select id="state-list"   name="valueToSearch">
+<!--<div style="float:right;margin-right:700px;">-->
+<select id="mainselection"   name="valueToSearch" class="finspecific"  dir="rtl">
 <option value="0">נתון</option> 
 </select>
-<label>:חפש לפי </label>
-<select id ="country-list"  name="titleToSearch" onChange="getData(this.value);">
+<select id ="mainselection" class="findbypos"  name="titleToSearch" onChange="getData(this.value);"  dir="rtl">
 <option value="0">חיפוש לפי</option>
-<option value="1">כיתת לימוד</option>
-<option value="2">סוג פעילות</option>
+<option value="1">מרכזים</option>
+<option value="2">כיתות לימוד</option>
 </select>
-</form>	
 <br>
-<div style="float:right; padding-right:100px;">
-<button value="submit">סנן</button>
-<input type="button" value="נקה סינון" onclick="location.href = 'http://localhost/adam_project/fullcalendar/';">
+<br>
+<button value="submit" class="filter" id="find">חפש</button>
+</div>
+<input type="button" class="unfilter" value="נקה סינון" id="clearfind" onclick="location.href = 'http://localhost/adam_project/Fullcalendar/';">
 </div>
  <!-- MULTIPLE SEARCH PART 1 done here-->
 </div>
+</form>	
 
   <!-- FILTER DONE -->
  
@@ -190,7 +194,7 @@ function getData(val)
 
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h1>מערכת שיבוץ שיעורים</h1>
+                <h2>מערכת שיבוץ שיעורים</h2>
                <p class="lead"></p>
                 <div id="calendar" class="col-centered">
                 </div>
@@ -220,7 +224,7 @@ function getData(val)
 						<div class="form-group">
 					<label for="centerid" class="col-sm-2 control-label">מרכז</label>
 					<div class="col-sm-10">
-					  <select id="centerId" class="form-control"  name="centerId">
+					  <select id="centerId" class="form-control"  name="centerId" dir="rtl">
 						             					<?php
 							$mysqlserver="localhost";
  							$mysqlusername="root";
@@ -275,7 +279,7 @@ function getData(val)
 					<div class="form-group">
 					<label for="location" class="col-sm-2 control-label">כיתת לימוד</label>
 					<div class="col-sm-10">
-					  <select id="locationId" class="form-control"  name="locationId">
+					  <select id="locationId" class="form-control"  name="locationId" dir="rtl">
 						<?php
 							$mysqlserver="localhost";
  							$mysqlusername="root";
@@ -302,7 +306,7 @@ function getData(val)
 					<div class="form-group">
 					<label for="teacherId" class="col-sm-2 control-label">מורה</label>
 					<div class="col-sm-10">
-					  <select id="teacherId" class="form-control"  name="teacherId">
+					  <select id="teacherId" class="form-control"  name="teacherId" dir="rtl">
 						<?php
 							$mysqlserver="localhost";
  							$mysqlusername="root";
@@ -358,9 +362,9 @@ function getData(val)
 
 					<!--//////////////////////////////////-->
 				  <div class="form-group">
-					<label for="color" class="col-sm-2 control-label">Color</label>
+					<label for="color" class="col-sm-2 control-label">צבע</label>
 					<div class="col-sm-10">
-					  <select name="color" class="form-control" id="color">
+					  <select name="color" class="form-control" id="color" dir="rtl">
 						  <option value="">Choose</option>
 						  <option style="color:#0071c5;" value="#0071c5">&#9724; כחול כהה</option>
 						  <option style="color:#40E0D0;" value="#40E0D0">&#9724; טורקיז</option>
@@ -392,7 +396,7 @@ function getData(val)
 				<label for="comment" class="col-sm-2 control-label">מספר שבועות</label>		
 				          	<div class="col-sm-10">
 		
-					  <input type="date" name="quantity" class="form-control" id="end">
+					  <input type="date" name="quantity" class="form-control" id="end" >
 					</div>
 				  </div>
 				
@@ -422,7 +426,7 @@ function getData(val)
 				  <div class="form-group">
 					<label for="locationId" class="col-sm-2 control-label">כיתת לימוד</label>
 					<div class="col-sm-10">
-					  <select id="locationId" class="form-control"  name="locationId">
+					  <select id="locationId" class="form-control"  name="locationId" dir="rtl">
 						<?php
             
             $mysqlserver="localhost";
@@ -454,7 +458,7 @@ function getData(val)
 				  <div class="form-group">
 					<label for="centerid" class="col-sm-2 control-label">מרכז</label>
 					<div class="col-sm-10">
-					  <select id="centerId" class="form-control"  name="centerId">
+					  <select id="centerId" class="form-control"  name="centerId" dir="rtl">
 						<?php
             
             $mysqlserver="localhost";
@@ -487,7 +491,7 @@ function getData(val)
 					<div class="form-group">
 					<label for="teacherId" class="col-sm-2 control-label">מורה מלמד</label>
 					<div class="col-sm-10">
-					  <select id="teacherId" class="form-control"  name="teacherId">
+					  <select id="teacherId" class="form-control"  name="teacherId" dir="rtl">
 						<?php
             
             	
@@ -518,7 +522,7 @@ function getData(val)
 					<div class="form-group">
 					<label for="courseId" class="col-sm-2 control-label">מקצוע לימוד</label>
 					<div class="col-sm-10">
-					  <select id="courseId" class="form-control"  name="courseId">
+					  <select id="courseId" class="form-control"  name="courseId" dir="rtl">
 						<?php
             
             	
@@ -557,7 +561,7 @@ function getData(val)
 					<div class="form-group">
 					<label for="student" class="col-sm-2 control-label">תלמידים</label>
 					<div class="col-sm-10">
-					<select class="multipleSelect" name="student_known[]" multiple name="language" id="userNumber">
+					<select class="multipleSelect" name="student_known[]" multiple name="language" id="userNumber" >
 					<?php
 									
 							$result = mysql_query("SELECT id, name FROM student");	
@@ -576,7 +580,7 @@ function getData(val)
 				  <div class="form-group">
 					<label for="color" class="col-sm-2 control-label">צבע</label>
 					<div class="col-sm-10">
-					  <select name="color" class="form-control" id="color">
+					  <select name="color" class="form-control" id="color" dir="rtl">
 						  <option value="">Choose</option>
 						  <option style="color:#0071c5;" value="#0071c5">&#9724; כחול כהה</option>
 						  <option style="color:#40E0D0;" value="#40E0D0">&#9724; טורקיז</option>
@@ -607,10 +611,10 @@ function getData(val)
 				  </div>
 
 
-						<div class="form-group"> 
-						<div class="col-sm-offset-2 col-sm-10">
-						  <div class="checkbox">
-							<label class="text-danger"><input type="checkbox" id="home"  name="updateAll" ><p style="color:green;">עדכון כל פעיליוית מסוג זה</p></label>
+						<div class="form-group" > 
+						<div class="col-sm-offset-2 col-sm-10" >
+						  <div class="checkbox"  >
+							<label class="text-danger"><input type="checkbox" id="home"   name="updateAll" ><p style="color:green;"  >עדכון כל פעיליוית מסוג זה</p></label>
 						  </div>
 						</div>
 					</div>
