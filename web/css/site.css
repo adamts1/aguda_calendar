@@ -113,4 +113,174 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+/*****Header *******/
 
+
+/***** Site index *****/
+.site-index{
+    width: 100%;
+    height:100%;
+}
+.site-index .site-index-header{
+    text-align: center;
+    padding-bottom: 20px;
+
+}
+.site-index .site-index-header h1 {
+    color: #00bfff;
+    font-size: 46px;
+}
+.body-content {
+    opacity: 0.8;
+}
+.site-index .header-img{
+    background-image: url(/a_p/web/images/HomePageBackground.jpg);
+    background-size: cover;
+    height: 300px;
+
+}
+.site-index .header-img button{
+    height: 100px;
+    width: 250px;
+    opacity: 0.8;
+    font-size:20px;
+    color: lightseagreen;
+    font-weight: bold;
+}
+.header-button-index {
+    padding-top: 9%;
+    padding-left: 109px;
+    padding-right: 174px;
+}
+.site-index .jumbotron.centered{
+   
+    background-size: cover;
+}
+/****** Header *******/
+.nav{
+    padding-top: 5px;
+}
+.navbar-inverse{
+    background-color:transparent;
+}
+.navbar-brand{
+    background-image: url(/a_p/web/images/Logo-80.png);
+    width: 80px;
+    background-size: cover;
+}
+.collapse.navbar-collapse>ul>li>a{
+    color:#444444;
+    font-size: 15PX;
+    
+}
+.collapse.navbar-collapse>ul>li>form button{
+    color:#444444;
+    font-size: 15PX;
+}
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus{
+    color:#444444;
+    background-color: transparent;
+}
+.collapse.navbar-collapse ul li a:hover{
+    color:#444444;
+     text-decoration: underline;
+     font-weight: bold;
+}
+.collapse.navbar-collapse ul li form button:hover{
+    color:#444444;
+     text-decoration: underline;
+     font-weight: bold;
+}
+.navbar-inverse.navbar-fixed-top.navbar .navbar-header .navbar-toggle a.navbar-brand:hover{
+    color:#444444;
+    text-decoration: underline;
+    font-weight: bold;
+}
+.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus{
+    color:#444444;
+     text-decoration: underline;
+     font-weight: bold;
+}
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus{
+    font-weight: bold;
+}
+.navbar-inverse .navbar-brand{
+    color:#444444;
+}
+.navbar-inverse{
+    border-color:white;
+    background-color: white;
+
+}
+/****** LOG IN *******/
+.site-login{
+    padding-right: 30%;
+    padding-left: 30%;
+}
+.site-login h1{
+    text-align: center;
+}
+.site-login p{
+    text-align: center;
+}
+.site-login #login-form{
+    padding-left: 15%;
+    padding-right: 15%;
+}
+.form-horizontal .form-group {
+    margin-right: 0px;
+    margin-left: 0px;
+}
+#login-form .form-group button{
+    width: 100px;
+}
+#login-form{
+    BACKGROUND-COLOR: #f1f3f3;
+    PADDING-TOP: 22PX;
+    PADDING-BOTTOM: 22PX;
+    border-radius: 25px;
+}
+/*.site-login .login-form-space h1{
+    text-align: center;
+}
+.site-login .login-form-space p{
+     text-align: center;
+}
+#login-form{
+    padding-left: 30%;
+    padding-right: 30%;
+    padding-top:20px;
+}
+.form-horizontal .form-group{
+    margin-right: 0px;
+    margin-left: 0px;
+}
+.form-group>div{
+    /*DISPLAY: INLINE-BLOCK;
+    WIDTH: 80%;
+    PADDING-RIGHT: 7%;*/
+/*}
+.form-group.field-loginform-rememberme>div{
+    PADDING-RIGHT: 0;
+}
+.form-group .form-button-login .btn.btn-primary{
+    margin-right: 42%;
+}*/
+/******** Teacher index *********/
+.teacher-index{
+    width: 80%;
+    float: left;
+}
+.button-action-list{
+    display: inline-block;
+    padding-top: 29px;
+    width: 100%;
+}
+.button-action-list a{
+    width: 100%;
+}
+/****** LAYOUT INDEX *******/
+
+ .col-md-10 .grid-view{
+     padding-top: 4px;
+ }

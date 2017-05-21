@@ -28,7 +28,7 @@ AppAsset::register($this);
     <?php
     NavBar::begin([
         //Html::img('/images/Logo-80.png')
-        'brandLabel' => 'אגודה לקידום החינוך',
+        'brandLabel' =>'',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
@@ -37,15 +37,15 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Group', 'url' => ['/group']],
-            ['label' => 'Course', 'url' => ['/course']],
-            ['label' => 'Teacher', 'url' => ['/teacher']],
-            ['label' => 'Location', 'url' => ['/location']],
-            ['label' => 'Center', 'url' => ['/center']],
-            ['label' => 'Event', 'url' => ['/event']],
-            ['label' => 'Supervisor', 'url' => ['/supervisor']],
-            ['label' => 'Funding Source', 'url' => ['/funding-source']],
+           /* ['label' => 'Home', 'url' => ['/site/index']],*/
+            ['label' => 'קבוצות', 'url' => ['/group']],
+            ['label' => 'קורסים', 'url' => ['/course']],
+            ['label' => 'מורים', 'url' => ['/teacher']],
+            ['label' => 'כיתות', 'url' => ['/location']],
+            ['label' => 'מרכזים', 'url' => ['/center']],
+            ['label' => 'אירועים', 'url' => ['/event']],
+            ['label' => 'רכזים', 'url' => ['/supervisor']],
+            ['label' => 'מקור מימון', 'url' => ['/funding-source']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (

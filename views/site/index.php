@@ -5,48 +5,29 @@
 $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
-
-    <div class="jumbotron centered">
-        <h1>אגודה לקידום החינוך</h1>
-
-        <p class="lead"></p>
-        <img src="http://www.kidum-edu.org.il/wp-content/uploads/2016/08/lr-5243.jpg" class="img-site-homepage img-responsive"></img>
+    <div class="site-index-header"><h1>אגודה לקידום החינוך</h1></div>
+    <div class="header-img">
+        <div class="header-button-index">
+            <a href="/a_p/web/teacher">
+                <button type="button" class="btn" >מנהל</button>     
+            </a>
+            <a href="/a_p/web/supervisor">            
+                <button type="button" class="btn">רכז</button>
+            </a>
+            <a href="/a_p/web/teacher">
+                <button type="button" class="btn">מורה</button>
+            </a>
+        </div>
     </div>
 
+
+    <!--<div class="jumbotron centered">
+        <p class="lead"></p>
+    </div>-->
+
     <div class="body-content">
+      <!--  <img src="http://www.kidum-edu.org.il/wp-content/uploads/2016/08/lr-5243.jpg" class="img-site-homepage img-responsive"></img>-->
 
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
-        </div>
 
     </div>
 </div>

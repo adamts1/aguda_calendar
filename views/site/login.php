@@ -7,20 +7,20 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Login';
+$this->title = 'התחברות';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to login:</p>
+    <p>נא למלא את השדות הבאים כדי להתחבר :</p>
 
     <?php $form = ActiveForm::begin([
         'id' => 'login-form',
         'layout' => 'horizontal',
         'fieldConfig' => [
-            'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
-            'labelOptions' => ['class' => 'col-lg-1 control-label'],
+            'template' => "{label}\n<div class=\"\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
+            'labelOptions' => ['class' => 'control-label'],
         ],
     ]); ?>
 
@@ -30,27 +30,30 @@ $this->params['breadcrumbs'][] = $this->title;
         <!-----------------------------------------   Show password   --------------------->
 		<?= $form->field($model, 'password')->passwordInput() ?> &nbsp;
 		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  <!------- space ---> 
-		<?= Html::checkbox('reveal-password', false, ['id' => 'reveal-password']) ?> <?= Html::label('Show password', 'reveal-password') ?>
-		<br>
-		<?php 
-		$this->registerJs("jQuery('#reveal-password').change(function(){jQuery('#loginform-password').attr('type',this.checked?'text':'password');})");
-		?>
+		<div class="checkbox-1">
+            <?= Html::checkbox('reveal-password', false, ['id' => 'reveal-password']) ?> <?= Html::label('ראה סיסמא', 'reveal-password') ?>
+            <br>
+            <?php 
+            $this->registerJs("jQuery('#reveal-password').change(function(){jQuery('#loginform-password').attr('type',this.checked?'text':'password');})");
+            ?>
+        </div>
 		<!--------------------------------------------------------------------------------->		
-
-        <?= $form->field($model, 'rememberMe')->checkbox([
-            'template' => "<div class=\"col-lg-offset-1 col-lg-3\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
-        ]) ?>
+        <div class="checkbox-1">
+            <?= $form->field($model, 'rememberMe')->checkbox([
+                'template' => "<div class=\"\">{input} {label}</div>\n<div class=\"\">{error}</div>",
+                'label'=>"<b>זכור אותי</b>",
+            ]) ?>
+        </div>
 
         <div class="form-group">
-            <div class="col-lg-offset-1 col-lg-11">
-                <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+            <div class="col-lg-offset-3 col-lg-9">
+                <?= Html::submitButton('התחברות', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
             </div>
         </div>
 
     <?php ActiveForm::end(); ?>
 
     <div class="col-lg-offset-1" style="color:#999;">
-        You may login with <strong>admin/admin</strong> or <strong>demo/demo</strong>.<br>
-        To modify the username/password, please check out the code <code>app\models\User::$users</code>.
+        
     </div>
 </div>

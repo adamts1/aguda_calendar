@@ -7,17 +7,29 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\TeacherSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Teachers';
+$this->title = 'מורים';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="teacher-index">
+<div class="right-list col-md-2">
+    <div class="button-action-list">
+        <?= Html::a('הוספת מורה', ['create'], ['class' => 'btn btn-success']) ?>
+    </div>
+    <div class="btn-group-vertical button-action-list" role="group" aria-label="...">
+    <?= Html::a('קבוצות', ['/group'], ['class' => 'btn btn-info']) ?>
+    <?= Html::a('קורסים', ['/course'], ['class' => 'btn btn-info']) ?>
+    <?= Html::a('מורים', ['/teacher'], ['class' => 'btn btn-info']) ?>
+    <?= Html::a('כיתות', ['/location'], ['class' => 'btn btn-info']) ?>
+    <?= Html::a('מרכזים', ['/center'], ['class' => 'btn btn-info']) ?>
+    <?= Html::a('אירועים', ['/event'], ['class' => 'btn btn-info']) ?>
+    <?= Html::a('סטודנטים', ['/student'], ['class' => 'btn btn-info']) ?>
+    <?= Html::a('מקור מימון', ['/funding-source'], ['class' => 'btn btn-info']) ?>
+    </div>
+</div>
+<div class="col-md-10">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a('Create Teacher', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     
 
@@ -87,4 +99,5 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+</div>
 </div>
