@@ -43,11 +43,17 @@ class StudentSearch extends Student
     {
         $query = Student::find();
 
-        // add conditions that should always apply here
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+    // provide only students according to user connected
+            $dataProvider = new ActiveDataProvider([
+              'query' => Student::find()
+           ->join('JOIN','center','student.centerid=center.id')
+           ->join('JOIN','supervisor','center.id=supervisor.centerId')
+           ->where(['supervisor.id' => Yii::$app->user->identity->id])
+
         ]);
+               
+        
 
         $this->load($params);
 

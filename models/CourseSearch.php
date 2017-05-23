@@ -45,11 +45,7 @@ class CourseSearch extends Course
     {
         $query = Course::find();
 
-        // add conditions that should always apply here
-
-        // $dataProvider = new ActiveDataProvider([
-        //     'query' => $query,
-        // ]);
+       
         
         /////////// query that provide only courses of conected teacher 
 

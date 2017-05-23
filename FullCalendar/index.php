@@ -179,7 +179,7 @@ function getData(val)
 <br>
 <button value="submit" class="filter" id="find">חפש</button>
 </div>
-<input type="button" class="unfilter" value="נקה סינון" id="clearfind" onclick="location.href = 'http://localhost/adam_project/Fullcalendar/';">
+<input type="button" class="unfilter" value="נקה סינון" id="clearfind" onclick="location.href = 'http://localhost/a_p/Fullcalendar/';">
 </div>
  <!-- MULTIPLE SEARCH PART 1 done here-->
 </div>

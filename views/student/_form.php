@@ -12,9 +12,11 @@ use app\models\Center;
 <div class="student-form">
 
     <?php $form = ActiveForm::begin(); ?>
+  <?php if (Yii::$app->user->can('createSchoolDir'))
+   { ?>
 
-    <?= $form->field($model, 'centerid')->dropDownList(Center::getCenter()) ?>
-
+    <?= $form->field($model, 'centerid')->dropDownList(Center::getCenter()) ?>  
+  <?php }?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 

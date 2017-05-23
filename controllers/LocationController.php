@@ -20,24 +20,6 @@ class LocationController extends Controller
     public function behaviors()
     {
         return [
-
-              'access' => [
-            'class' => \yii\filters\AccessControl::className(),  //due to aloww crud only if connected
-            'only' => ['create', 'update', 'index'],
-            'rules' => [
-                // deny all POST requests
-                [
-                    'allow' => true,
-                    'verbs' => ['POST']
-                ],
-                // allow authenticated users
-                [
-                    'allow' => true,
-                    'roles' => ['@'],
-                ],
-                // everything else is denied
-            ],
-        ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -84,6 +66,15 @@ class LocationController extends Controller
         $model = new Location();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            
+              $model->centerid = (new \yii\db\Query()) //insert centerid according to supervisor connect
+               ->select(['centerId'])
+               ->from('supervisor')
+               ->where(['id'=> Yii::$app->user->identity->id ])->scalar();
+               $model->save();
+
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [

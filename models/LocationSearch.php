@@ -8,7 +8,7 @@ use yii\data\ActiveDataProvider;
 use app\models\Location;
 
 /**
- * LocationSearch represents the model behind the search form about `app\models\Location`.
+ * LocationSearch represents the model behind the search form of `app\models\Location`.
  */
 class LocationSearch extends Location
 {
@@ -18,7 +18,7 @@ class LocationSearch extends Location
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id', 'centerid'], 'integer'],
             [['name'], 'safe'],
         ];
     }
@@ -43,10 +43,13 @@ class LocationSearch extends Location
     {
         $query = Location::find();
 
-        // add conditions that should always apply here
+   /////////// query that provide only location of conected user
+           $dataProvider = new ActiveDataProvider([
+              'query' => Location::find()
+           ->join('JOIN','center','location.centerid=center.id')
+           ->join('JOIN','supervisor','center.id=supervisor.centerId')
+           ->where(['supervisor.id' => Yii::$app->user->identity->id])
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
         ]);
 
         $this->load($params);
@@ -60,6 +63,7 @@ class LocationSearch extends Location
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'centerid' => $this->centerid,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name]);
