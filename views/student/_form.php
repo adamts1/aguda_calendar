@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use app\models\Center;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Student */
@@ -12,11 +11,6 @@ use app\models\Center;
 <div class="student-form">
 
     <?php $form = ActiveForm::begin(); ?>
-  <?php if (Yii::$app->user->can('createSchoolDir'))
-   { ?>
-
-    <?= $form->field($model, 'centerid')->dropDownList(Center::getCenter()) ?>  
-  <?php }?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
@@ -24,8 +18,12 @@ use app\models\Center;
 
     <?= $form->field($model, 'grade')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'notes')->textInput(['maxlength' => true]) ?>
+
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

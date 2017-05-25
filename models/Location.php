@@ -45,7 +45,7 @@ class Location extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'שם',
             'centerid' => 'Centerid',
         ];
     }

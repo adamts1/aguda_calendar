@@ -2,10 +2,6 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use miloschuman\highcharts\Highmaps;
-use yii\web\JsExpression;
-
-
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Student */
@@ -32,17 +28,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'centerid',
+            
             'name',
             'lastname',
             'grade',
+            'phone',
+            'notes',
         ],
     ]) ?>
-
-    
-
-
-   
 
 </div>

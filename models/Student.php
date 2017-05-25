@@ -3,23 +3,29 @@
 namespace app\models;
 
 use Yii;
-use yii\helpers\ArrayHelper;
-use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "student".
  *
- * @property integer $id
- * @property integer $centerid
+ * @property int $id
+ * @property int $centerid
  * @property string $name
  * @property string $lastname
  * @property string $grade
+ * @property string $phone
+ * @property string $notes
  *
  * @property GroupStudent[] $groupStudents
+ * @property Group[] $groups
  * @property Presence[] $presences
+ * @property Event[] $events
  * @property Center $center
  * @property StudentCourse[] $studentCourses
+ * @property Course[] $courses
+ * @property StudentEvents[] $studentEvents
+ * @property Events[] $events0
  * @property StudentTeacher[] $studentTeachers
+ * @property Teacher[] $teachers
  */
 class Student extends \yii\db\ActiveRecord
 {
@@ -38,8 +44,7 @@ class Student extends \yii\db\ActiveRecord
     {
         return [
             [['centerid'], 'integer'],
-         
-            [['name', 'lastname', 'grade'], 'string', 'max' => 255],
+            [['name', 'lastname', 'grade', 'phone', 'notes'], 'string', 'max' => 255],
             [['centerid'], 'exist', 'skipOnError' => true, 'targetClass' => Center::className(), 'targetAttribute' => ['centerid' => 'id']],
         ];
     }
@@ -55,7 +60,8 @@ class Student extends \yii\db\ActiveRecord
             'name' => 'שם',
             'lastname' => 'שם משפחה',
             'grade' => 'כיתה',
-      
+            'phone' => 'טלפון ליצירת קשר',
+            'notes' => 'הערות',
         ];
     }
 
@@ -70,9 +76,25 @@ class Student extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getGroups()
+    {
+        return $this->hasMany(Group::className(), ['id' => 'groupid'])->viaTable('group_student', ['studentid' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getPresences()
     {
         return $this->hasMany(Presence::className(), ['studentid' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEvents()
+    {
+        return $this->hasMany(Event::className(), ['id' => 'eventid'])->viaTable('presence', ['studentid' => 'id']);
     }
 
     /**
@@ -94,12 +116,44 @@ class Student extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getCourses()
+    {
+        return $this->hasMany(Course::className(), ['id' => 'courseid'])->viaTable('student_course', ['studentid' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getStudentEvents()
+    {
+        return $this->hasMany(StudentEvents::className(), ['studentid' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEvents0()
+    {
+        return $this->hasMany(Events::className(), ['id' => 'eventsid'])->viaTable('student_events', ['studentid' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getStudentTeachers()
     {
         return $this->hasMany(StudentTeacher::className(), ['studentid' => 'id']);
     }
 
-    public static function getStudentForGroup()  // return the name of the course using for dropdown 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTeachers()
+    {
+        return $this->hasMany(Teacher::className(), ['id' => 'teacherid'])->viaTable('student_teacher', ['studentid' => 'id']);
+    }
+
+      public static function getStudentForGroup()  // return the name of the course using for dropdown 
 	{
 		$allStudentForGroup = self::find()->all();
 		$allStudentForGroupArray = ArrayHelper::
@@ -111,5 +165,4 @@ class Student extends \yii\db\ActiveRecord
     {
         return $this->name.' '.$this->lastname;
     }
-     
 }
