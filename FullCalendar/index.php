@@ -561,7 +561,7 @@ function getData(val)
 					<div class="form-group">
 					<label for="student" class="col-sm-2 control-label">תלמידים</label>
 					<div class="col-sm-10">
-					<select class="multipleSelect" name="student_known[]" multiple name="language" id="userNumber" >
+					<select class="multipleSelect" name="students_known[]" multiple name="language" id="userNumber" >
 					<?php
 									
 							$result = mysql_query("SELECT id, name FROM student");	
@@ -818,4 +818,4 @@ function getData(val)
 
 </body>
 
-</html> 
+</html>
