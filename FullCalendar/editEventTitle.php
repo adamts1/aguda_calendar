@@ -96,17 +96,17 @@ elseif (isset($_POST['title'])  && isset($_POST['id']) && isset($_POST['location
 		for($test = 0; $test < count($d); $test++)
 		{
 			$studentName=$d[$test];
-			$insertToStudentactivity = "INSERT INTO `student_events`(`studentid`, `eventsid`) VALUES ('$studentName','$id')"; // Insert to studentactivity table
+			$insertToStudentEvent = "INSERT INTO `student_events`(`studentid`, `eventsid`) VALUES ('$studentName','$id')"; // Insert to studentstudent_events table
 			
-			$insertToStudentactivitys = $bdd->prepare( $insertToStudentactivity ); // We must this line to insert values into table!!!!!
-			if ($insertToStudentactivitys == false) {
+			$insertToStudentEvents = $bdd->prepare( $insertToStudentEvent ); // We must this line to insert values into table!!!!!
+			if ($insertToStudentEvents == false) {
 				print_r($bdd->errorInfo());
 				die ('Erreur prepare student_events table');
 			}
 
-			$insertToStudentactivityTable = $insertToStudentactivitys->execute(); // We must this line to insert values into table!!!!!
-			if ($insertToStudentactivityTable == false) {
-				print_r($insertToStudentactivityTable->errorInfo());
+			$insertToStudentEventsTable = $insertToStudentEvents->execute(); // We must this line to insert values into table!!!!!
+			if ($insertToStudentEventsTable == false) {
+				print_r($insertToStudentEventsTable->errorInfo());
 				die ('Erreur execute student_events table');
 			}
 		}
@@ -153,7 +153,7 @@ elseif (isset($_POST['title'])  && isset($_POST['id']) && isset($_POST['location
 		$selects = $bdd->prepare($select); 
 		$selects->execute();
 		$names = $selects->fetch(); // names is 2 arrays and we need to execute them
-		$activityNumberCount =  $names[0]; // This is the first execute
+		$eventsNumberCount =  $names[0]; // This is the first execute
 		
 			// Update users -> delete all users in events and then insert new users
 		$deleteAllStudents = "DELETE FROM `student_events` WHERE student_events.eventsid IN (SELECT eventsid FROM events WHERE groupNumber= $groupNumber AND start > '$start2')";
@@ -175,9 +175,25 @@ elseif (isset($_POST['title'])  && isset($_POST['id']) && isset($_POST['location
 			$e[$i] = (int) $students[$i];
 		}
 
-		for( $j=0; $j<$activityNumberCount; $j++){ // loop for changing activityId and insert to student_events
+		for( $j=0; $j<$eventsNumberCount; $j++){
+			
+			$eventsExistOrNotFlag = true;	// Boolean flag for stay or leave this while loop
+			while($eventsExistOrNotFlag){
+				$resultExistId = "SELECT id FROM events WHERE id='$id'";// We want to check if this eventsId exist or the user delete it
+				$selectsResultExistId = $bdd->prepare($resultExistId); 
+				$selectsResultExistId->execute();
+				$eventsExistOr = $selectsResultExistId->fetch(); // names is 2 arrays and we need to execute them
+				$eventsExistOrNot =  $eventsExistOr[0];
 
-			// Insertion to student_events table
+				if(empty($eventsExistOrNot)){
+					$id++; // If this events dosn't exist -> up the eventsId 1 more
+				}
+				else{
+					$eventsExistOrNotFlag = false; // If this events exist -> exit from this loop
+				}
+			} // End of while loop
+
+
 			for($test = 0; $test < count($e); $test++)
 			{
 				$userName=$e[$test];
@@ -192,7 +208,7 @@ elseif (isset($_POST['title'])  && isset($_POST['id']) && isset($_POST['location
 				$insertToStudentEventTable = $insertToStudentEvents->execute(); // We must this line to insert values into table!!!!!
 				if ($insertToStudentEventTable == false) {
 					print_r($insertToStudentEvents->errorInfo());
-					die ('Erreur execute insert kavua student_events table');
+					die ('Erreur execute insert kavua useravticity table');
 				}
 			
 			}
