@@ -167,28 +167,23 @@ function getData(val)
 
 <form action="index.php" method="get">
 <!--<div style="float:right;margin-right:700px;">-->
-<select id="mainselection"   name="valueToSearch" class="finspecific btn btn-default"  dir="rtl">
+<select id="mainselection"   name="valueToSearch" class="finspecific"  dir="rtl">
 <option value="0">נתון</option> 
 </select>
-<select id ="mainselection" class="findbypos btn btn-default"  name="titleToSearch" onChange="getData(this.value);"  dir="rtl">
+<select id ="mainselection" class="findbypos"  name="titleToSearch" onChange="getData(this.value);"  dir="rtl">
 <option value="0">חיפוש לפי</option>
 <option value="1">מרכזים</option>
 <option value="2">כיתות לימוד</option>
 </select>
 <br>
 <br>
-<button value="submit" class="filter btn btn-default" id="find">חפש</button>
+<button value="submit" class="filter" id="find">חפש</button>
 </div>
-<input type="button" class="unfilter btn btn-default" value="נקה סינון" id="clearfind" onclick="location.href = 'http://localhost/a_p/Fullcalendar/';">
+<input type="button" class="unfilter" value="נקה סינון" id="clearfind" onclick="location.href = 'http://localhost/a_p/Fullcalendar/';">
 </div>
  <!-- MULTIPLE SEARCH PART 1 done here-->
 </div>
 </form>	
-<div class="btn-group" role="group" aria-label="...">
-  <button type="button" class="btn btn-default">Left</button>
-  <button type="button" class="btn btn-default">Middle</button>
-  <button type="button" class="btn btn-default">Right</button>
-</div>
 
   <!-- FILTER DONE -->
  
