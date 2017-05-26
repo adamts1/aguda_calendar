@@ -3,12 +3,18 @@
 try
 {
 	$bdd = new PDO('mysql:host=localhost;dbname=adam_project;charset=utf8', 'root', '');
-}
+  /*
+  foreach ($bdd->query("SELECT * FROM course") as $row) {
+    echo $row['id'];
+  }
+  */
+  }
+
 catch(Exception $e)
 {
         die('Erreur : '.$e->getMessage());
 }
-
+/*
   $mysqlserver="localhost";
   $mysqlusername="root";
   $mysqlpassword="";
@@ -17,3 +23,4 @@ catch(Exception $e)
   mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
   mysql_query("SET NAMES 'utf8'",$link);
 
+*/
