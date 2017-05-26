@@ -8,7 +8,7 @@ use yii\data\ActiveDataProvider;
 use app\models\Student;
 
 /**
- * StudentSearch represents the model behind the search form about `app\models\Student`.
+ * StudentSearch represents the model behind the search form of `app\models\Student`.
  */
 class StudentSearch extends Student
 {
@@ -19,7 +19,7 @@ class StudentSearch extends Student
     {
         return [
             [['id', 'centerid'], 'integer'],
-            [['name', 'lastname', 'grade'], 'safe'],
+            [['name', 'lastname', 'grade', 'phone', 'notes'], 'safe'],
         ];
     }
 
@@ -45,8 +45,12 @@ class StudentSearch extends Student
 
         // add conditions that should always apply here
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+         $dataProvider = new ActiveDataProvider([
+              'query' => Student::find()
+           ->join('JOIN','center','student.centerid=center.id')
+           ->join('JOIN','supervisor','center.id=supervisor.centerId')
+           ->where(['supervisor.id' => Yii::$app->user->identity->id])
+
         ]);
 
         $this->load($params);
@@ -65,7 +69,9 @@ class StudentSearch extends Student
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'lastname', $this->lastname])
-            ->andFilterWhere(['like', 'grade', $this->grade]);
+            ->andFilterWhere(['like', 'grade', $this->grade])
+            ->andFilterWhere(['like', 'phone', $this->phone])
+            ->andFilterWhere(['like', 'notes', $this->notes]);
 
         return $dataProvider;
     }

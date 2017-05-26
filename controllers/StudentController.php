@@ -4,10 +4,13 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Student;
+use app\models\Center;
 use app\models\StudentSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\Supervisor;
+
 
 /**
  * StudentController implements the CRUD actions for Student model.
@@ -64,8 +67,17 @@ class StudentController extends Controller
     public function actionCreate()
     {
         $model = new Student();
+         
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+         $model->centerid = (new \yii\db\Query()) //insert centerid according to supervisor connect
+               ->select(['centerId'])
+               ->from('supervisor')
+               ->where(['id'=> Yii::$app->user->identity->id ])->scalar();
+               $model->save();
+        
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [

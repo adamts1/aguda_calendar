@@ -3,18 +3,18 @@
 namespace app\models;
 
 use Yii;
-use yii\helpers\ArrayHelper;
-use yii\db\ActiveRecord;
-use yii\behaviors\BlameableBehavior;
 
 /**
  * This is the model class for table "location".
  *
- * @property integer $id
+ * @property int $id
  * @property string $name
+ * @property int $centerid
  *
  * @property Event[] $events
+ * @property Events[] $events0
  * @property Group[] $groups
+ * @property Center $center
  */
 class Location extends \yii\db\ActiveRecord
 {
@@ -32,7 +32,9 @@ class Location extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['centerid'], 'integer'],
             [['name'], 'string', 'max' => 255],
+            [['centerid'], 'exist', 'skipOnError' => true, 'targetClass' => Center::className(), 'targetAttribute' => ['centerid' => 'id']],
         ];
     }
 
@@ -43,7 +45,8 @@ class Location extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'שם',
+            'centerid' => 'Centerid',
         ];
     }
 
@@ -58,9 +61,25 @@ class Location extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getEvents0()
+    {
+        return $this->hasMany(Events::className(), ['locationid' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getGroups()
     {
         return $this->hasMany(Group::className(), ['locationid' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCenter()
+    {
+        return $this->hasOne(Center::className(), ['id' => 'centerid']);
     }
 
      public static function getLocation()  // return the name of the location using for dropdown 
