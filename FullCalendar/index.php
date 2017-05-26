@@ -4,9 +4,29 @@ require_once('bdd.php');
 include "connectdb.php";   
 include "connectdb2.php";   
 
+/////////////
+
+$req = $bdd->prepare($sql); // $sql came from value_from_filter.php
+$req->execute();
+$events = $req->fetchAll();
+
+		// The "if" end "else" are for the filter
+// $sqlValueToSearch came from value_from_filter.php
+	if($sqlValueToSearch=="0"){ // In case the user didn't select nothing in the second filter
+		$secondFilterValue = "נתון"; // This variable goes to the filter
+		$chosen = ""; // This variable goes to the filter
+	}
+	else{ // $selectSqlValueToSearch came from value_from_filter.php
+		$selectSqlValueToSearch = $bdd->prepare($sqlValueToSearch);  // In case the user selected something in the second filter
+		$selectSqlValueToSearch->execute();
+		$selectsSqlValueToSearch = $selectSqlValueToSearch->fetch(); 
+		$secondFilterValue =  $selectsSqlValueToSearch[0];
+		$chosen = ""; // This variable goes to the filter	
+	}
 
 
 
+/////////////////////
 function filterTable($sql)
  {
   $connect = mysqli_connect("localhost","root","","adam_project");
@@ -16,10 +36,6 @@ function filterTable($sql)
 
 
 
- $req = $bdd->prepare($sql);
- $req->execute();
-
- $events = $req->fetchAll();
 
 ?>
 
@@ -167,13 +183,15 @@ function getData(val)
 
 <form action="index.php" method="get">
 <!--<div style="float:right;margin-right:700px;">-->
-<select id="mainselection"   name="valueToSearch" class="finspecific"  dir="rtl">
-<option value="0">נתון</option> 
+<select id="mainselection"   name="valueToSearch" class="finspecific"   dir="rtl">
+<!-- $secondFilterValue & chosen declared in the begining of this page	-->
+<option value="0"><?php echo $secondFilterValue ?></option> 
 </select>
 <select id ="mainselection" class="findbypos"  name="titleToSearch" onChange="getData(this.value);"  dir="rtl">
-<option value="0">חיפוש לפי</option>
+	<!-- $firstFilterValue declared in value_from_filter.php	-->
+<option value="0"><?php echo $chosen . "" .$firstFilterValue ?></option> 	
 <option value="1">מרכזים</option>
-<option value="2">כיתות לימוד</option>
+<option value="2">מיקום</option>
 </select>
 <br>
 <br>

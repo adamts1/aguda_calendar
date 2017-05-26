@@ -9,10 +9,10 @@
 
 .findbypos{
 	 position:absolute;
-    left: 80%;
+    left: 85%;
 }
 
-.finspecific{
+.finspecific#mainselection{
 	 position:absolute;
     left:70%;
 }
