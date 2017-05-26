@@ -125,7 +125,9 @@ use yii\bootstrap\Alert;
             'tags' => true,
             'maximumInputLength' => 10
         ],
-    ]); ?>
+    ]);
+    
+     ?>
 
      <?php } ?>
 

@@ -44,6 +44,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label'=>"<b>זכור אותי</b>",
             ]) ?>
         </div>
+        <div class="forgot_pwd">
+            <a href="#forgot_tab" aria-controls="forgot_tab" role="tab" data-toggle="tab"><?= Html::label('שכחת סיסמא ? ', 'reveal-password') ?></a>
+        </div>
 
         <div class="form-group">
             <div class="col-lg-offset-3 col-lg-9">
