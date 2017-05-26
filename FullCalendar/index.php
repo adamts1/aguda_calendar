@@ -734,6 +734,11 @@ function getData(val)
 					$('#ModalEdit #courseid').val(event.courseid);
 					$('#ModalEdit').modal('show');
 				});
+
+          element.find('.fc-title').append("<br/><b>מורה בפעילות: </b>" + event.teacherid + "</br>"); // We can change event.comment to what we want disply
+          element.find('.fc-title').append("<br/><b>הערות: </b>" + event.title + "</br>"); // We can change event.comment to what we want disply
+          element.find('.fc-title').append("<br/><b>מקצועת: </b>" + event.courseid + "</br>"); // We can change event.comment to what we want disply
+
 			},
 			eventDrop: function(event, delta, revertFunc) { // si changement de position
 
