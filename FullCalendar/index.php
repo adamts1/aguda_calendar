@@ -4,19 +4,41 @@ require_once('bdd.php');
 include "connectdb.php";   
 include "connectdb2.php";   
 
-/////////////
+session_start(); // This session is for reading __id session from yii
+if (empty($_SESSION['__id'])) { // If there is no active session
+	$identity= "you nedd to connect with your Password username";
+	$authorizationLevel = "No Authorization!!!";
+}
+else{ // If there is active session
+	$identity = $_SESSION['__id'];
+	$sqlForAuthoriaztion = "SELECT `item_name` FROM `auth_assignment` WHERE `user_id`=$identity";
+	$reqForAuthoriaztion = $bdd->prepare($sqlForAuthoriaztion); // $sql came from value_from_filter.php
+	$reqForAuthoriaztion->execute();
+	$eventsForAuthoriaztion = $reqForAuthoriaztion->fetch();
+	$valueForAuthoriaztion =  $eventsForAuthoriaztion[0];
+	if($valueForAuthoriaztion== "admin"){
+		$authorizationLevel = '1'; // mega supervisor authorization
+	}elseif($valueForAuthoriaztion== "pro"){
+     			$authorizationLevel = '2'; // supervisor full authorization -> CRUD
+	}
+	else{
+		$authorizationLevel = '3'; // teacher -> View Only
+	}
+}
 
-$req = $bdd->prepare($sql); // $sql came from value_from_filter.php
+echo $authorizationLevel;
+
+$req = $bdd->prepare($sql); // $sql came from connectdb2.php
 $req->execute();
 $events = $req->fetchAll();
 
 		// The "if" end "else" are for the filter
-// $sqlValueToSearch came from value_from_filter.php
+// $sqlValueToSearch came from connectdb2.php
 	if($sqlValueToSearch=="0"){ // In case the user didn't select nothing in the second filter
 		$secondFilterValue = "נתון"; // This variable goes to the filter
 		$chosen = ""; // This variable goes to the filter
 	}
-	else{ // $selectSqlValueToSearch came from value_from_filter.php
+	else{ // $selectSqlValueToSearch came from connectdb2.php
 		$selectSqlValueToSearch = $bdd->prepare($sqlValueToSearch);  // In case the user selected something in the second filter
 		$selectSqlValueToSearch->execute();
 		$selectsSqlValueToSearch = $selectSqlValueToSearch->fetch(); 
@@ -26,7 +48,7 @@ $events = $req->fetchAll();
 
 
 
-/////////////////////
+
 function filterTable($sql)
  {
   $connect = mysqli_connect("localhost","root","","adam_project");
@@ -190,7 +212,9 @@ function getData(val)
 <select id ="mainselection" class="findbypos"  name="titleToSearch" onChange="getData(this.value);"  dir="rtl">
 	<!-- $firstFilterValue declared in value_from_filter.php	-->
 <option value="0"><?php echo $chosen . "" .$firstFilterValue ?></option> 	
+<?php if($authorizationLevel == '1') {?>
 <option value="1">מרכזים</option>
+<?php } ?>
 <option value="2">מיקום</option>
 </select>
 <br>
@@ -211,11 +235,19 @@ function getData(val)
   <div class="container">
 
         <div class="row">
+									<?php if($authorizationLevel != '1' && $authorizationLevel != '2'){ //if the user is not sign in -> ALL the fields in filter be disabled and calendar will destroyed
+
+            
+}else{?>
+
+               
             <div class="col-lg-12 text-center">
                 <h2>מערכת שיבוץ שיעורים</h2>
                <p class="lead"></p>
                 <div id="calendar" class="col-centered">
-                </div>
+                </div>   
+<?php } ?>
+
             </div>
 			
         </div>
@@ -728,11 +760,26 @@ function getData(val)
 			defaultView: 'agendaWeek', // Default view is now agendaWeek instead of month. we can allso use agendaDay
 
 			lang: initialLangCode,
-			editable: true,
+		
+
+
 			eventLimit: true, // allow "more" link when too many events
-			selectable: true,
+      minTime: "08:00:00", // Min Time of every day
+      maxTime: "19:00:00", // Max time of every day
+
 			// nowIndicator: true,
 			selectHelper: true,
+	<?php if($authorizationLevel == '1' || $authorizationLevel == '2' ){ //if the user is admin
+			?>
+				editable: true,
+				selectable: true,
+			<?php }
+			else{  // if the user is not admin
+			?>
+				editable: false,
+				selectable: false,
+			<?php }	?>
+			
 			select: function(start, end) {
 				
 				$('#ModalAdd #start').val(moment(start).format('YYYY-MM-DD HH:mm:ss'));
@@ -804,6 +851,19 @@ function getData(val)
 			<?php endforeach; ?>
 			]
 		});
+
+		<?php if($authorizationLevel == '3'){ //if the user is not admin-> ALL the fields in ModalAdd and ModalEdit will be disabled
+			?>
+				//$('#calendar').fullCalendar('destroy'); // In case we want to destroy calendar after he initialized
+				$('#ModalAdd').find('input, textarea, button, select').prop('disabled','disabled');
+				$('#ModalEdit').find('input, textarea, button, select').prop('disabled','disabled');
+			<?php } ?>
+				<?php if($authorizationLevel != '1' && $authorizationLevel != '2' && $authorizationLevel != '3'){ //if the user is not sign in -> ALL the fields in filter be disabled and calendar will destroyed
+			?>
+				//$('#calendar').fullCalendar('destroy'); // In case we want to destroy calendar after he initialized
+				$('#filter').find('input, textarea, button, select').prop('disabled','disabled');
+				$('#calendar').fullCalendar('destroy'); // In case we want to destroy calendar after he initialized
+			<?php } ?>
 
 		function edit(event){
 			start = event.start.format('YYYY-MM-DD HH:mm:ss');
