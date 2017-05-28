@@ -271,7 +271,7 @@ class Teacher extends \yii\db\ActiveRecord
 		return	$role;
     }
 
-    	public static function getRoles()
+    public static function getRoles()
 	{
 		$rolesObjects = Yii::$app->authManager->getRoles();
 		$roles = [];
@@ -280,6 +280,14 @@ class Teacher extends \yii\db\ActiveRecord
 		}
 		return $roles; 	
 	}
+    public static function getAllTeachers()
+    {
+        $allTeachers = (new \yii\db\Query())
+           ->select(['*'])
+           ->from('teacher')
+           ->all();
+		return $allTeachers;	
+    }
 
    
 

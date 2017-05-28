@@ -67,6 +67,12 @@ class UserController extends Controller
         $model = new User();
         //$teacher = new Teacher(); //בדיקה
 
+        if(Yii::$app->request->isAjax && $model->load(Yii::$app->request->post()))
+        {
+            Yii::$app->response->format = 'json';
+            return ActiveForm::validate($model);
+        }
+
         if ($model->load(Yii::$app->request->post()) && $model->save()  ) {
     
             return $this->redirect(['view', 'id' => $model->id]);
@@ -111,6 +117,8 @@ class UserController extends Controller
         return $this->redirect(['index']);
     }
 
+   
+
     /**
      * Finds the User model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -126,4 +134,5 @@ class UserController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
 }

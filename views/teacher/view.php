@@ -234,6 +234,7 @@ $sub = json_encode($sub_data);
         title: {
             text: 'דוח שעות'
         },
+        credits: false,
       
         xAxis: {
             type: 'category',

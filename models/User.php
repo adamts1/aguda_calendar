@@ -33,6 +33,7 @@ namespace app\models;
  */
 class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
+
     /**
      * @inheritdoc
      */
@@ -51,6 +52,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             [['status', 'created_at', 'updated_at', 'created_by', 'updated_by', 'userRole'], 'integer'],
             [['username', 'password', 'auth_key', 'firstname', 'lastname', 'email', 'phone', 'address'], 'string', 'max' => 255],
             [['username', 'password', ], 'required'],
+            ['username', 'unique', 'targetAttribute' => ['username'], 'message' => 'Username must be unique.'],
             [['userRole'], 'exist', 'skipOnError' => true, 'targetClass' => Userrole::className(), 'targetAttribute' => ['userRole' => 'roleId']],
         ];
     }

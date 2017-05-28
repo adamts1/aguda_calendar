@@ -18,12 +18,12 @@
 }
 
 #find{
-	 position:absolute;
+	/* position:absolute;*/
     left:85%;
 }
 
 #clearfind{
-	 position:absolute;
+	/* position:absolute;*/
     left:70%;
 }
 
@@ -47,6 +47,9 @@ background:  #ffffff;
   border: solid #8a8a5c 1px;
   text-decoration: none;
   height: 28px;
+  color: #333;
+  background-color: #d4d4d4;
+  border-color: #8c8c8c;
  
 
 }

@@ -35,12 +35,15 @@ else{
 }
 echo $eventsIdFromSession; // print the activityId from session
 
-if (empty($_SESSION['start'])) { // If there is no start time active session that came from getvalue.php
+
+
+	if (empty($_SESSION['start'])) { // If there is no start time active session that came from getvalue.php
 		$activityStartTimeFromSession = "2000-01-01 00:00:01";
 	}
 	else{
 		$activityStartTimeFromSession = $_SESSION['start']; // If there is start time active session that came from getvalue.php
 	}
+	//echo "The start time is: ". $activityStartTimeFromSession; // print the activity start time from session
 
 	if (empty($_SESSION['end'])) { // If there is no start time active session that came from getvalue.php
 		$activityEndTimeFromSession = "2020-01-01 00:00:02";
@@ -48,9 +51,8 @@ if (empty($_SESSION['start'])) { // If there is no start time active session tha
 	else{
 		$activityEndTimeFromSession = $_SESSION['end']; // If there is start time active session that came from getvalue.php
 	}
-			echo $activityEndTimeFromSession;
-			echo $activityStartTimeFromSession ;
-
+	echo $activityStartTimeFromSession;
+	echo $activityEndTimeFromSession;
 
 ///////////////////////////////
 
@@ -414,14 +416,15 @@ function getData(val)
 					<div class="col-sm-10">
 					<select class="multipleSelect" name="students_known[]" multiple name="language">
 					<?php
-           $allAvailableUsers = mysql_query("SELECT `id`, `name` FROM `student` 
-					 WHERE `id` NOT IN (SELECT DISTINCT S.id FROM student S, student_events SE, events E 
-					 WHERE S.id=SE.studentid AND SE.eventsid = E.id AND SE.eventsid 
-					 IN (SELECT `eventsid` FROM `events` WHERE start <= '$activityStartTimeFromSession' AND end >= '$activityEndTimeFromSession'))");		
-					 $i=0;
-					while($userFromList = mysql_fetch_array($allAvailableUsers)) {
+       	$allAvailableStudents = mysql_query("SELECT `id`, `name` FROM `student`
+				  WHERE `id` NOT IN (SELECT DISTINCT S.id FROM student S, student_events SE, events E 
+					WHERE S.id=SE.studentid AND SE.eventsid = E.id AND SE.eventsid 
+					IN (SELECT `id` FROM `events` WHERE start <= '$activityStartTimeFromSession' 
+					AND end >= '$activityEndTimeFromSession'))");
+					$i=0;
+					while($studentsFromList = mysql_fetch_array($allAvailableStudents)) {
 						?>
-						<option value="<?=$userFromList["id"];?>"><?=$userFromList["name"];?></option>
+						<option value="<?=$studentsFromList["id"];?>"><?=$studentsFromList["name"];?></option>
 						<!-- 	We want to display userName but to send userNumber  -->
 						<?php
 						$i++;
@@ -642,7 +645,7 @@ function getData(val)
 					<select class="multipleSelect" name="students_known[]" multiple name="language" id="studentNumber2" >
 					<?php
 									
-							$result = mysql_query("SELECT `studentid` FROM `student_events` WHERE `eventsid`= '$eventsIdFromSession' ") or die(mysql_error());					
+						 	$result = mysql_query("SELECT `studentid` FROM `student_events` WHERE `eventsid`= '$eventsIdFromSession' ") or die(mysql_error());					
 						// $activityIdFromSession came from the beginning of this page
 								$num_rows = mysql_num_rows($result);
 						   	$students_language = [];
@@ -654,16 +657,23 @@ function getData(val)
 								$i++;
 							} 
 
-					$studentsFromEvents=$students_language;
+					$studentsFromActivity=$students_language;
+					var_dump($studentsFromActivity);
+
 					$allAvailableStudents = mysql_query("SELECT `id`, `name` 
-					FROM `student` WHERE (`id` NOT IN (SELECT DISTINCT S.id FROM student S, student_events SE, events E 
-					WHERE S.id=SE.studentid AND SE.eventsid = E.id AND SE.eventsid 
-					IN (SELECT `id` FROM `events` WHERE start <= '$activityStartTimeFromSession' AND end >= '$activityEndTimeFromSession'))) 
-					OR (`id`IN (SELECT DISTINCT S.id FROM student S, student_events SE, events E 
-					WHERE S.id=SE.studentid AND SE.eventsid = E.id AND SE.eventsid = '$eventsIdFromSession'))");
+					FROM `student` WHERE (`id` NOT IN 
+					(SELECT DISTINCT S.id FROM student S, student_events SE, events E 
+					WHERE S.id=SE.studentid AND SE.eventsid = E.id 
+					AND SE.eventsid IN (SELECT `id` FROM `events` 
+					WHERE start >= '$activityStartTimeFromSession' 
+					AND end <= '$activityEndTimeFromSession'))) 
+					OR (`id` IN (SELECT DISTINCT S.id 
+					FROM student S, student_events SE, events E 
+					WHERE S.id=SE.studentid AND SE.eventsid = E.id 
+					AND SE.eventsid = '$eventsIdFromSession'))");
 					$i=0;
 					while($studentsFromList = mysql_fetch_array($allAvailableStudents )) {
-						if(in_array($studentsFromList["id"],$studentsFromEvents)) 
+						if(in_array($studentsFromList["id"],$studentsFromActivity)) 
 							$str_flag = "selected";
 						else $str_flag="";
 						?>
@@ -834,8 +844,9 @@ function getData(val)
 				selectable: false,
 			<?php }	?>
 			
-			select: function(start, end) {
-					$('#ModalAdd #start').val(moment(start).format('YYYY-MM-DD HH:mm:ss'));
+				select: function(start, end) {
+				
+				$('#ModalAdd #start').val(moment(start).format('YYYY-MM-DD HH:mm:ss'));
 				var start = moment(start).format('YYYY-MM-DD HH:mm:ss'); // new event start time
 						$.ajax({ // send start time to getvalue.php while create new activity
 	  		       type: "POST",
@@ -859,12 +870,8 @@ function getData(val)
 									}
             	});
 
-				
-				
-				$('#ModalAdd #start').val(moment(start).format('YYYY-MM-DD HH:mm:ss'));
-				$('#ModalAdd #end').val(moment(end).format('YYYY-MM-DD HH:mm:ss'));
 				$('#ModalAdd').modal('show');
-			}, //provid the exist value when edut by click
+			},
 			eventRender: function(event, element) {
 				element.bind('dblclick', function() {
 					$('#ModalEdit #id').val(event.id);
@@ -877,11 +884,11 @@ function getData(val)
 					$('#ModalEdit #centerid').val(event.centerid);
 					$('#ModalEdit #courseid').val(event.courseid);
 
-					 	var eventsidajax = event.id; // event activityId
+							var eventsId = event.id; // event activityId
 						 $.ajax({ // send activityId to getvalue.php while edit existing activity
 	  		       type: "POST",
     		        url: 'getvalue.php',
-  	           data: { eventsID : eventsidajax },
+  	           data: { eventsID : eventsId },
     	          success: function(data)
 									{
 											//alert("success!");
@@ -912,7 +919,9 @@ function getData(val)
 					$('#ModalEdit').modal('show');
 				});
 
-          element.find('.fc-title').append("<br/><b>פעילות: </b>" + event.id + "</br>"); // We can change event.comment to what we want disply
+          element.find('.fc-title').append("<br/><b>מורה בפעילות: </b>" + event.teacherid + "</br>"); // We can change event.comment to what we want disply
+          element.find('.fc-title').append("<br/><b>הערות: </b>" + event.title + "</br>"); // We can change event.comment to what we want disply
+          element.find('.fc-title').append("<br/><b>מקצועת: </b>" + event.courseid + "</br>"); // We can change event.comment to what we want disply
 
 			},
 			eventDrop: function(event, delta, revertFunc) { // si changement de position
@@ -952,18 +961,6 @@ function getData(val)
 					teacherid: '<?php echo $event['teacherid']; ?>',
 					groupNumber: '<?php echo $event['groupNumber']; ?>',
 					courseid: '<?php echo $event['courseid']; ?>',
-
-						<?php
-					$id = $event['id']; // Insert the local activityId into variable 
-					
-					$sqli = "SELECT `studentid` FROM `student_events` WHERE `eventsid`= $id "; //
-					$reqi = $bdd->prepare($sqli); // initilazing the query
-					$reqi->execute(); // initilazing the query
-					$eventsi = $reqi->fetchAll(); // initilazing the query and foreach function will output the values
-
-					foreach($eventsi as $eventi): ?>
-					name: '<?php echo $eventi['studentid']; ?>',
-					<?php endforeach; ?>
 
 				
 

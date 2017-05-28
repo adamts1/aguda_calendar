@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\models\Userrole;
+use app\models\User;
 
 
 
@@ -13,9 +14,12 @@ use app\models\Userrole;
 
 <div class="user-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        //'enableAjaxValidation'=>true,
+    ]); ?>
 
-    <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
+    
+    <?= $form->field($model, 'username')->textInput(['maxlength' => true ]) ?>
 
     <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
 
@@ -46,10 +50,8 @@ use app\models\Userrole;
    
     <?= $form->field($model, 'userRole')->dropDownList(Userrole::getAdminstratorUserRole()) ?>
 
- 
-
+   
   
-
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'צור חדש' : 'עדכן', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

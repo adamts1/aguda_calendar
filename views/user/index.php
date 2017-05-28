@@ -11,7 +11,6 @@ $this->title = 'ניהול עובדים';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
-
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
