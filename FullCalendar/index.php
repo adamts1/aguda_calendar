@@ -7,7 +7,7 @@ include "connectdb2.php";
 session_start(); // This session is for reading __id session from yii
 if (empty($_SESSION['__id'])) { // If there is no active session
 	$identity= "you nedd to connect with your Password username";
-	$authorizationLevel = "No Authorization!!!";
+	$authorizationLevel = "0";
 }
 else{ // If there is active session
 	$identity = $_SESSION['__id'];
@@ -28,12 +28,29 @@ else{ // If there is active session
 echo $authorizationLevel;
 //////////setting session into variable if exist ////////////
 if (empty($_SESSION['eventsId'])) { // If there is no active session that came from getvalue.php
-$eventsIdFromSession = "No session";
+$eventsIdFromSession = "0";
 }
 else{
 	$eventsIdFromSession = $_SESSION['eventsId']; // If there is active session that came from getvalue.php
 }
 echo $eventsIdFromSession; // print the activityId from session
+
+if (empty($_SESSION['start'])) { // If there is no start time active session that came from getvalue.php
+		$activityStartTimeFromSession = "2000-01-01 00:00:01";
+	}
+	else{
+		$activityStartTimeFromSession = $_SESSION['start']; // If there is start time active session that came from getvalue.php
+	}
+
+	if (empty($_SESSION['end'])) { // If there is no start time active session that came from getvalue.php
+		$activityEndTimeFromSession = "2020-01-01 00:00:02";
+	}
+	else{
+		$activityEndTimeFromSession = $_SESSION['end']; // If there is start time active session that came from getvalue.php
+	}
+			echo $activityEndTimeFromSession;
+			echo $activityStartTimeFromSession ;
+
 
 ///////////////////////////////
 
@@ -397,15 +414,15 @@ function getData(val)
 					<div class="col-sm-10">
 					<select class="multipleSelect" name="students_known[]" multiple name="language">
 					<?php
-       	$languages_result = mysql_query("SELECT id, name FROM student");
-					$i=0;
-					while($languages_stack = mysql_fetch_array($languages_result)) {
-						if(in_array($users_stack["lang_name"],$users_language)) 
-							$str_flag = "selected";
-						else $str_flag=""; 
+           $allAvailableUsers = mysql_query("SELECT `id`, `name` FROM `student` 
+					 WHERE `id` NOT IN (SELECT DISTINCT S.id FROM student S, student_events SE, events E 
+					 WHERE S.id=SE.studentid AND SE.eventsid = E.id AND SE.eventsid 
+					 IN (SELECT `eventsid` FROM `events` WHERE start <= '$activityStartTimeFromSession' AND end >= '$activityEndTimeFromSession'))");		
+					 $i=0;
+					while($userFromList = mysql_fetch_array($allAvailableUsers)) {
 						?>
-						<option value="<?=$languages_stack["id"];?>" <?php echo $str_flag; ?>><?=$languages_stack["name"];?></option>
-						<!-- 	We want to display nickName but to send studentId  -->
+						<option value="<?=$userFromList["id"];?>"><?=$userFromList["name"];?></option>
+						<!-- 	We want to display userName but to send userNumber  -->
 						<?php
 						$i++;
 					} ?>
@@ -625,7 +642,7 @@ function getData(val)
 					<select class="multipleSelect" name="students_known[]" multiple name="language" id="studentNumber2" >
 					<?php
 									
-						 	$result = mysql_query("SELECT `studentid` FROM `student_events` WHERE `eventsid`= '$eventsIdFromSession' ") or die(mysql_error());					
+							$result = mysql_query("SELECT `studentid` FROM `student_events` WHERE `eventsid`= '$eventsIdFromSession' ") or die(mysql_error());					
 						// $activityIdFromSession came from the beginning of this page
 								$num_rows = mysql_num_rows($result);
 						   	$students_language = [];
@@ -637,13 +654,16 @@ function getData(val)
 								$i++;
 							} 
 
-					$studentsFromActivity=$students_language;
-					var_dump($studentsFromActivity);
-
-					$allStudents = mysql_query("SELECT id, name FROM student");
+					$studentsFromEvents=$students_language;
+					$allAvailableStudents = mysql_query("SELECT `id`, `name` 
+					FROM `student` WHERE (`id` NOT IN (SELECT DISTINCT S.id FROM student S, student_events SE, events E 
+					WHERE S.id=SE.studentid AND SE.eventsid = E.id AND SE.eventsid 
+					IN (SELECT `id` FROM `events` WHERE start <= '$activityStartTimeFromSession' AND end >= '$activityEndTimeFromSession'))) 
+					OR (`id`IN (SELECT DISTINCT S.id FROM student S, student_events SE, events E 
+					WHERE S.id=SE.studentid AND SE.eventsid = E.id AND SE.eventsid = '$eventsIdFromSession'))");
 					$i=0;
-					while($studentsFromList = mysql_fetch_array($allStudents )) {
-						if(in_array($studentsFromList["id"],$studentsFromActivity)) 
+					while($studentsFromList = mysql_fetch_array($allAvailableStudents )) {
+						if(in_array($studentsFromList["id"],$studentsFromEvents)) 
 							$str_flag = "selected";
 						else $str_flag="";
 						?>
@@ -815,6 +835,31 @@ function getData(val)
 			<?php }	?>
 			
 			select: function(start, end) {
+					$('#ModalAdd #start').val(moment(start).format('YYYY-MM-DD HH:mm:ss'));
+				var start = moment(start).format('YYYY-MM-DD HH:mm:ss'); // new event start time
+						$.ajax({ // send start time to getvalue.php while create new activity
+	  		       type: "POST",
+    		        url: 'getvalue.php',
+  	           data: { start : start },
+    	          success: function(data)
+									{
+											//alert("success!");
+									}
+            	});
+
+				$('#ModalAdd #end').val(moment(end).format('YYYY-MM-DD HH:mm:ss'));
+				var end = moment(end).format('YYYY-MM-DD HH:mm:ss'); // new event end time
+						$.ajax({ // send end time to getvalue.php while create new activity
+	  		       type: "POST",
+    		        url: 'getvalue.php',
+  	           data: { end : end },
+    	          success: function(data)
+									{
+											//alert("success!");
+									}
+            	});
+
+				
 				
 				$('#ModalAdd #start').val(moment(start).format('YYYY-MM-DD HH:mm:ss'));
 				$('#ModalAdd #end').val(moment(end).format('YYYY-MM-DD HH:mm:ss'));
@@ -832,22 +877,42 @@ function getData(val)
 					$('#ModalEdit #centerid').val(event.centerid);
 					$('#ModalEdit #courseid').val(event.courseid);
 
-					 var qq = event.id;
-								 $.ajax({
-                    type: "POST",
-                    url: 'getvalue.php',
-                    data: { eventsID : qq },
-                    success: function(data)
-                    {
-                        //alert("success!");
-                    }
-                });
+					 	var eventsidajax = event.id; // event activityId
+						 $.ajax({ // send activityId to getvalue.php while edit existing activity
+	  		       type: "POST",
+    		        url: 'getvalue.php',
+  	           data: { eventsID : eventsidajax },
+    	          success: function(data)
+									{
+											//alert("success!");
+									}
+            	});
+						
+						var start = event.start.format('YYYY-MM-DD HH:mm:ss'); // event start time
+						$.ajax({ // send start time to getvalue.php while edit existing activity
+	  		       type: "POST",
+    		        url: 'getvalue.php',
+  	           data: { start : start },
+    	          success: function(data)
+									{
+											//alert("success!");
+									}
+            	});
+
+							var end = event.end.format('YYYY-MM-DD HH:mm:ss'); // event end time
+						$.ajax({ // send end time to getvalue.php while edit existing activity
+	  		       type: "POST",
+    		        url: 'getvalue.php',
+  	           data: { end : end },
+    	          success: function(data)
+									{
+											//alert("success!");
+									}
+            	});
 					$('#ModalEdit').modal('show');
 				});
 
-          element.find('.fc-title').append("<br/><b>מורה בפעילות: </b>" + event.teacherid + "</br>"); // We can change event.comment to what we want disply
-          element.find('.fc-title').append("<br/><b>הערות: </b>" + event.title + "</br>"); // We can change event.comment to what we want disply
-          element.find('.fc-title').append("<br/><b>מקצועת: </b>" + event.courseid + "</br>"); // We can change event.comment to what we want disply
+          element.find('.fc-title').append("<br/><b>פעילות: </b>" + event.id + "</br>"); // We can change event.comment to what we want disply
 
 			},
 			eventDrop: function(event, delta, revertFunc) { // si changement de position
@@ -888,6 +953,18 @@ function getData(val)
 					groupNumber: '<?php echo $event['groupNumber']; ?>',
 					courseid: '<?php echo $event['courseid']; ?>',
 
+						<?php
+					$id = $event['id']; // Insert the local activityId into variable 
+					
+					$sqli = "SELECT `studentid` FROM `student_events` WHERE `eventsid`= $id "; //
+					$reqi = $bdd->prepare($sqli); // initilazing the query
+					$reqi->execute(); // initilazing the query
+					$eventsi = $reqi->fetchAll(); // initilazing the query and foreach function will output the values
+
+					foreach($eventsi as $eventi): ?>
+					name: '<?php echo $eventi['studentid']; ?>',
+					<?php endforeach; ?>
+
 				
 
 					textColor: 'black', // I added this for black text color instead of white
@@ -903,7 +980,7 @@ function getData(val)
 				$('#ModalAdd').find('input, textarea, button, select').prop('disabled','disabled');
 				$('#ModalEdit').find('input, textarea, button, select').prop('disabled','disabled');
 			<?php } ?>
-				<?php if($authorizationLevel == 'No Authorization!!!' ){ //if the user is not sign in -> ALL the fields in filter be disabled and calendar will destroyed
+				<?php if($authorizationLevel == '0' ){ //if the user is not sign in -> ALL the fields in filter be disabled and calendar will destroyed
 			?>
 				//$('#calendar').fullCalendar('destroy'); // In case we want to destroy calendar after he initialized
 				$('#filter').find('input, textarea, button, select').prop('disabled','disabled');

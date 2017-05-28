@@ -38,7 +38,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+             [   
+                    'attribute'=>'user',
+                    'format'=>'raw',
+                   	'value' => function($model){
+					return  Html::a($model->id0->fullName,['supervisor/view','id'=>$model->id], ['title' => 'View','class'=>'no-pjax']);
+                    }
+            ],
 
             // [
 			// 	'attribute' => 'id',
@@ -63,7 +69,8 @@ $this->params['breadcrumbs'][] = $this->title;
 				//'filter'=>Html::dropDownList('CourseClassSearch[teacherId]', $teacher, $teachers, ['class'=>'form-control']),   //////////////// the arguments are from the controller!
 			],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+            'template' => '{update} {delete}',],
         ],
     ]); ?>
 </div>

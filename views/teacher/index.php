@@ -51,7 +51,15 @@ $this->params['breadcrumbs'][] = $this->title;
     
         
             'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            [   
+                    'attribute'=>'user',
+                    'format'=>'raw',
+                   	'value' => function($model){
+					return  Html::a($model->id0->fullName,['teacher/view','id'=>$model->id], ['title' => 'View','class'=>'no-pjax']);
+                    }
+            ],
+
+            
              
             
 
@@ -101,7 +109,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+            'template' => '{update} {delete}',],
         ],
     ]);
 

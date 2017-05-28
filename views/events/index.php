@@ -9,6 +9,7 @@ use yii\grid\GridView;
 
 // $this->title = 'Events';
 ?>
+
 <div class="events-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -16,7 +17,7 @@ use yii\grid\GridView;
 
     
   <!-- display calendar-->
-    <iframe class="calendar" src="http://localhost/adam_project/fullcalendar"></iframe>
+    <iframe class="calendar" src="http://localhost/a_p/Fullcalendar"></iframe>
 </div>
 </body>
 

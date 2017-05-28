@@ -145,12 +145,14 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php
 
 /////////add conition for filtring by year $submittedValue-%///
-$sql = "SELECT DATE_FORMAT(start, '%Y-%M') as start, SUM(TIMESTAMPDIFF(MINUTE , start ,end)/60) as hours, teacherid   FROM events
+
+$sql = " SELECT DATE_FORMAT(start, '%Y-%M' )  as start , SUM(TIMESTAMPDIFF(MINUTE , start ,end)/60) as hours, teacherid   FROM events
  JOIN teacher ON events.teacherid =teacher.id
  JOIN user ON teacher.id = user.id
  WHERE start LIKE '$submittedValue-%' 
  AND teacherid = '$model->id'
  GROUP BY DATE_FORMAT(start, '%m')";
+ 
 $rawData = yii::$app->db->createCommand($sql)->queryAll();
 $main_data =[];
 foreach ($rawData as $data){
