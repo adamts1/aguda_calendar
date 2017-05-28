@@ -10,6 +10,11 @@ $this->title = 'הוספת מורה';
 $this->params['breadcrumbs'][] = ['label' => 'מורים', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<script src="main.js"></script>
+<script>    
+    console.log('laury');
+</script>
+
 <div class="teacher-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
