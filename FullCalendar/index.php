@@ -4,6 +4,57 @@ require_once('bdd.php');
 include "connectdb.php";   
 include "connectdb2.php";   
 
+session_start(); // This session is for reading __id session from yii
+if (empty($_SESSION['__id'])) { // If there is no active session
+	$identity= "you nedd to connect with your Password username";
+	$authorizationLevel = "No Authorization!!!";
+}
+else{ // If there is active session
+	$identity = $_SESSION['__id'];
+	$sqlForAuthoriaztion = "SELECT `item_name` FROM `auth_assignment` WHERE `user_id`=$identity";
+	$reqForAuthoriaztion = $bdd->prepare($sqlForAuthoriaztion); // $sql came from value_from_filter.php
+	$reqForAuthoriaztion->execute();
+	$eventsForAuthoriaztion = $reqForAuthoriaztion->fetch();
+	$valueForAuthoriaztion =  $eventsForAuthoriaztion[0];
+	if($valueForAuthoriaztion== "admin"){
+		$authorizationLevel = '1'; // mega supervisor authorization
+	}elseif($valueForAuthoriaztion== "pro"){
+     			$authorizationLevel = '2'; // supervisor full authorization -> CRUD
+	}
+	else{
+		$authorizationLevel = '3'; // teacher -> View Only
+	}
+}
+echo $authorizationLevel;
+//////////setting session into variable if exist ////////////
+if (empty($_SESSION['eventsId'])) { // If there is no active session that came from getvalue.php
+$eventsIdFromSession = "No session";
+}
+else{
+	$eventsIdFromSession = $_SESSION['eventsId']; // If there is active session that came from getvalue.php
+}
+echo $eventsIdFromSession; // print the activityId from session
+
+///////////////////////////////
+
+$req = $bdd->prepare($sql); // $sql came from connectdb2.php
+$req->execute();
+$events = $req->fetchAll();
+
+		// The "if" end "else" are for the filter
+// $sqlValueToSearch came from connectdb2.php
+	if($sqlValueToSearch=="0"){ // In case the user didn't select nothing in the second filter
+		$secondFilterValue = "נתון"; // This variable goes to the filter
+		$chosen = ""; // This variable goes to the filter
+	}
+	else{ // $selectSqlValueToSearch came from connectdb2.php
+		$selectSqlValueToSearch = $bdd->prepare($sqlValueToSearch);  // In case the user selected something in the second filter
+		$selectSqlValueToSearch->execute();
+		$selectsSqlValueToSearch = $selectSqlValueToSearch->fetch(); 
+		$secondFilterValue =  $selectsSqlValueToSearch[0];
+		$chosen = ""; // This variable goes to the filter	
+	}
+
 
 
 
@@ -16,10 +67,6 @@ function filterTable($sql)
 
 
 
- $req = $bdd->prepare($sql);
- $req->execute();
-
- $events = $req->fetchAll();
 
 ?>
 
@@ -159,13 +206,17 @@ function getData(val)
 
 <form action="index.php" method="get">
 <!--<div style="float:right;margin-right:700px;">-->
-<select id="mainselection"   name="valueToSearch" class="finspecific"  dir="rtl">
-<option value="0">נתון</option> 
+<select id="mainselection"   name="valueToSearch" class="finspecific"   dir="rtl">
+<!-- $secondFilterValue & chosen declared in the begining of this page	-->
+<option value="0"><?php echo $secondFilterValue ?></option> 
 </select>
 <select id ="mainselection" class="findbypos"  name="titleToSearch" onChange="getData(this.value);"  dir="rtl">
-<option value="0">חיפוש לפי</option>
+	<!-- $firstFilterValue declared in value_from_filter.php	-->
+<option value="0"><?php echo $chosen . "" .$firstFilterValue ?></option> 	
+<?php if($authorizationLevel == '1') {?>
 <option value="1">מרכזים</option>
-<option value="2">כיתות לימוד</option>
+<?php } ?>
+<option value="2">מיקום</option>
 </select>
 <button value="submit" class="filter" id="find">חפש</button>
 </div>
@@ -183,11 +234,19 @@ function getData(val)
   <div class="container">
 
         <div class="row">
+									<?php if($authorizationLevel != '1' && $authorizationLevel != '2' && $authorizationLevel != '3'){ //if the user is not sign in -> ALL the fields in filter be disabled and calendar will destroyed
+
+            
+}else{?>
+
+               
             <div class="col-lg-12 text-center">
                 <h2>מערכת שיבוץ שיעורים</h2>
                <p class="lead"></p>
                 <div id="calendar" class="col-centered">
-                </div>
+                </div>   
+<?php } ?>
+
             </div>
 			
         </div>
@@ -321,15 +380,14 @@ function getData(val)
          	</select>
 					</div>
 				  </div>
-<!--/////////////////////////////////////////////////////////-->
+<!--////////////////////////////teacher-dropdown-end////////////////////////////-->
 				<!--   Create studentactivity Multiple Select - nice bootrsap code (link folders: doc, dist and demo)   -->
 					<div class="form-group">
 					<label for="students" class="col-sm-2 control-label">תלמידים</label>
 					<div class="col-sm-10">
 					<select class="multipleSelect" name="students_known[]" multiple name="language">
 					<?php
-					//$users_language = explode(",",$users["languages_known"]);
-					$languages_result = mysql_query("SELECT id, name FROM student");
+       	$languages_result = mysql_query("SELECT id, name FROM student");
 					$i=0;
 					while($languages_stack = mysql_fetch_array($languages_result)) {
 						if(in_array($users_stack["lang_name"],$users_language)) 
@@ -404,9 +462,12 @@ function getData(val)
 		
 	<!-- edit -->
 		<div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
 		  <div class="modal-dialog" role="document">
+
 			<div class="modal-content">
 			<form class="form-horizontal" method="POST" action="editEventTitle.php">
+
 			  <div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title" id="myModalLabel">עריכת שיבוץ </h4>
@@ -551,20 +612,44 @@ function getData(val)
 					<div class="form-group">
 					<label for="student" class="col-sm-2 control-label">תלמידים</label>
 					<div class="col-sm-10">
-					<select class="multipleSelect" name="students_known[]" multiple name="language" id="userNumber" >
+					<select class="multipleSelect" name="students_known[]" multiple name="language" id="studentNumber2" >
 					<?php
 									
-							$result = mysql_query("SELECT id, name FROM student");	
-							while ($row = mysql_fetch_array($result)) {
-								echo "<option value='" . $row['id'] ."'>" . $row['name'] ."</option>";
-							}
-							?>
+						 	$result = mysql_query("SELECT `studentid` FROM `student_events` WHERE `eventsid`= '$eventsIdFromSession' ") or die(mysql_error());					
+						// $activityIdFromSession came from the beginning of this page
+								$num_rows = mysql_num_rows($result);
+						   	$students_language = [];
+						  	$i=0;
+									while($row = mysql_fetch_assoc($result)) {
+								$students_language[$i] = $row['studentid']; ?>
+								 
+								<?php
+								$i++;
+							} 
+
+					$studentsFromActivity=$students_language;
+					var_dump($studentsFromActivity);
+
+					$allStudents = mysql_query("SELECT id, name FROM student");
+					$i=0;
+					while($studentsFromList = mysql_fetch_array($allStudents )) {
+						if(in_array($studentsFromList["id"],$studentsFromActivity)) 
+							$str_flag = "selected";
+						else $str_flag="";
+						?>
+						<option value="<?=$studentsFromList["id"];?>" <?php echo $str_flag; ?>><?=$studentsFromList["name"];?></option>
+						<!-- 	We want to display userName but to send userNumber  -->
+						<?php
+						$i++;
+					}
+					?>
 					</select>
 						<script>
-							$('.multipleSelect').fastselect(); //script to make nice multiple select
+									$('.multipleSelect').fastselect(); //script code for multiple select
 						</script>
 					</div>
 				  </div>
+			
            
 
 				  <div class="form-group">
@@ -653,11 +738,10 @@ function getData(val)
 				<button type="submit" class="btn btn-primary">Save changes</button>
 			  </div>
 			</form>
-			</div>
-		  </div>
+			</div> 
+		 </div>
 		</div>
-
-    </div>
+  </div>
     <!-- /.container -->
 
     <!-- jQuery Version 1.11.1 -->
@@ -700,11 +784,26 @@ function getData(val)
 			defaultView: 'agendaWeek', // Default view is now agendaWeek instead of month. we can allso use agendaDay
 
 			lang: initialLangCode,
-			editable: true,
+		
+
+
 			eventLimit: true, // allow "more" link when too many events
-			selectable: true,
+      minTime: "08:00:00", // Min Time of every day
+      maxTime: "19:00:00", // Max time of every day
+
 			// nowIndicator: true,
 			selectHelper: true,
+	<?php if($authorizationLevel == '1' || $authorizationLevel == '2' ){ //if the user is admin
+			?>
+				editable: true,
+				selectable: true,
+			<?php }
+			else{  // if the user is not admin
+			?>
+				editable: false,
+				selectable: false,
+			<?php }	?>
+			
 			select: function(start, end) {
 				
 				$('#ModalAdd #start').val(moment(start).format('YYYY-MM-DD HH:mm:ss'));
@@ -722,6 +821,17 @@ function getData(val)
 					$('#ModalEdit #teacherid').val(event.teacherid); 
 					$('#ModalEdit #centerid').val(event.centerid);
 					$('#ModalEdit #courseid').val(event.courseid);
+
+					 var qq = event.id;
+								 $.ajax({
+                    type: "POST",
+                    url: 'getvalue.php',
+                    data: { eventsID : qq },
+                    success: function(data)
+                    {
+                        //alert("success!");
+                    }
+                });
 					$('#ModalEdit').modal('show');
 				});
 
@@ -776,6 +886,19 @@ function getData(val)
 			<?php endforeach; ?>
 			]
 		});
+
+		<?php if($authorizationLevel == '3'){ //if the user is not admin-> ALL the fields in ModalAdd and ModalEdit will be disabled
+			?>
+				//$('#calendar').fullCalendar('destroy'); // In case we want to destroy calendar after he initialized
+				$('#ModalAdd').find('input, textarea, button, select').prop('disabled','disabled');
+				$('#ModalEdit').find('input, textarea, button, select').prop('disabled','disabled');
+			<?php } ?>
+				<?php if($authorizationLevel == 'No Authorization!!!' ){ //if the user is not sign in -> ALL the fields in filter be disabled and calendar will destroyed
+			?>
+				//$('#calendar').fullCalendar('destroy'); // In case we want to destroy calendar after he initialized
+				$('#filter').find('input, textarea, button, select').prop('disabled','disabled');
+				$('#calendar').fullCalendar('destroy'); // In case we want to destroy calendar after he initialized
+			<?php } ?>
 
 		function edit(event){
 			start = event.start.format('YYYY-MM-DD HH:mm:ss');

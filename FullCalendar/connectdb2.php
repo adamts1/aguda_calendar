@@ -2,8 +2,8 @@
 
 	
 
-if(isset($_GET['valueToSearch'])  && $_GET['valueToSearch'] !=0 && $_GET['titleToSearch']) // 0 is in case that the user choose "all options" in filter dropdown 
-	{	
+if(isset($_GET['valueToSearch']) && $_GET['titleToSearch'] && $_GET['valueToSearch'] !=0 && $_GET['titleToSearch'] !=0) // 0 is in case that the user choose "all options" in filter dropdown 
+	{	 // In case the user selected proper filtering
    
 
 
@@ -18,7 +18,8 @@ if(isset($_GET['valueToSearch'])  && $_GET['valueToSearch'] !=0 && $_GET['titleT
        
 		// 1.Filter - here we get the value that user want filering
         $sql = "SELECT id, title, start, end, color, centerid, locationid, teacherid, courseid, groupNumber FROM events WHERE locationid=$valueToSearch";
-		$search_result = filterTable($sql);
+		$firstFilterValue = "מיקום";
+		$sqlValueToSearch = "SELECT `name` FROM `location` WHERE `id`=$valueToSearch";
        }
 
 
@@ -27,7 +28,8 @@ if(isset($_GET['valueToSearch'])  && $_GET['valueToSearch'] !=0 && $_GET['titleT
        
 		 // 1.Filter - here we get the value that user want filering
         $sql = "SELECT id, title, start, end, color, centerid, locationid, teacherid, courseid, groupNumber FROM events WHERE centerid=$valueToSearch";
-		$search_result = filterTable($sql);
+		$firstFilterValue = "מרכז";
+		$sqlValueToSearch = "SELECT `name` FROM `center` WHERE `id`=$valueToSearch";
        }
 
     }
@@ -35,8 +37,8 @@ if(isset($_GET['valueToSearch'])  && $_GET['valueToSearch'] !=0 && $_GET['titleT
 	
 	else{
         $sql = "SELECT id, title, start, end, color, centerid, locationid, teacherid, courseid, groupNumber FROM events";
-		$search_result = filterTable($sql);
-	}
+        $firstFilterValue = "חיפוש לפי";
+		$sqlValueToSearch = "0";	}
 
 
 
