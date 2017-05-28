@@ -67,19 +67,11 @@ function filterTable($sql)
 
     <title>שיבוץ שיעורים</title>
 
-		
-
-
-
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 	
 	<!-- FullCalendar -->
 	  <link href='css/fullcalendar.css' rel='stylesheet' />
-
-
-	
-	
 
     <script>
 
@@ -175,8 +167,6 @@ function getData(val)
 <option value="1">מרכזים</option>
 <option value="2">כיתות לימוד</option>
 </select>
-<br>
-<br>
 <button value="submit" class="filter" id="find">חפש</button>
 </div>
 <input type="button" class="unfilter" value="נקה סינון" id="clearfind" onclick="location.href = 'http://localhost/a_p/Fullcalendar/';">
