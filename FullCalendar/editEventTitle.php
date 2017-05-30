@@ -29,6 +29,8 @@ require_once('bdd.php');
 		$courseId = $_POST['courseId'];
     	$locationId = $_POST['locationId'];	
 	    $groupNumber = $_POST['groupNumber'];	
+		$studentString = $_POST['studentString'];
+
 		
         $sql = "DELETE FROM events WHERE locationid = $locationId AND groupNumber = $groupNumber AND courseId = $courseId AND start > '$start2'";
 		$query = $bdd->prepare( $sql );
@@ -56,6 +58,7 @@ elseif (isset($_POST['title'])  && isset($_POST['id']) && isset($_POST['location
 	$teacherid = $_POST['teacherId'];
 	$courseid = $_POST['courseId'];
 	$students = $_POST['students_known']; 
+	$studentString = $_POST['studentString'];
 
 		
 			// Update events table
@@ -109,10 +112,36 @@ elseif (isset($_POST['title'])  && isset($_POST['id']) && isset($_POST['location
 				print_r($insertToStudentEventsTable->errorInfo());
 				die ('Erreur execute student_events table');
 			}
-		}
-			/// End of update students
-		
 
+			/////// we want query for convert studen id to student name
+			$converIdToName="SELECT `name` FROM `student` WHERE `id`= '$studentName'";
+			$converIdToName1 = $bdd->prepare($converIdToName); 
+			$converIdToName1->execute();
+			$converIdToName2 = $converIdToName1->fetch(); // names is 2 arrays and we need to execute them
+			$converIdToName2 =  $converIdToName2[0];
+			$studentsNamesArray[$test] = $converIdToName2;
+
+		}
+
+		/// convert users names array to string and insert to activity table as a string
+		$studentString = implode(",", $studentsNamesArray); 
+
+		$sql = "UPDATE `events` SET `studentstring`= '$studentString' WHERE `id`= '$id' ";
+		
+		$query = $bdd->prepare( $sql );
+		if ($query == false) {
+			print_r($bdd->errorInfo());
+			die ('Erreur prepare update usersString to activity table');
+		}
+		$sth = $query->execute();
+		if ($sth == false) {
+			print_r($query->errorInfo());
+			die ('Erreur execute update usersString to activity table');
+
+		
+		}	/// End of update students
+		
+		
 	} // End of update one events
 
 	/////////////		update kavua 	/////////////
@@ -132,6 +161,7 @@ elseif (isset($_POST['title'])  && isset($_POST['id']) && isset($_POST['location
 		$startNumber1 = $startNumber1-'9000';
 		$start2 = date("Y-m-d H:i:s",$startNumber1); 
 		$students = $_POST['students_known'];
+		$studentString = $_POST['studentString'];
 		
 
 			// Update events table
@@ -196,8 +226,8 @@ elseif (isset($_POST['title'])  && isset($_POST['id']) && isset($_POST['location
 
 			for($test = 0; $test < count($e); $test++)
 			{
-				$userName=$e[$test];
-				$insertToStudentEvent = "INSERT INTO student_events(eventsid, studentid) VALUES ('$id','$userName') ";
+				$studentName=$e[$test];
+				$insertToStudentEvent = "INSERT INTO student_events(eventsid, studentid) VALUES ('$id','$studentName') ";
 				
 				$insertToStudentEvents = $bdd->prepare( $insertToStudentEvent ); // We must this line to insert values into table!!!!!
 				if ($insertToStudentEvents == false) {
@@ -210,8 +240,34 @@ elseif (isset($_POST['title'])  && isset($_POST['id']) && isset($_POST['location
 					print_r($insertToStudentEvents->errorInfo());
 					die ('Erreur execute insert kavua useravticity table');
 				}
+
+				/////// we want query for convert student id to student name
+			$converIdToName="SELECT `name` FROM `student` WHERE `id`= '$studentName'";
+			$converIdToName1 = $bdd->prepare($converIdToName); 
+			$converIdToName1->execute();
+			$converIdToName2 = $converIdToName1->fetch(); // names is 2 arrays and we need to execute them
+			$converIdToName2 =  $converIdToName2[0];
+			$studentsNamesArray[$test] = $converIdToName2;
 			
 			}
+
+				/// convert users names array to string and insert to activity table as a string
+			$studentString = implode(",", $studentsNamesArray); 
+
+			$sql = "UPDATE `events` SET `studentstring`= '$studentString' WHERE `id`= '$id' ";
+			
+			$query = $bdd->prepare( $sql );
+			if ($query == false) {
+				print_r($bdd->errorInfo());
+				die ('Erreur prepare update kavua usersString to activity table');
+			}
+			$sth = $query->execute();
+			if ($sth == false) {
+				print_r($query->errorInfo());
+				die ('Erreur execute update kavua usersString to activity table');
+			}
+
+
 			$id++; // ++ is for insert to StudentEvent
 		}
 

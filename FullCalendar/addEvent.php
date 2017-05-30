@@ -89,7 +89,35 @@ if (isset($_POST['title']) && isset($_POST['start']) && isset($_POST['end']) && 
 			print_r($insertToStudentactivityTable->errorInfo());
 			die ('Erreur execute studentactivity table');
 		}
-	}
+///////////////
+ /////// we want query for convert userNumber to userName
+			$converIdToName="SELECT `name` FROM `student` WHERE `id`= '$studentName'";
+			$converIdToName1 = $bdd->prepare($converIdToName); 
+			$converIdToName1->execute();
+			$converIdToName2 = $converIdToName1->fetch(); // names is 2 arrays and we need to execute them
+			$converIdToName2 =  $converIdToName2[0];
+			$usersNamesArray[$test] = $converIdToName2;
+		
+		}
+		/// convert users names array to string and insert to activity table as a string
+		$studentString = implode(",", $usersNamesArray); 
+
+		$sql = "UPDATE `events` SET `studentstring`= '$studentString' WHERE `id`= '$eventsNumberInt' ";
+		
+		$query = $bdd->prepare( $sql );
+		if ($query == false) {
+			print_r($bdd->errorInfo());
+			die ('Erreur prepare insert usersString to activity table');
+		}
+		$sth = $query->execute();
+		if ($sth == false) {
+			print_r($query->errorInfo());
+			die ('Erreur execute insert usersString to activity table');
+		}
+
+
+//////////////
+	
 
         $startNumber1 = $startNumber1+60*60*24*7;
 		$start = date("Y-m-d H:i:s",$startNumber1); 

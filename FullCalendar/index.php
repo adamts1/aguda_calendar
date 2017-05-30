@@ -257,11 +257,12 @@ function getData(val)
             
 }else{?>
 
-               
+               <br>
+               <br>
+               <br>
             <div class="col-lg-12 text-center">
-							<br>
-							<br>
-							<br>
+						
+							
                 <h2>מערכת שיבוץ שיעורים</h2>
                <p class="lead"></p>
                 <div id="calendar" class="col-centered"> </div>   
@@ -716,6 +717,13 @@ function getData(val)
 					</div>
 				  </div>
 
+					<div class="form-group">
+					<label for="studentString" class="col-sm-2 control-label"></label>
+					<div class="col-sm-10">
+					  <input type="hidden" name="studentString" class="form-control" id="studentString">
+					</div>
+				  </div>
+
 
 						<div class="form-group" > 
 						<div class="col-sm-offset-2 col-sm-10" >
@@ -724,6 +732,8 @@ function getData(val)
 						  </div>
 						</div>
 					</div>
+
+					
 
 
 
@@ -784,9 +794,8 @@ function getData(val)
 	<!-- FullCalendar -->
 	<script src='js/moment.min.js'></script>
 	<script src='js/fullcalendar.min.js'></script>
-	<script src='js/lang-all.js'></script> 
-	
-	
+  <script src='js/lang-all.js'></script> 	
+	<!--<script src='js/he.js'></script>-->
 	<script>
 
 	$(document).ready(function() {
@@ -811,20 +820,30 @@ function getData(val)
 
 
 
-			defaultDate: d,
 			defaultView: 'agendaWeek', // Default view is now agendaWeek instead of month. we can allso use agendaDay
 
 			lang: initialLangCode,
 			hiddenDays:[6],
 		
-
-
+      
+      navLinks: true, // we can click day/week (only if weekNumbers is true) numbers to navigate to spesific view 
+			// isRTL: true,
+			//businessHours: true, // display business hours // If we want gray background color for sunday and saturday 
 			eventLimit: true, // allow "more" link when too many events
-      minTime: "08:00:00", // Min Time of every day
-      maxTime: "19:00:00", // Max time of every day
+			//weekends: false, // If we don't eant to display Saturday and Sunday
+			hiddenDays: [6], // hide Saturday
+			//fixedWeekCount: true, // False if we want 4.5 - 6 rows of calendar instead of default 6
+			// weekNumbers: true, // If we want to display week numbers 
+			scrollTime: '06:30:00', // The day start at 6:30 instead of 6:00
+			minTime: "06:00:00", // Min Time of every day
+			maxTime: "18:00:00", // Max time of every day
+			displayEventTime : false, // If we want to hide the display of time in every event
+			nowIndicator: true, // display a marker indicating the current time
+			selectHelper: true,
+			
+		
 
 			// nowIndicator: true,
-			selectHelper: true,
 	<?php if($authorizationLevel == '1' || $authorizationLevel == '2' ){ //if the user is admin
 			?>
 				editable: true,
@@ -865,6 +884,7 @@ function getData(val)
 				$('#ModalAdd').modal('show');
 			},
 			eventRender: function(event, element) {
+
 				element.bind('dblclick', function() {
 					$('#ModalEdit #id').val(event.id);
 					$('#ModalEdit #title').val(event.title);
@@ -875,6 +895,7 @@ function getData(val)
 					$('#ModalEdit #teacherid').val(event.teacherid); 
 					$('#ModalEdit #centerid').val(event.centerid);
 					$('#ModalEdit #courseid').val(event.courseid);
+					$('#ModalEdit #studentstring').val(event.studentstring);
 
 							var eventsId = event.id; // event activityId
 						 $.ajax({ // send activityId to getvalue.php while edit existing activity
@@ -914,6 +935,7 @@ function getData(val)
           element.find('.fc-title').append("<br/><b>מורה בפעילות: </b>" + event.teacherid + "</br>"); // We can change event.comment to what we want disply
           element.find('.fc-title').append("<br/><b>הערות: </b>" + event.title + "</br>"); // We can change event.comment to what we want disply
           element.find('.fc-title').append("<br/><b>מקצועת: </b>" + event.courseid + "</br>"); // We can change event.comment to what we want disply
+          element.find('.fc-title').append("<br/><b>תלמידים: </b>" + event.studentstring + "</br>"); // We can change event.comment to what we want disply
 
 			},
 			eventDrop: function(event, delta, revertFunc) { // si changement de position
@@ -953,6 +975,7 @@ function getData(val)
 					teacherid: '<?php echo $event['teacherid']; ?>',
 					groupNumber: '<?php echo $event['groupNumber']; ?>',
 					courseid: '<?php echo $event['courseid']; ?>',
+					studentstring: '<?php echo $event['studentstring']; ?>',
 
 				
 

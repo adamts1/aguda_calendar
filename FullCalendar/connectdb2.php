@@ -17,7 +17,7 @@ if(isset($_GET['valueToSearch']) && $_GET['titleToSearch'] && $_GET['valueToSear
        {
        
 		// 1.Filter - here we get the value that user want filering
-        $sql = "SELECT id, title, start, end, color, centerid, locationid, teacherid, courseid, groupNumber FROM events WHERE locationid=$valueToSearch";
+        $sql = "SELECT id, title, start, end, color, centerid, locationid, teacherid, courseid, groupNumber, studentstring FROM events WHERE locationid=$valueToSearch";
 		$firstFilterValue = "מיקום";
 		$sqlValueToSearch = "SELECT `name` FROM `location` WHERE `id`=$valueToSearch";
        }
@@ -27,7 +27,7 @@ if(isset($_GET['valueToSearch']) && $_GET['titleToSearch'] && $_GET['valueToSear
         {
        
 		 // 1.Filter - here we get the value that user want filering
-        $sql = "SELECT id, title, start, end, color, centerid, locationid, teacherid, courseid, groupNumber FROM events WHERE centerid=$valueToSearch";
+        $sql = "SELECT id, title, start, end, color, centerid, locationid, teacherid, courseid, groupNumber, studentstring FROM events WHERE centerid=$valueToSearch";
 		$firstFilterValue = "מרכז";
 		$sqlValueToSearch = "SELECT `name` FROM `center` WHERE `id`=$valueToSearch";
        }
@@ -36,7 +36,7 @@ if(isset($_GET['valueToSearch']) && $_GET['titleToSearch'] && $_GET['valueToSear
 
 	
 	else{
-        $sql = "SELECT id, title, start, end, color, centerid, locationid, teacherid, courseid, groupNumber FROM events";
+        $sql = "SELECT id, title, start, end, color, centerid, locationid, teacherid, courseid, groupNumber, studentstring FROM events";
         $firstFilterValue = "חיפוש לפי";
 		$sqlValueToSearch = "0";	}
 
