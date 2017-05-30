@@ -5,102 +5,63 @@
  */
 
 /*	Css for filter 	*/
-
-
-.findbypos{
-	 position:absolute;
-    left: 85%;
-}
-
-.finspecific#mainselection{
-	 position:absolute;
-    left:70%;
-}
-
-#find{
-	/* position:absolute;*/
-    left:85%;
-}
-
-#clearfind{
-	/* position:absolute;*/
-    left:70%;
-}
-
 #mainselection { 
-background:  #ffffff;
-  background-image: -webkit-linear-gradient(top,  #ffffff,  #ffffff);
-  background-image: -moz-linear-gradient(top,  #ffffff,  #ffffff);
-  background-image: -ms-linear-gradient(top,  #ffffff,  #ffffff);
-  background-image: -o-linear-gradient(top,  #ffffff,  #ffffff);
-  background-image: linear-gradient(to bottom,  #ffffff,  #ffffff);
-  -webkit-border-radius: 11;
-  -moz-border-radius: 11;
-  border-radius: 5px;
-  -webkit-box-shadow: 0px 1px 3px #666666;
-  -moz-box-shadow: 0px 1px 3px #666666;
-  box-shadow: 0px 1px 3px #666666;
-  font-family: Arial;
-  color: #8a8a5c;
-  font-size: 18px;
-  padding: 0px 26px 1px 26px;
-  border: solid #8a8a5c 1px;
-  text-decoration: none;
-  height: 28px;
-  color: #333;
-  background-color: #d4d4d4;
-  border-color: #8c8c8c;
- 
+    overflow: hidden;
+    width: 150px;
+    -moz-border-radius: 9px 9px 9px 9px;
+    -webkit-border-radius: 9px 9px 9px 9px;
+    border-radius: 9px 9px 9px 9px;
+    /*box-shadow: 1px 1px 11px #330033;*/
+    /*background: no-repeat scroll 319px 5px #dedfe0;*/
 
-}
-.filter#find {
-	height: 28px;
-	border-radius: 5px;
-    color: #333;
-    background-color: #d4d4d4;
-    border-color: #8c8c8c;
-}
-.unfilter#clearfind{
-	height: 28px;
-	border-radius: 5px;
-	color: #333;
-    background-color: #d4d4d4;
-    border-color: #8c8c8c;
-}
+	/* Size and position */
+    position: relative;
+    margin: 0 auto;
+    padding: 7px;
 
+   /* Styles */
+    background: #fff;
+    /*border-radius: 7px;*/
+    border: 1px solid rgba(0,0,0,0.15);
+    box-shadow: 0 1px 1px rgba(50,50,50,0.1);
+    cursor: pointer;
+    outline: none;
+
+    /* Font settings */
+    font-weight: bold;
+    color: #8AA8BD;
+}
 
 /*Css for filter button
 http://css3buttongenerator.com/
 */
 .filter { 
-  background:  #ffffff;
-  background-image: -webkit-linear-gradient(top,  #ffffff,  #ffffff);
-  background-image: -moz-linear-gradient(top,  #ffffff,  #ffffff);
-  background-image: -ms-linear-gradient(top,  #ffffff,  #ffffff);
-  background-image: -o-linear-gradient(top,  #ffffff,  #ffffff);
-  background-image: linear-gradient(to bottom,  #ffffff,  #ffffff);
-  -webkit-border-radius: 40;
-  -moz-border-radius: 40;
-  border-radius: 40px;
+  background: #ffffff;
+  background-image: -webkit-linear-gradient(top, #ffffff, #ffffff);
+  background-image: -moz-linear-gradient(top, #ffffff, #ffffff);
+  background-image: -ms-linear-gradient(top, #ffffff, #ffffff);
+  background-image: -o-linear-gradient(top, #ffffff, #ffffff);
+  background-image: linear-gradient(to bottom, #ffffff, #ffffff);
+  -webkit-border-radius: 18;
+  -moz-border-radius: 18;
+  border-radius: 9px;
+  text-shadow: 0px 0px 0px #666666;
+  /*-webkit-box-shadow: 2px 4px 5px #666666;*/
+  /*-moz-box-shadow: 2px 4px 5px #666666;*/
+  /*box-shadow: 2px 4px 5px #666666;*/
   font-family: Arial;
-  color: #8a8a5c;
-  font-size: 19px;
-  padding: 0px 26px 1px 26px;
-  border: solid #8a8a5c 1px;
-  text-decoration: rtl;
+  color: #8AA8BD;
+  font-size: 18px;
+  padding: 3px 30px 3px 30px;
+  border: solid #8AA8BD 2px;
+  text-decoration: none;
 
-
-  
-  
+  float:right; 
+  margin-right: 10px;
 }
 /*Css for filter button hover*/
 .filter:hover {
-background: #f7f7f7;
-  background-image: -webkit-linear-gradient(top, #f7f7f7, #ccd5db);
-  background-image: -moz-linear-gradient(top, #f7f7f7, #ccd5db);
-  background-image: -ms-linear-gradient(top, #f7f7f7, #ccd5db);
-  background-image: -o-linear-gradient(top, #f7f7f7, #ccd5db);
-  background-image: linear-gradient(to bottom, #f7f7f7, #ccd5db);
+  background: #cae8fc;
   text-decoration: none;
 }
 
@@ -108,31 +69,33 @@ background: #f7f7f7;
 http://css3buttongenerator.com/
 */
 .unfilter { 
-background:  #ffffff;
-  background-image: -webkit-linear-gradient(top,  #ffffff,  #ffffff);
-  background-image: -moz-linear-gradient(top,  #ffffff,  #ffffff);
-  background-image: -ms-linear-gradient(top,  #ffffff,  #ffffff);
-  background-image: -o-linear-gradient(top,  #ffffff,  #ffffff);
-  background-image: linear-gradient(to bottom,  #ffffff,  #ffffff);
-  -webkit-border-radius: 40;
-  -moz-border-radius: 40;
-  border-radius: 40px;
+  background: #ffffff;
+  background-image: -webkit-linear-gradient(top, #ffffff, #ffffff);
+  background-image: -moz-linear-gradient(top, #ffffff, #ffffff);
+  background-image: -ms-linear-gradient(top, #ffffff, #ffffff);
+  background-image: -o-linear-gradient(top, #ffffff, #ffffff);
+  background-image: linear-gradient(to bottom, #ffffff, #ffffff);
+  -webkit-border-radius: 18;
+  -moz-border-radius: 18;
+  border-radius: 9px;
+  text-shadow: 0px 0px 0px #666666;
+  /*-webkit-box-shadow: 2px 4px 5px #666666;
+  -moz-box-shadow: 2px 4px 5px #666666;
+  box-shadow: 2px 4px 5px #666666;*/
   font-family: Arial;
-  color: #8a8a5c;
-  font-size: 19px;
-  padding: 0px 26px 1px 26px;
-  border: solid #8a8a5c 1px;
+  color: #8AA8BD;
+  font-size: 18px;
+  padding: 3px 30px 3px 30px;
+  border: solid #8AA8BD 2px;
   text-decoration: none;
+
+  float:right; 
+  margin-right: 10px;
   
 }
 /*Css for unfilter button hover*/
 .unfilter:hover {
- background: #f7f7f7;
-  background-image: -webkit-linear-gradient(top, #f7f7f7, #ccd5db);
-  background-image: -moz-linear-gradient(top, #f7f7f7, #ccd5db);
-  background-image: -ms-linear-gradient(top, #f7f7f7, #ccd5db);
-  background-image: -o-linear-gradient(top, #f7f7f7, #ccd5db);
-  background-image: linear-gradient(to bottom, #f7f7f7, #ccd5db);
+  background: #cae8fc;
   text-decoration: none;
 }
 
@@ -646,6 +609,7 @@ temporary rendered events).
 	border: 1px solid #3a87ad; /* default BORDER color */
 	background-color: #3a87ad; /* default BACKGROUND color */
 	font-weight: normal; /* undo jqui's ui-widget-header bold */
+	text-align: right;
 }
 
 /* overpower some of bootstrap's and jqui's styles on <a> tags */
@@ -831,6 +795,8 @@ a.fc-more:hover {
 
 .fc-toolbar .fc-center {
 	display: inline-block;
+	direction: rtl; 
+	/* new direction for header */
 }
 
 /* the things within each left/right/center section */

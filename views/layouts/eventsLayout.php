@@ -1,5 +1,5 @@
-<?php 
-//                                          activityLayout.php is for custom layout on activity index                                   
+<?php
+
 /* @var $this \yii\web\View */
 /* @var $content string */
 
@@ -7,9 +7,9 @@ use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
-use app\assets\EventsAsset;
+use app\assets\AppAsset;
 
-EventsAsset::register($this); // Redirect to activityAsset for custom css
+AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -24,11 +24,11 @@ EventsAsset::register($this); // Redirect to activityAsset for custom css
 <body>
 <?php $this->beginBody() ?>
 
-div class="wrap">
+<div class="wrap">
     <?php
     NavBar::begin([
         //Html::img('/images/Logo-80.png')
-        'brandLabel' => 'אגודה לקידום החינוך',
+        'brandLabel' =>'',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
@@ -37,16 +37,15 @@ div class="wrap">
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Group', 'url' => ['/group']],
-            ['label' => 'Course', 'url' => ['/course']],
-            ['label' => 'Teacher', 'url' => ['/teacher']],
-            ['label' => 'Location', 'url' => ['/location']],
-            ['label' => 'Center', 'url' => ['/center']],
-            ['label' => 'Event', 'url' => ['/event']],
-            ['label' => 'מערכת', 'url' => ['/events']],
-            ['label' => 'Supervisor', 'url' => ['/supervisor']],
-            ['label' => 'Funding Source', 'url' => ['/funding-source']],
+           /* ['label' => 'Home', 'url' => ['/site/index']],*/
+            ['label' => 'קבוצות', 'url' => ['/group']],
+            ['label' => 'קורסים', 'url' => ['/course']],
+            ['label' => 'מורים', 'url' => ['/teacher']],
+            ['label' => 'כיתות', 'url' => ['/location']],
+            ['label' => 'מרכזים', 'url' => ['/center']],
+            ['label' => 'אירועים', 'url' => ['/event']],
+            ['label' => 'רכזים', 'url' => ['/supervisor']],
+            ['label' => 'מקור מימון', 'url' => ['/funding-source']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (

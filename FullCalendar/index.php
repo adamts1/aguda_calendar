@@ -25,7 +25,7 @@ else{ // If there is active session
 		$authorizationLevel = '3'; // teacher -> View Only
 	}
 }
-echo $authorizationLevel;
+// echo $authorizationLevel;
 //////////setting session into variable if exist ////////////
 if (empty($_SESSION['eventsId'])) { // If there is no active session that came from getvalue.php
 $eventsIdFromSession = "0";
@@ -33,7 +33,7 @@ $eventsIdFromSession = "0";
 else{
 	$eventsIdFromSession = $_SESSION['eventsId']; // If there is active session that came from getvalue.php
 }
-echo $eventsIdFromSession; // print the activityId from session
+// echo $eventsIdFromSession; // print the activityId from session
 
 
 
@@ -51,8 +51,8 @@ echo $eventsIdFromSession; // print the activityId from session
 	else{
 		$activityEndTimeFromSession = $_SESSION['end']; // If there is start time active session that came from getvalue.php
 	}
-	echo $activityStartTimeFromSession;
-	echo $activityEndTimeFromSession;
+	// echo $activityStartTimeFromSession;
+	// echo $activityEndTimeFromSession;
 
 ///////////////////////////////
 
@@ -90,14 +90,7 @@ function filterTable($sql)
 ?>
 
   
-<style>
 
-  .fstElement { font-size: 1.2em; }
-  .fstToggleBtn { min-width: 16.5em; }
-  .submitBtn { display: none; }
-  .fstMultipleMode { display: block; }
-  .fstMultipleMode .fstControls { width: 100%; }
-</style>
 
 <!DOCTYPE html>
 
@@ -173,16 +166,26 @@ function showUser(str) {
 }
 </script>
 
+  <style>
 
-    <!-- Custom CSS -->
+   .fstElement { font-size: 1.2em; }
+   .fstToggleBtn { min-width: 16.5em; }
+   .submitBtn { display: none; }
+   .fstMultipleMode { display: block; }
+   .fstMultipleMode .fstControls { width: 100%; }
 
-		<style>
-    body {
-        padding-top: 70px;
+    body 
+		{		
+    padding-top: 0px;
+		padding-right: 0px;
+		padding-left: 0px;
+		margin-right:0px;
+		margin-left:0px;	
+		width: 100%;
         /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
     }
 	#calendar {
-		max-width: 2000px;
+		max-width: 100%;
 	}
 	.col-centered{
 		float: none;
@@ -191,25 +194,11 @@ function showUser(str) {
     </style>
  
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
+ 
 </head>
 
 <body>
-  <!-- 4(LAST) FILTER - here html botton and input send as POST up to function 1/2/3 -->
-<!--
-<div style ="float:right;margin-right: 120px;">
-<form action="index.php" method="post">
-<input type="text" name="valueToSearch" placeholder="value to search" style="float: right;">                      
-<input type="submit" name="search" value="חפש">
-</form>
-</div>-->
- <!-- ajax of th multiple search PART2 -->
+ 
 <?php include "connectdb.php"; ?>
 <script type="text/javascript">
 function getData(val)
@@ -226,13 +215,10 @@ function getData(val)
 
 </script>
 
-<!-- ajax PART2 done here-->
 
-<!-- MULTIPLE SEARCH PART 1 -->
-<!--<div id="divfilters"  name="divfilters" >-->
 
 <form action="index.php" method="get">
-<!--<div style="float:right;margin-right:700px;">-->
+<div id="filter" style="float:right;margin-right:50px;">
 <select id="mainselection"   name="valueToSearch" class="finspecific"   dir="rtl">
 <!-- $secondFilterValue & chosen declared in the begining of this page	-->
 <option value="0"><?php echo $secondFilterValue ?></option> 
@@ -247,12 +233,15 @@ function getData(val)
 </select>
 <br>
 <br>
-<button value="submit" class="filter" id="find">חפש</button>
+
 </div>
+<div>
+<button value="submit" class="filter">סנן</button>
+</div>
+<div>
 <input type="button" class="unfilter" value="נקה סינון" id="clearfind" onclick="location.href = 'http://localhost/a_p/Fullcalendar/';">
 </div>
  <!-- MULTIPLE SEARCH PART 1 done here-->
-</div>
 </form>	
 
   <!-- FILTER DONE -->
@@ -270,10 +259,12 @@ function getData(val)
 
                
             <div class="col-lg-12 text-center">
+							<br>
+							<br>
+							<br>
                 <h2>מערכת שיבוץ שיעורים</h2>
                <p class="lead"></p>
-                <div id="calendar" class="col-centered">
-                </div>   
+                <div id="calendar" class="col-centered"> </div>   
 <?php } ?>
 
             </div>
@@ -323,7 +314,7 @@ function getData(val)
 					</div>
 					</div>
 
-											<div class="form-group">
+					<div class="form-group">
 					<label for="courseId" class="col-sm-2 control-label">מקצוע לימוד</label>
 					<div class="col-sm-10">
 					  <select id="courseId" class="form-control"  name="courseId" dir="rtl">
@@ -414,7 +405,7 @@ function getData(val)
 					<div class="form-group">
 					<label for="students" class="col-sm-2 control-label">תלמידים</label>
 					<div class="col-sm-10">
-					<select class="multipleSelect" name="students_known[]" multiple name="language">
+					<select class="multipleSelect" name="students_known[]" multiple name="language" >
 					<?php
        	$allAvailableStudents = mysql_query("SELECT `id`, `name` FROM `student`
 				  WHERE `id` NOT IN (SELECT DISTINCT S.id FROM student S, student_events SE, events E 
@@ -824,6 +815,7 @@ function getData(val)
 			defaultView: 'agendaWeek', // Default view is now agendaWeek instead of month. we can allso use agendaDay
 
 			lang: initialLangCode,
+			hiddenDays:[6],
 		
 
 

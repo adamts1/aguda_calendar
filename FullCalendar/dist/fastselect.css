@@ -207,7 +207,7 @@ Multiple mode
   box-sizing: border-box;
   padding: 0.5em 0.5em 0em 0.5em;
   overflow: hidden;
-  width: 20em;
+  width: 100em;
   cursor: text; }
 
 .fstMultipleMode .fstQueryInput {
