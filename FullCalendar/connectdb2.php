@@ -1,6 +1,9 @@
 <?php
 
-	
+include "session.php";   
+
+
+
 
 if(isset($_GET['valueToSearch']) && $_GET['titleToSearch'] && $_GET['valueToSearch'] !=0 && $_GET['titleToSearch'] !=0) // 0 is in case that the user choose "all options" in filter dropdown 
 	{	 // In case the user selected proper filtering
@@ -36,7 +39,10 @@ if(isset($_GET['valueToSearch']) && $_GET['titleToSearch'] && $_GET['valueToSear
 
 	
 	else{
-        $sql = "SELECT id, title, start, end, color, centerid, locationid, teacherid, courseid, groupNumber, studentstring FROM events";
+        $sql = "SELECT E.id, E.title, E.start, E.end, E.color, E.centerid, E.locationid, E.teacherid, E.courseid, E.groupNumber, E.studentstring FROM events E
+                JOIN center AS C  ON E.centerid =C.id 
+                JOIN supervisor AS S ON C.id =S.centerId
+                WHERE  S.id = '$identity'";
         $firstFilterValue = "חיפוש לפי";
 		$sqlValueToSearch = "0";	}
 

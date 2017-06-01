@@ -3,56 +3,57 @@ header('Content-Type: text/html; charset=utf-8');
 require_once('bdd.php');
 include "connectdb.php";   
 include "connectdb2.php";   
+// include "session.php";   
 
-session_start(); // This session is for reading __id session from yii
-if (empty($_SESSION['__id'])) { // If there is no active session
-	$identity= "you nedd to connect with your Password username";
-	$authorizationLevel = "0";
-}
-else{ // If there is active session
-	$identity = $_SESSION['__id'];
-	$sqlForAuthoriaztion = "SELECT `item_name` FROM `auth_assignment` WHERE `user_id`=$identity";
-	$reqForAuthoriaztion = $bdd->prepare($sqlForAuthoriaztion); // $sql came from value_from_filter.php
-	$reqForAuthoriaztion->execute();
-	$eventsForAuthoriaztion = $reqForAuthoriaztion->fetch();
-	$valueForAuthoriaztion =  $eventsForAuthoriaztion[0];
-	if($valueForAuthoriaztion== "admin"){
-		$authorizationLevel = '1'; // mega supervisor authorization
-	}elseif($valueForAuthoriaztion== "pro"){
-     			$authorizationLevel = '2'; // supervisor full authorization -> CRUD
-	}
-	else{
-		$authorizationLevel = '3'; // teacher -> View Only
-	}
-}
+// session_start(); // This session is for reading __id session from yii
+// if (empty($_SESSION['__id'])) { // If there is no active session
+// 	$identity= "you nedd to connect with your Password username";
+// 	$authorizationLevel = "0";
+// }
+// else{ // If there is active session
+// 	$identity = $_SESSION['__id'];
+// 	$sqlForAuthoriaztion = "SELECT `item_name` FROM `auth_assignment` WHERE `user_id`=$identity";
+// 	$reqForAuthoriaztion = $bdd->prepare($sqlForAuthoriaztion); // $sql came from value_from_filter.php
+// 	$reqForAuthoriaztion->execute();
+// 	$eventsForAuthoriaztion = $reqForAuthoriaztion->fetch();
+// 	$valueForAuthoriaztion =  $eventsForAuthoriaztion[0];
+// 	if($valueForAuthoriaztion== "admin"){
+// 		$authorizationLevel = '1'; // mega supervisor authorization
+// 	}elseif($valueForAuthoriaztion== "pro"){
+//      			$authorizationLevel = '2'; // supervisor full authorization -> CRUD
+// 	}
+// 	else{
+// 		$authorizationLevel = '3'; // teacher -> View Only
+// 	}
+// }
 // echo $authorizationLevel;
 //////////setting session into variable if exist ////////////
-if (empty($_SESSION['eventsId'])) { // If there is no active session that came from getvalue.php
-$eventsIdFromSession = "0";
-}
-else{
-	$eventsIdFromSession = $_SESSION['eventsId']; // If there is active session that came from getvalue.php
-}
-// echo $eventsIdFromSession; // print the activityId from session
+// if (empty($_SESSION['eventsId'])) { // If there is no active session that came from getvalue.php
+// $eventsIdFromSession = "0";
+// }
+// else{
+// 	$eventsIdFromSession = $_SESSION['eventsId']; // If there is active session that came from getvalue.php
+// }
+// // echo $eventsIdFromSession; // print the activityId from session
 
 
 
-	if (empty($_SESSION['start'])) { // If there is no start time active session that came from getvalue.php
-		$activityStartTimeFromSession = "2000-01-01 00:00:01";
-	}
-	else{
-		$activityStartTimeFromSession = $_SESSION['start']; // If there is start time active session that came from getvalue.php
-	}
-	//echo "The start time is: ". $activityStartTimeFromSession; // print the activity start time from session
+// 	if (empty($_SESSION['start'])) { // If there is no start time active session that came from getvalue.php
+// 		$activityStartTimeFromSession = "2000-01-01 00:00:01";
+// 	}
+// 	else{
+// 		$activityStartTimeFromSession = $_SESSION['start']; // If there is start time active session that came from getvalue.php
+// 	}
+// 	//echo "The start time is: ". $activityStartTimeFromSession; // print the activity start time from session
 
-	if (empty($_SESSION['end'])) { // If there is no start time active session that came from getvalue.php
-		$activityEndTimeFromSession = "2020-01-01 00:00:02";
-	}
-	else{
-		$activityEndTimeFromSession = $_SESSION['end']; // If there is start time active session that came from getvalue.php
-	}
-	// echo $activityStartTimeFromSession;
-	// echo $activityEndTimeFromSession;
+// 	if (empty($_SESSION['end'])) { // If there is no start time active session that came from getvalue.php
+// 		$activityEndTimeFromSession = "2020-01-01 00:00:02";
+// 	}
+// 	else{
+// 		$activityEndTimeFromSession = $_SESSION['end']; // If there is start time active session that came from getvalue.php
+// 	}
+	echo $activityStartTimeFromSession;
+	echo $activityEndTimeFromSession;
 
 ///////////////////////////////
 
@@ -199,7 +200,7 @@ function showUser(str) {
 
 <body>
  
-<?php include "connectdb.php"; ?>
+
 <script type="text/javascript">
 function getData(val)
 {
@@ -288,13 +289,16 @@ function getData(val)
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title" id="myModalLabel">הוספת שיבוץ</h4>
 			  </div>
-			  <div class="modal-body">
+			  
+
+     <!--/////////////////////////-->
+ <div class="modal-body">
 
 
 						<div class="form-group">
 					<label for="centerid" class="col-sm-2 control-label">מרכז</label>
 					<div class="col-sm-10">
-					  <select id="centerId" class="form-control"  name="centerId" dir="rtl">
+					  <select id="centerId" class="form-control"  name="centerId" dir="rtl"  type='hidden'>
 						             					<?php
 							$mysqlserver="localhost";
  							$mysqlusername="root";
@@ -303,17 +307,20 @@ function getData(val)
  							$dbname = 'adam_project';
  							mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
 							mysql_query("SET NAMES 'utf8'",$link); // Generate utf8 for hebrew
- 							$sql = "SELECT id, name FROM center";
+ 							$sql = "SELECT C.id, C.name FROM center AS C
+							        JOIN supervisor AS S ON C.id =S.centerId
+                      WHERE  S.id = '$identity'";
  							$result = mysql_query($sql);
  
  							
  							while ($row = mysql_fetch_array($result)) {
- 							echo "<option value='" . $row['id'] ."'>" . $row['name'] ."</option>";
+ 							echo "<option   value='" . $row['id'] ."'>" . $row['name'] ."</option>";
  							}
  					?>
          	</select>
 					</div>
 					</div>
+			 <!--//////////////////////////////-->
 
 					<div class="form-group">
 					<label for="courseId" class="col-sm-2 control-label">מקצוע לימוד</label>
@@ -327,7 +334,11 @@ function getData(val)
  							$dbname = 'adam_project';
  							mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
 							mysql_query("SET NAMES 'utf8'",$link); // Generate utf8 for hebrew
- 							$sql = "SELECT id, 	coursename FROM course";
+ 							$sql = "SELECT C.id, 	C.coursename FROM course AS C 
+                      JOIN course_center AS CC ON C.id =CC.courseid 
+                      JOIN center AS C2  ON CC.centerid =C2.id 
+                      JOIN supervisor AS S ON C2.id =S.centerId
+                      WHERE  S.id = '$identity' ";
  							$result = mysql_query($sql);
  
  							
@@ -358,7 +369,10 @@ function getData(val)
  							$dbname = 'adam_project';
  							mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
 							mysql_query("SET NAMES 'utf8'",$link); // Generate utf8 for hebrew
- 							$sql = "SELECT id, name FROM location";
+ 							$sql = "SELECT L.id, L.name FROM location AS L
+							        JOIN center AS C  ON L.centerid =C.id 
+                      JOIN supervisor AS S ON C.id =S.centerId
+                      WHERE  S.id = '$identity'";
  							$result = mysql_query($sql);
  
  							
@@ -386,9 +400,11 @@ function getData(val)
  							mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
 							mysql_query("SET NAMES 'utf8'",$link); // Generate utf8 for hebrew
  							$query = "SELECT user.username, teacher.id
-              FROM teacher
-              JOIN user
-              ON teacher.id=user.id;";
+                        FROM user
+                        JOIN teacher ON teacher.id=user.id
+							          JOIN center AS C  ON teacher.centerid =C.id 
+                        JOIN supervisor AS S ON C.id =S.centerId
+                        WHERE  S.id = '$identity'";
  							$result = mysql_query($query);
  
  							
@@ -408,11 +424,13 @@ function getData(val)
 					<div class="col-sm-10">
 					<select class="multipleSelect" name="students_known[]" multiple name="language" >
 					<?php
-       	$allAvailableStudents = mysql_query("SELECT `id`, `name` FROM `student`
-				  WHERE `id` NOT IN (SELECT DISTINCT S.id FROM student S, student_events SE, events E 
-					WHERE S.id=SE.studentid AND SE.eventsid = E.id AND SE.eventsid 
-					IN (SELECT `id` FROM `events` WHERE start <= '$activityStartTimeFromSession' 
-					AND end >= '$activityEndTimeFromSession'))");
+       	$allAvailableStudents = mysql_query("SELECT P.id, P.name FROM student P
+                                             JOIN center C ON P.centerid =C.id
+                                             JOIN supervisor  S2 ON C.id = S2.centerid
+                                             WHERE P.id NOT IN (SELECT DISTINCT S.id FROM student S, student_events SE, events E 
+                                             WHERE S.id=SE.studentid AND SE.eventsid = E.id AND SE.eventsid 
+                                             IN (SELECT P2.id FROM events P2 WHERE P2.start <= '2017-05-28 07:30:00' 
+                                             AND P2.end >= '2017-05-28 08:00:00')) AND S2.id = '$identity'");
 					$i=0;
 					while($studentsFromList = mysql_fetch_array($allAvailableStudents)) {
 						?>
@@ -466,7 +484,7 @@ function getData(val)
 				<label for="comment" class="col-sm-2 control-label">מספר שבועות</label>		
 				          	<div class="col-sm-10">
 		
-					  <input type="date" name="quantity" class="form-control" id="end" >
+					  <input type="date" name="quantity" class="form-control" id="quantity">
 					</div>
 				  </div>
 				
@@ -510,7 +528,10 @@ function getData(val)
             $dbname = 'adam_project';
             mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
             
-            $cdquery="SELECT id, name FROM location";
+            $cdquery=$sql = "SELECT L.id, L.name FROM location AS L
+							        JOIN center AS C  ON L.centerid =C.id 
+                      JOIN supervisor AS S ON C.id =S.centerId
+                      WHERE  S.id = '$identity'";
             $cdresult=mysql_query($cdquery) or die ("Query to get data from firsttable failed: ".mysql_error());
             
             while ($cdrow=mysql_fetch_array($cdresult)) {
@@ -542,7 +563,9 @@ function getData(val)
             $dbname = 'adam_project';
             mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
             
-            $cdquery="SELECT id, name FROM center";
+            $cdquery="SELECT C.id, C.name FROM center AS C
+							        JOIN supervisor AS S ON C.id =S.centerId
+                      WHERE  S.id = '$identity'";
             $cdresult=mysql_query($cdquery) or die ("Query to get data from firsttable failed: ".mysql_error());
             
             while ($cdrow=mysql_fetch_array($cdresult)) {
@@ -576,9 +599,11 @@ function getData(val)
  							mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
 							mysql_query("SET NAMES 'utf8'",$link); // Generate utf8 for hebrew
  							$query = "SELECT user.username, teacher.id
-              FROM teacher
-              JOIN user
-              ON teacher.id=user.id;";
+                        FROM user
+                        JOIN teacher ON teacher.id=user.id
+							          JOIN center AS C  ON teacher.centerid =C.id 
+                        JOIN supervisor AS S ON C.id =S.centerId
+                        WHERE  S.id = '$identity'";
  							$result = mysql_query($query);
  
  							
@@ -606,7 +631,11 @@ function getData(val)
  							$dbname = 'adam_project';
  							mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
 							mysql_query("SET NAMES 'utf8'",$link); // Generate utf8 for hebrew
- 							$query="SELECT id, coursename FROM course";
+ 							$query="SELECT C.id, 	C.coursename FROM course AS C 
+                      JOIN course_center AS CC ON C.id =CC.courseid 
+                      JOIN center AS C2  ON CC.centerid =C2.id 
+                      JOIN supervisor AS S ON C2.id =S.centerId
+                      WHERE  S.id = '$identity'";
 
  							$result = mysql_query($query);
  
@@ -652,17 +681,13 @@ function getData(val)
 					$studentsFromActivity=$students_language;
 					var_dump($studentsFromActivity);
 
-					$allAvailableStudents = mysql_query("SELECT `id`, `name` 
-					FROM `student` WHERE (`id` NOT IN 
-					(SELECT DISTINCT S.id FROM student S, student_events SE, events E 
-					WHERE S.id=SE.studentid AND SE.eventsid = E.id 
-					AND SE.eventsid IN (SELECT `id` FROM `events` 
-					WHERE start >= '$activityStartTimeFromSession' 
-					AND end <= '$activityEndTimeFromSession'))) 
-					OR (`id` IN (SELECT DISTINCT S.id 
-					FROM student S, student_events SE, events E 
-					WHERE S.id=SE.studentid AND SE.eventsid = E.id 
-					AND SE.eventsid = '$eventsIdFromSession'))");
+					$allAvailableStudents = mysql_query("SELECT P.id, P.name FROM student P
+                                             JOIN center C ON P.centerid =C.id
+                                             JOIN supervisor  S2 ON C.id = S2.centerid
+                                             WHERE P.id NOT IN (SELECT DISTINCT S.id FROM student S, student_events SE, events E 
+                                             WHERE S.id=SE.studentid AND SE.eventsid = E.id AND SE.eventsid 
+                                             IN (SELECT P2.id FROM events P2 WHERE P2.start <= '2017-05-28 07:30:00' 
+                                             AND P2.end >= '2017-05-28 08:00:00')) AND S2.id = '$identity'");
 					$i=0;
 					while($studentsFromList = mysql_fetch_array($allAvailableStudents )) {
 						if(in_array($studentsFromList["id"],$studentsFromActivity)) 
@@ -826,7 +851,7 @@ function getData(val)
 			hiddenDays:[6],
 		
       
-      navLinks: true, // we can click day/week (only if weekNumbers is true) numbers to navigate to spesific view 
+      // navLinks: true, // we can click day/week (only if weekNumbers is true) numbers to navigate to spesific view 
 			// isRTL: true,
 			//businessHours: true, // display business hours // If we want gray background color for sunday and saturday 
 			eventLimit: true, // allow "more" link when too many events
@@ -844,7 +869,7 @@ function getData(val)
 		
 
 			// nowIndicator: true,
-	<?php if($authorizationLevel == '1' || $authorizationLevel == '2' ){ //if the user is admin
+	<?php if( $authorizationLevel == '2' ){ //if the user is admin
 			?>
 				editable: true,
 				selectable: true,
@@ -892,9 +917,9 @@ function getData(val)
 					$('#ModalEdit #start').val(event.start); 
 					$('#ModalEdit #locationid').val(event.locationid);
 					$('#ModalEdit #groupNumber').val(event.groupNumber); 
-					$('#ModalEdit #teacherid').val(event.teacherid); 
 					$('#ModalEdit #centerid').val(event.centerid);
 					$('#ModalEdit #courseid').val(event.courseid);
+					$('#ModalEdit #teacherid').val(event.teacherid);
 					$('#ModalEdit #studentstring').val(event.studentstring);
 
 							var eventsId = event.id; // event activityId
@@ -964,6 +989,7 @@ function getData(val)
 					$end = $event['end'];
 				}
 		?>
+		///provide the data on the calendar
 				{
 					id: '<?php echo $event['id']; ?>',
 					locationid: '<?php echo $event['locationid']; ?>',
@@ -986,7 +1012,7 @@ function getData(val)
 			]
 		});
 
-		<?php if($authorizationLevel == '3'){ //if the user is not admin-> ALL the fields in ModalAdd and ModalEdit will be disabled
+		<?php if($authorizationLevel == '3' || $authorizationLevel == '1' ){ //if the user is not admin-> ALL the fields in ModalAdd and ModalEdit will be disabled
 			?>
 				//$('#calendar').fullCalendar('destroy'); // In case we want to destroy calendar after he initialized
 				$('#ModalAdd').find('input, textarea, button, select').prop('disabled','disabled');

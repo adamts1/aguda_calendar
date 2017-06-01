@@ -11,7 +11,7 @@ if (isset($_POST['title']) && isset($_POST['start']) && isset($_POST['end']) && 
 		$selects1 = $bdd->prepare($adder1); 
 		$selects1->execute();
 		$names1 = $selects1->fetch();
-		$addNumber =  $names1[0]+'1'; 
+		$groupnumber =  $names1[0]+'1'; 
 		$quantity = $_POST['quantity'];
 		if($quantity == NULL) {
 
@@ -43,7 +43,7 @@ if (isset($_POST['title']) && isset($_POST['start']) && isset($_POST['end']) && 
 
     $endNumber2 = $startNumber1+60*60*24;
  	$end2 = date("Y-m-d H:i:s",$endNumber2);
-	$sql = "INSERT INTO events(title, start, end, color, locationid ,centerid ,teacherid, courseid, groupNumber ) values ('$title', '$start', '$end', '$color', '$locationId', '$centerid', '$teacherid', '$courseid', '$addNumber')";
+	$sql = "INSERT INTO events(title, start, end, color, locationid ,centerid ,teacherid, courseid, groupNumber ) values ('$title', '$start', '$end', '$color', '$locationId', '$centerid', '$teacherid', '$courseid', '$groupnumber')";
 	// $req = $bdd->prepare($sql);
 	// $req->execute();
 	

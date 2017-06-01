@@ -19,7 +19,7 @@ require_once('bdd.php');
 		}
 	}
 
-	if (isset($_POST['deleteAll']) && isset($_POST['id'])){
+	if (isset($_POST['deleteAll']) && isset($_POST['id'])) {
 
 		$id = $_POST['id'];
 		$start1 = $_POST['start'];
