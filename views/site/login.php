@@ -60,3 +60,31 @@ $this->params['breadcrumbs'][] = $this->title;
         
     </div>
 </div>
+
+<div role="tabpanel" class="tab-pane fade " id="forgot_tab">
+<div class="forgot_pwd_wrap col-lg-12 col-lg1-12 col-lg2-12 col-md-12 col-sm-12">
+   <div class="forgot_content">
+       <div class="login_title"><?= Html::label('שכחת סיסמא ? ', 'reveal-password') ?></div>
+       <div class="login_form">
+           <?php
+           $form = ActiveForm::begin([
+                       'id' => 'password-forgot',
+                       'options' => ['class' => ''],
+                   ])
+           ?>
+           <div class="form_item form_item_mail">
+           <?=
+            $form->field($lostPasswordForm, 'email', [
+                'inputOptions' => [
+                ],
+            ])
+            ->input('email') ?>
+           </div>
+           <?= Html::submitButton('התחברות', ['class' => 'base_btn', 'name' => 'reset-password']) ?>
+           <?php ActiveForm::end() ?>
+       </div>
+       <div class="login_bottom_line">
+           <a title="<?= Html::encode('שכחת סיסמא ? ', 'reveal-password') ?>" href="#login_tab" aria-controls="login_tab" role="tab" data-toggle="tab"><?= Html::label('נזכרתי', 'reveal-password') ?></a>
+       </div>
+   </div>
+</div>

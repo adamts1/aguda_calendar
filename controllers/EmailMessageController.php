@@ -3,18 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\FundingsourceTeacher;
-use app\models\FundingSource;
-use app\models\Teacher;
-use app\models\FundingsourceTeacherSearch;
+use app\models\EmailMessage;
+use app\models\EmailMessageSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * FundingsourceTeacherController implements the CRUD actions for FundingsourceTeacher model.
+ * EmailMessageController implements the CRUD actions for EmailMessage model.
  */
-class FundingsourceTeacherController extends Controller
+class EmailMessageController extends Controller
 {
     /**
      * @inheritdoc
@@ -32,48 +30,43 @@ class FundingsourceTeacherController extends Controller
     }
 
     /**
-     * Lists all FundingsourceTeacher models.
+     * Lists all EmailMessage models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new FundingsourceTeacherSearch();
+        $searchModel = new EmailMessageSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $fundingSource = FundingSource::find()->all();
-        $teachers = Teacher::find()->all();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'fundingSource'=>$fundingSource,
-            'teachers'=>$teachers,
         ]);
     }
 
     /**
-     * Displays a single FundingsourceTeacher model.
-     * @param integer $sourceid
-     * @param integer $teacherid
+     * Displays a single EmailMessage model.
+     * @param integer $id
      * @return mixed
      */
-    public function actionView($sourceid, $teacherid)
+    public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($sourceid, $teacherid),
+            'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new FundingsourceTeacher model.
+     * Creates a new EmailMessage model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new FundingsourceTeacher();
+        $model = new EmailMessage();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'sourceid' => $model->sourceid, 'teacherid' => $model->teacherid]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -82,18 +75,17 @@ class FundingsourceTeacherController extends Controller
     }
 
     /**
-     * Updates an existing FundingsourceTeacher model.
+     * Updates an existing EmailMessage model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $sourceid
-     * @param integer $teacherid
+     * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($sourceid, $teacherid)
+    public function actionUpdate($id)
     {
-        $model = $this->findModel($sourceid, $teacherid);
+        $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'sourceid' => $model->sourceid, 'teacherid' => $model->teacherid]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -102,30 +94,28 @@ class FundingsourceTeacherController extends Controller
     }
 
     /**
-     * Deletes an existing FundingsourceTeacher model.
+     * Deletes an existing EmailMessage model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $sourceid
-     * @param integer $teacherid
+     * @param integer $id
      * @return mixed
      */
-    public function actionDelete($sourceid, $teacherid)
+    public function actionDelete($id)
     {
-        $this->findModel($sourceid, $teacherid)->delete();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the FundingsourceTeacher model based on its primary key value.
+     * Finds the EmailMessage model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $sourceid
-     * @param integer $teacherid
-     * @return FundingsourceTeacher the loaded model
+     * @param integer $id
+     * @return EmailMessage the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($sourceid, $teacherid)
+    protected function findModel($id)
     {
-        if (($model = FundingsourceTeacher::findOne(['sourceid' => $sourceid, 'teacherid' => $teacherid])) !== null) {
+        if (($model = EmailMessage::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

@@ -18,7 +18,7 @@ class FundingsourceTeacherSearch extends FundingsourceTeacher
     public function rules()
     {
         return [
-            [['sourceid', 'teacherid'], 'integer'],
+            [['sourceid', 'teacherid','numberOfHours'], 'integer'],
         ];
     }
 
@@ -60,6 +60,7 @@ class FundingsourceTeacherSearch extends FundingsourceTeacher
         $query->andFilterWhere([
             'sourceid' => $this->sourceid,
             'teacherid' => $this->teacherid,
+            'numberOfHours'=>$this->numberOfHours,
         ]);
 
         return $dataProvider;

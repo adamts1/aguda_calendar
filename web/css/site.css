@@ -284,3 +284,33 @@ a.desc:after {
  .col-md-10 .grid-view{
      padding-top: 4px;
  }
+/***** FundingSourceTeacher MODAL *****/
+
+.fundingsource-teacher-index .modal-content .modal-body .modal-info-teacher-name{
+    display: inline-block;
+    padding-right:10px;
+}
+.fundingsource-teacher-index .modal-content .modal-body .modal-info-teacher-hours{
+    display: inline-block;
+    float: left;
+    padding-left:10px;
+}
+.fundingsource-teacher-index .modal-content .modal-body .modal-info-teacher-title{
+    display: inline-block;
+    float : right;
+    font-size: 17px;
+
+}
+.fundingsource-teacher-index .modal-content .modal-body .modal-info-hours-title{
+    display: inline-block;
+    float : left;
+    font-size: 17px;
+}
+.fundingsource-teacher-index .modal-content .modal-body .modal-row{
+    padding-top:5px;
+    padding-bottom:5px;
+}
+.fundingsource-teacher-index .modal-content .modal-body .modal-title-area{
+    height: 36px;
+    border-bottom-style: solid;
+}

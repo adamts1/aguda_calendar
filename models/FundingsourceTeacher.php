@@ -30,7 +30,7 @@ class FundingsourceTeacher extends \yii\db\ActiveRecord
     {
         return [
             [['sourceid', 'teacherid'], 'required'],
-            [['sourceid', 'teacherid'], 'integer'],
+            [['sourceid', 'teacherid' , 'numberOfHours'], 'integer'],
             [['sourceid'], 'exist', 'skipOnError' => true, 'targetClass' => FundingSource::className(), 'targetAttribute' => ['sourceid' => 'id']],
             [['teacherid'], 'exist', 'skipOnError' => true, 'targetClass' => Teacher::className(), 'targetAttribute' => ['teacherid' => 'id']],
         ];
@@ -44,6 +44,7 @@ class FundingsourceTeacher extends \yii\db\ActiveRecord
         return [
             'sourceid' => 'Sourceid',
             'teacherid' => 'Teacherid',
+            'numberOfHours'=>'NumberOfHours',
         ];
     }
 
@@ -54,6 +55,10 @@ class FundingsourceTeacher extends \yii\db\ActiveRecord
     {
         return $this->hasOne(FundingSource::className(), ['id' => 'sourceid']);
     }
+    public function getSources()
+    {
+        return $this->find('sourceId')->all();
+    }
 
     /**
      * @return \yii\db\ActiveQuery
@@ -61,5 +66,9 @@ class FundingsourceTeacher extends \yii\db\ActiveRecord
     public function getTeacher()
     {
         return $this->hasOne(Teacher::className(), ['id' => 'teacherid']);
+    }
+    public function getTeachers()
+    {
+        return $this->find('teacherid')->all();
     }
 }

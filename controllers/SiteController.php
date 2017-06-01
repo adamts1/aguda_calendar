@@ -7,7 +7,10 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
+use app\models\LostPasswordForm;
 use app\models\ContactForm;
+use app\models\User;
+use app\models\EmailMessage;
 
 class SiteController extends Controller
 {
@@ -73,14 +76,55 @@ class SiteController extends Controller
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         }
+
+        $lostPasswordForm = new LostPasswordForm();
+        if($lostPasswordForm->load(Yii::$app->request->post()) && $lostPasswordForm->validate())
+        {
+          $user = User::findOne(['email'=>$lostPasswordForm->email]);
+
+          if ($user){
+              
+              $message = EmailMessage::findOne(['slug'=>'password_recovery']);
+              
+            
+               $email = Yii::$app->mailer
+                ->compose(['body'=>$message])
+                ->setFrom('donotereply@mipo.com')
+                ->setTo($user->email)
+                ->setSubject('Recovery Password');
+                
+                Yii::$app->mailer->compose()
+                    ->setFrom('somebody@domain.com')
+                    ->setTo($user->email)
+                    ->setSubject('Email sent from Yii2-Swiftmailer')
+                    ->send();
+
+                 Yii::$app->mailer->compose()
+                    ->setTo('laury.aziza@gmail.com')
+                    ->setFrom('donotreply@gmail.com')
+                    ->setSubject('Invite')
+                    ->setTextBody('Hello!')
+                    ->send();
+
+                if ($email->send()){
+                    print_r('email send');die();
+                }
+
+
+
+          }
+        }
+
         return $this->render('login', [
             'model' => $model,
+            'lostPasswordForm' => $lostPasswordForm,
+
         ]);
+        
     }
 
     /**

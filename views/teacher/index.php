@@ -6,11 +6,6 @@ use yii\widgets\ActiveForm;
 use yii\data\ActiveDataProvider;
 use yii\widgets\ListView;
 
-
-
-
-
-
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\TeacherSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -37,19 +32,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    
-
-    
-
-    
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        
-
-    
-        
             'columns' => [
             [   
                     'attribute'=>'user',
@@ -58,30 +43,16 @@ $this->params['breadcrumbs'][] = $this->title;
 					return  Html::a($model->id0->fullName,['teacher/view','id'=>$model->id], ['title' => 'View','class'=>'no-pjax']);
                     }
             ],
-
-            
-             
-            
-
-
             [
               'attribute' => 'user',
                	'value' => function($model){
 					return $model->id0->fullName;},
-         ],
-
-         [
+            ],
+            [
               'attribute' => 'center',
                	'value' => function($model){
 					return $model->center->centername;},
-         ],
-
-         
-         
-         
-            
-            
-
+            ],
             //'id',
             /* [
 				'attribute' => 'id',
@@ -103,12 +74,6 @@ $this->params['breadcrumbs'][] = $this->title;
 				
 			// ],
             
-
-                
-             
-
-
-
             ['class' => 'yii\grid\ActionColumn',
             'template' => '{update} {delete}',],
         ],

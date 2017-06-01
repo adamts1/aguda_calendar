@@ -28,7 +28,6 @@ class Teacher extends \yii\db\ActiveRecord
       public $editableUsers = [];  // many to many
       public $role; 
     
-
     public static function tableName()
     {
         return 'teacher';
