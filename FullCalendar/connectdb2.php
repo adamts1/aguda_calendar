@@ -39,12 +39,24 @@ if(isset($_GET['valueToSearch']) && $_GET['titleToSearch'] && $_GET['valueToSear
 
 	
 	else{
+
+        if( $authorizationLevel == '1' ){
+
+            $sql = "SELECT  FROM events";
+        $firstFilterValue = "חיפוש לפי";
+		$sqlValueToSearch = "0";
+
+        }if( $authorizationLevel == '2' ){
+
         $sql = "SELECT E.id, E.title, E.start, E.end, E.color, E.centerid, E.locationid, E.teacherid, E.courseid, E.groupNumber, E.studentstring FROM events E
                 JOIN center AS C  ON E.centerid =C.id 
                 JOIN supervisor AS S ON C.id =S.centerId
                 WHERE  S.id = '$identity'";
         $firstFilterValue = "חיפוש לפי";
-		$sqlValueToSearch = "0";	}
+		$sqlValueToSearch = "0";	
+        }
+
+        }
 
 
 
