@@ -22,32 +22,5 @@ else{ // If there is active session
 		$authorizationLevel = '3'; // teacher -> View Only
 	}
 }
-// echo $authorizationLevel;
-//////////setting session into variable if exist ////////////
-if (empty($_SESSION['eventsId'])) { // If there is no active session that came from getvalue.php
-$eventsIdFromSession = "0";
-}
-else{
-	$eventsIdFromSession = $_SESSION['eventsId']; // If there is active session that came from getvalue.php
-}
-// echo $eventsIdFromSession; // print the activityId from session
 
-
-
-	if (empty($_SESSION['start'])) { // If there is no start time active session that came from getvalue.php
-		$activityStartTimeFromSession = "2000-01-01 00:00:01";
-	}
-	else{
-		$activityStartTimeFromSession = $_SESSION['start']; // If there is start time active session that came from getvalue.php
-	}
-	//echo "The start time is: ". $activityStartTimeFromSession; // print the activity start time from session
-
-	if (empty($_SESSION['end'])) { // If there is no start time active session that came from getvalue.php
-		$activityEndTimeFromSession = "2020-01-01 00:00:02";
-	}
-	else{
-		$activityEndTimeFromSession = $_SESSION['end']; // If there is start time active session that came from getvalue.php
-	}
-	// echo $activityStartTimeFromSession;
-	// echo $activityEndTimeFromSession;
 ?>

@@ -3,62 +3,7 @@ header('Content-Type: text/html; charset=utf-8');
 require_once('bdd.php');
 include "connectdb.php";   
 include "connectdb2.php";   
-// include "session.php";   
 
-// session_start(); // This session is for reading __id session from yii
-// if (empty($_SESSION['__id'])) { // If there is no active session
-// 	$identity= "you nedd to connect with your Password username";
-// 	$authorizationLevel = "0";
-// }
-// else{ // If there is active session
-// 	$identity = $_SESSION['__id'];
-// 	$sqlForAuthoriaztion = "SELECT `item_name` FROM `auth_assignment` WHERE `user_id`=$identity";
-// 	$reqForAuthoriaztion = $bdd->prepare($sqlForAuthoriaztion); // $sql came from value_from_filter.php
-// 	$reqForAuthoriaztion->execute();
-// 	$eventsForAuthoriaztion = $reqForAuthoriaztion->fetch();
-// 	$valueForAuthoriaztion =  $eventsForAuthoriaztion[0];
-// 	if($valueForAuthoriaztion== "admin"){
-// 		$authorizationLevel = '1'; // mega supervisor authorization
-// 	}elseif($valueForAuthoriaztion== "pro"){
-//      			$authorizationLevel = '2'; // supervisor full authorization -> CRUD
-// 	}
-// 	else{
-// 		$authorizationLevel = '3'; // teacher -> View Only
-// 	}
-// }
-echo $authorizationLevel;
-          echo $identity;
-
-	// echo $valueToSearch;
-//////////setting session into variable if exist ////////////
-// if (empty($_SESSION['eventsId'])) { // If there is no active session that came from getvalue.php
-// $eventsIdFromSession = "0";
-// }
-// else{
-// 	$eventsIdFromSession = $_SESSION['eventsId']; // If there is active session that came from getvalue.php
-// }
-// // echo $eventsIdFromSession; // print the activityId from session
-
-
-
-// 	if (empty($_SESSION['start'])) { // If there is no start time active session that came from getvalue.php
-// 		$activityStartTimeFromSession = "2000-01-01 00:00:01";
-// 	}
-// 	else{
-// 		$activityStartTimeFromSession = $_SESSION['start']; // If there is start time active session that came from getvalue.php
-// 	}
-// 	//echo "The start time is: ". $activityStartTimeFromSession; // print the activity start time from session
-
-// 	if (empty($_SESSION['end'])) { // If there is no start time active session that came from getvalue.php
-// 		$activityEndTimeFromSession = "2020-01-01 00:00:02";
-// 	}
-// 	else{
-// 		$activityEndTimeFromSession = $_SESSION['end']; // If there is start time active session that came from getvalue.php
-// 	}
-	echo $activityStartTimeFromSession;
-	echo $activityEndTimeFromSession;
-
-///////////////////////////////
 
 $req = $bdd->prepare($sql); // $sql came from connectdb2.php
 $req->execute();
@@ -146,6 +91,9 @@ function filterTable($sql)
 
     <script>
 
+
+
+
 function showUser(str) {
  
     if (str == "") {
@@ -218,6 +166,8 @@ function getData(val)
 		}
 
 </script>
+
+
 
 
 
@@ -424,34 +374,9 @@ function getData(val)
          	</select>
 					</div>
 				  </div>
-<!--////////////////////////////teacher-dropdown-end////////////////////////////-->
-				<!--   Create studentactivity Multiple Select - nice bootrsap code (link folders: doc, dist and demo)   -->
-					<div class="form-group">
-					<label for="students" class="col-sm-2 control-label">תלמידים</label>
-					<div class="col-sm-10">
-					<select class="multipleSelect" name="students_known[]" multiple name="language" >
-					<?php
-       	$allAvailableStudents = mysql_query("SELECT P.id, P.name FROM student P
-                                             JOIN center C ON P.centerid =C.id
-                                             JOIN supervisor  S2 ON C.id = S2.centerid
-                                             WHERE P.id NOT IN (SELECT DISTINCT S.id FROM student S, student_events SE, events E 
-                                             WHERE S.id=SE.studentid AND SE.eventsid = E.id AND SE.eventsid 
-                                             IN (SELECT P2.id FROM events P2 WHERE P2.start >= '2017-05-28 07:30:00' 
-                                             AND P2.end <= '2017-05-28 08:00:00')) AND S2.id = '$identity'");
-					$i=0;
-					while($studentsFromList = mysql_fetch_array($allAvailableStudents)) {
-						?>
-						<option value="<?=$studentsFromList["id"];?>"><?=$studentsFromList["name"];?></option>
-						<!-- 	We want to display userName but to send userNumber  -->
-						<?php
-						$i++;
-					} ?>
-					</select>
-						<script>
-									$('.multipleSelect').fastselect(); //script code for multiple select
-						</script>
-					</div>
-				  </div>
+
+		<!--   Create studentactivity Multiple Select - nice bootrsap code (link folders: doc, dist and demo)   -->
+			   <div class="form-group" id="createStudents" ></div>
 	  
 				
 
@@ -702,64 +627,8 @@ function getData(val)
 				  </div>
 
 					<!--   Update studentEvents Multiple Select - nice bootrsap code (link folders: doc, dist and demo)   -->
-					<div class="form-group">
-					<label for="student" class="col-sm-2 control-label">תלמידים</label>
-					<div class="col-sm-10">
-					<select class="multipleSelect" name="students_known[]" multiple name="language" id="studentNumber2" >
-					<?php
-									
-						 	$result = mysql_query("SELECT `studentid` FROM `student_events` WHERE `eventsid`= '$eventsIdFromSession'") or die(mysql_error());					
-						// $activityIdFromSession came from the beginning of this page
-								$num_rows = mysql_num_rows($result);
-						   	$students_language = [];
-						  	$i=0;
-									while($row = mysql_fetch_assoc($result)) {
-								$students_language[$i] = $row['studentid']; ?>
-								 
-								<?php
-								$i++;
-							} 
-					$studentsFromActivity=$students_language;
-					// var_dump($studentsFromActivity);
-          if($authorizationLevel == '2'){
+					<div class="form-group" id="updateStudents" ></div>
 
-			
-			       	$allAvailableStudents = mysql_query("SELECT P.id, P.name FROM student P
-                                             JOIN center C ON P.centerid =C.id
-                                             JOIN supervisor  S2 ON C.id = S2.centerid
-                                             WHERE P.id NOT IN (SELECT DISTINCT S.id FROM student S, student_events SE, events E 
-                                             WHERE S.id=SE.studentid AND SE.eventsid = E.id AND SE.eventsid 
-                                             IN (SELECT P2.id FROM events P2 WHERE P2.start <= '2017-05-28 07:30:00' 
-                                             AND P2.end >= '2017-05-28 08:00:00')) AND S2.id = '$identity'");
-					}
-          if($authorizationLevel == '1'){
-							$allAvailableStudents = mysql_query("SELECT P.id, P.name FROM student P
-                                              JOIN center C ON P.centerid =C.id
-                                              JOIN supervisor  S2 ON C.id = S2.centerid
-                                              WHERE P.id NOT IN (SELECT DISTINCT S.id FROM student S, student_events SE, events E 
-                                             WHERE S.id=SE.studentid AND SE.eventsid = E.id AND SE.eventsid 
-                                             IN (SELECT P2.id FROM events P2 WHERE P2.start <= '2017-05-28 07:30:00' 
-                                             AND P2.end >= '2017-05-28 08:00:00')) AND P.centerid = '$valueToSearch'");
-						
-					}
-					$i=0;
-					while($studentsFromList = mysql_fetch_array($allAvailableStudents )) {
-						if(in_array($studentsFromList["id"],$studentsFromActivity)) 
-							$str_flag = "selected";
-						else $str_flag="";
-						?>
-						<option value="<?=$studentsFromList["id"];?>" <?php echo $str_flag; ?>><?=$studentsFromList["name"];?></option>
-						<!-- 	We want to display userName but to send userNumber  -->
-						<?php
-						$i++;
-					}
-					?>
-					</select>
-						<script>
-									$('.multipleSelect').fastselect(); //script code for multiple select
-						</script>
-					</div>
-				  </div>
 			
            
 
@@ -935,28 +804,25 @@ function getData(val)
 				
 				$('#ModalAdd #start').val(moment(start).format('YYYY-MM-DD HH:mm:ss'));
 				var start = moment(start).format('YYYY-MM-DD HH:mm:ss'); // new event start time
-						$.ajax({ // send start time to getvalue.php while create new activity
-	  		       type: "POST",
-    		        url: 'getvalue.php',
-  	           data: { start : start },
-    	          success: function(data)
-									{
-											//alert("success!");
-									}
-            	});
+	
 
 				$('#ModalAdd #end').val(moment(end).format('YYYY-MM-DD HH:mm:ss'));
 				var end = moment(end).format('YYYY-MM-DD HH:mm:ss'); // new event end time
-						$.ajax({ // send end time to getvalue.php while create new activity
-	  		       type: "POST",
-    		        url: 'getvalue.php',
-  	           data: { end : end },
-    	          success: function(data)
-									{
-											//alert("success!");
-									}
-            	});
+		
+				
+				Event = [];
+				Event[0] = start;
+				Event[1] = end;
 
+					$.ajax({ // send array with start and end times to updateUsersAndStudents.php while edit creating new activity
+							type: "POST",
+							url: 'createStudents.php',
+							data: {Event:Event},
+							success: function(data)
+								{
+									$("#createStudents").html(data); // insert the values from createUsersAndStudents.php to createUsersAndStudents div
+								}
+						});
 				$('#ModalAdd').modal('show');
 			},
 			eventRender: function(event, element) {
@@ -975,38 +841,29 @@ function getData(val)
 					$('#ModalEdit #studentstring').val(event.studentstring);
 				
 
-							var eventsId = event.id; // event activityId
-						 $.ajax({ // send activityId to getvalue.php while edit existing activity
-	  		       type: "POST",
-    		        url: 'getvalue.php',
-  	           data: { eventsID : eventsId },
-    	          success: function(data)
-									{
-											//alert("success!");
-									}
-            	});
+							var id = event.id; // event activityId
+			
 						
 						var start = event.start.format('YYYY-MM-DD HH:mm:ss'); // event start time
-						$.ajax({ // send start time to getvalue.php while edit existing activity
-	  		       type: "POST",
-    		        url: 'getvalue.php',
-  	           data: { start : start },
-    	          success: function(data)
-									{
-											//alert("success!");
-									}
-            	});
+			
 
 							var end = event.end.format('YYYY-MM-DD HH:mm:ss'); // event end time
-						$.ajax({ // send end time to getvalue.php while edit existing activity
-	  		       type: "POST",
-    		        url: 'getvalue.php',
-  	           data: { end : end },
-    	          success: function(data)
-									{
-											//alert("success!");
-									}
-            	});
+	
+
+						  Event = [];
+							Event[0] = start;
+							Event[1] = end;
+							Event[2] = id;
+
+						$.ajax({ // send array with activityId, start and end times to updateUsersAndStudents.php while edit existing activity
+							type: "POST",
+							url: 'updateStudents.php',
+							data: {Event:Event},
+							success: function(data)
+								{
+									$("#updateStudents").html(data); // insert the values from updateUsersAndStudents.php to updateUsersAndStudents div
+								}
+						});
 				
 					$('#ModalEdit').modal('show');
 
