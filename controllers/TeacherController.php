@@ -112,12 +112,17 @@ class TeacherController extends Controller
         $user = new User();
         $course = new Course();
         $fundingsource = new FundingSource();
-        
-       
-
 
         if ($model->load(Yii::$app->request->post()) && $user->load(Yii::$app->request->post())  && $model->save()) {
          
+            $michtamchim = User::find()->all();
+            foreach ($michtamchim as $michtamchim):
+                if ($user->username == $michtamchim->username):
+                    Yii::$app->session->setFlash('error', "Your message to display");
+                    return $this->goBack();
+                endif;
+            endforeach;
+            
             $user->id = $user->id;  //insert id to user table
             $user->userRole = '1'; //insert id to user table
             $user->save();
