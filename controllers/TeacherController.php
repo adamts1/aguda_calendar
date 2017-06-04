@@ -116,9 +116,9 @@ class TeacherController extends Controller
         if ($model->load(Yii::$app->request->post()) && $user->load(Yii::$app->request->post())  && $model->save()) {
          
             $michtamchim = User::find()->all();
-            foreach ($michtamchim as $michtamchim):
-                if ($user->username == $michtamchim->username):
-                    Yii::$app->session->setFlash('error', "Your message to display");
+            foreach ($michtamchim as $michtamech):
+                if ($user->username == $michtamech->username):
+                    Yii::$app->session->setFlash('error', "this user already exist");
                     return $this->goBack();
                 endif;
             endforeach;

@@ -314,3 +314,10 @@ a.desc:after {
     height: 36px;
     border-bottom-style: solid;
 }
+/******** error message *******/
+
+.alert-error{
+    background-color: #ffb3b3;
+    color: red;
+    border-color: #ffb3b3;
+}

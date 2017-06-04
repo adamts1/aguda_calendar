@@ -12,9 +12,9 @@ $this->title = 'My Yii Application';
  </div>
 <?php endif; ?>
 <?php if (Yii::$app->session->hasFlash('error')): ?>
- <div class="alert alert-success alert-dismissable">
+ <div class="alert alert-error alert-dismissable">
  <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
- <h4><i class="icon fa fa-check"></i>Saved!</h4>
+ <h4><i class="icon fa fa-check"></i>Not Saved!</h4>
  <?= Yii::$app->session->getFlash('error') ?>
  </div>
 <?php endif; ?>
