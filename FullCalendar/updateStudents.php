@@ -42,10 +42,10 @@ include "connectdb2.php";
 	$end = $_POST['Event'][1];
 	$id = $_POST['Event'][2]; 
 
-echo $start;
-echo $end;
-echo $id;
-echo $identity;
+// echo $start;
+// echo $end;
+// echo $id;
+// echo $identity;
 
 
 
@@ -68,7 +68,7 @@ echo $identity;
 							} 
 					$studentsFromActivity=$students_language;
 					if($authorizationLevel == '2'){
-					$allAvailableStudents = mysql_query("SELECT P.id, P.name FROM student P
+					$allAvailableStudents = mysql_query("SELECT P.id, P.nickname FROM student P
                                                          JOIN center C ON P.centerid =C.id
                                                          JOIN supervisor S2 ON C.id = S2.centerid
                                                          WHERE (P.id NOT IN (SELECT DISTINCT S.id 
@@ -86,7 +86,7 @@ echo $identity;
 					}
 
 					if($authorizationLevel == '1'){
-					$allAvailableStudents = mysql_query("SELECT id, name FROM student 
+					$allAvailableStudents = mysql_query("SELECT id, nickname FROM student 
 					JOIN student_events SE ON student.id =SE.studentid
 					WHERE SE.eventsid= '$id' ");
 						
@@ -98,7 +98,7 @@ echo $identity;
 							$str_flag = "selected";
 						else $str_flag="";
 						?>
-						<option value="<?=$studentsFromList["id"];?>" <?php echo $str_flag; ?>><?=$studentsFromList["name"];?></option>
+						<option value="<?=$studentsFromList["id"];?>" <?php echo $str_flag; ?>><?=$studentsFromList["nickname"];?></option>
 						<!-- 	We want to display students nickName but to send studentId  -->
 						<?php
 						$i++;

@@ -114,7 +114,7 @@ elseif (isset($_POST['title'])  && isset($_POST['id']) && isset($_POST['location
 			}
 
 			/////// we want query for convert studen id to student name
-			$converIdToName="SELECT `name` FROM `student` WHERE `id`= '$studentName'";
+			$converIdToName="SELECT `nickname` FROM `student` WHERE `id`= '$studentName'";
 			$converIdToName1 = $bdd->prepare($converIdToName); 
 			$converIdToName1->execute();
 			$converIdToName2 = $converIdToName1->fetch(); // names is 2 arrays and we need to execute them

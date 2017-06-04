@@ -40,7 +40,7 @@ if (isset($_POST['Event'][0]) && isset($_POST['Event'][1]) ){ // $_POST['Event']
 					<select class="multipleSelect" name="students_known[]" multiple name="language">
 					<?php
               
-					$allAvailableStudents = mysql_query("SELECT P.id, P.name FROM student P
+					$allAvailableStudents = mysql_query("SELECT P.id, P.nickname FROM student P
                                              JOIN center C ON P.centerid =C.id
                                              JOIN supervisor  S2 ON C.id = S2.centerid
                                              WHERE P.id NOT IN (SELECT DISTINCT S.id FROM student S, student_events SE, events E 
@@ -53,7 +53,7 @@ if (isset($_POST['Event'][0]) && isset($_POST['Event'][1]) ){ // $_POST['Event']
 					$i=0;
 					while($studentFromList = mysql_fetch_array($allAvailableStudents)) {
 						?>
-						<option value="<?=$studentFromList["id"];?>"><?=$studentFromList["name"];?></option>
+						<option value="<?=$studentFromList["id"];?>"><?=$studentFromList["nickname"];?></option>
 						<!-- 	We want to display student nickName but to send studentId  -->
 						<?php
 						$i++;

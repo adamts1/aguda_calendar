@@ -14,6 +14,7 @@ use Yii;
  * @property string $grade
  * @property string $phone
  * @property string $notes
+ * @property string $nickname
  *
  * @property GroupStudent[] $groupStudents
  * @property Group[] $groups
@@ -44,7 +45,9 @@ class Student extends \yii\db\ActiveRecord
     {
         return [
             [['centerid'], 'integer'],
-            [['name', 'lastname', 'grade', 'phone', 'notes'], 'string', 'max' => 255],
+            [['name', 'lastname', 'grade', 'phone', 'notes', 'nickname'], 'string', 'max' => 255],
+            [['nickname'], 'required'],
+
             [['centerid'], 'exist', 'skipOnError' => true, 'targetClass' => Center::className(), 'targetAttribute' => ['centerid' => 'id']],
         ];
     }
@@ -60,8 +63,9 @@ class Student extends \yii\db\ActiveRecord
             'name' => 'שם',
             'lastname' => 'שם משפחה',
             'grade' => 'כיתה',
-            'phone' => 'טלפון ליצירת קשר',
+            'phone' => 'טלפון',
             'notes' => 'הערות',
+            'nickname' => 'כינוי',
         ];
     }
 
@@ -153,15 +157,7 @@ class Student extends \yii\db\ActiveRecord
         return $this->hasMany(Teacher::className(), ['id' => 'teacherid'])->viaTable('student_teacher', ['studentid' => 'id']);
     }
 
-      public static function getStudentForGroup()  // return the name of the course using for dropdown 
-	{
-		$allStudentForGroup = self::find()->all();
-		$allStudentForGroupArray = ArrayHelper::
-					map($allStudentForGroup, 'id', 'name');
-		return $allStudentForGroupArray;						
-	} 
-
-    public function getStudentName()
+     public function getStudentName()
     {
         return $this->name.' '.$this->lastname;
     }

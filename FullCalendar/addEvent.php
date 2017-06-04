@@ -91,7 +91,7 @@ if (isset($_POST['title']) && isset($_POST['start']) && isset($_POST['end']) && 
 		}
 ///////////////
  /////// we want query for convert userNumber to userName
-			$converIdToName="SELECT `name` FROM `student` WHERE `id`= '$studentName'";
+			$converIdToName="SELECT `nickname` FROM `student` WHERE `id`= '$studentName'";
 			$converIdToName1 = $bdd->prepare($converIdToName); 
 			$converIdToName1->execute();
 			$converIdToName2 = $converIdToName1->fetch(); // names is 2 arrays and we need to execute them

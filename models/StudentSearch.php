@@ -19,7 +19,7 @@ class StudentSearch extends Student
     {
         return [
             [['id', 'centerid'], 'integer'],
-            [['name', 'lastname', 'grade', 'phone', 'notes'], 'safe'],
+            [['name', 'lastname', 'grade', 'phone', 'notes', 'nickname'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class StudentSearch extends Student
      */
     public function search($params)
     {
-        $query = Student::find();
+    $query = Student::find();
 
         // add conditions that should always apply here
 
@@ -52,7 +52,6 @@ class StudentSearch extends Student
            ->where(['supervisor.id' => Yii::$app->user->identity->id])
 
         ]);
-
         $this->load($params);
 
         if (!$this->validate()) {
@@ -71,7 +70,8 @@ class StudentSearch extends Student
             ->andFilterWhere(['like', 'lastname', $this->lastname])
             ->andFilterWhere(['like', 'grade', $this->grade])
             ->andFilterWhere(['like', 'phone', $this->phone])
-            ->andFilterWhere(['like', 'notes', $this->notes]);
+            ->andFilterWhere(['like', 'notes', $this->notes])
+            ->andFilterWhere(['like', 'nickname', $this->nickname]);
 
         return $dataProvider;
     }
