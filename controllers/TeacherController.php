@@ -14,6 +14,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use	yii\helpers\ArrayHelper; 
+use \yii\web\HttpException;
+use \yii\web\UnauthorizedHttpException;
 
 
 /**
@@ -60,17 +62,18 @@ class TeacherController extends Controller
      */
     public function actionIndex()
     {
+       if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות בדף זה');}
+        else{
         $searchModel = new TeacherSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         
-
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+        }
     }
-
-    
 
     /**
      * Displays a single Teacher model.
@@ -79,21 +82,30 @@ class TeacherController extends Controller
      */
     public function actionView($id)
     {
+          if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות בדף זה');}
+        else{
 
         return $this->render('view', [
             'model' => $this->findModel($id),
 
         ]);
+        }
     }
 
     public function actionChart() ////important for the chart of teacher
     { 
+          if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות בדף זה');}
+        else{
+
         $searchModel = new TeacherSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         return $this->render('chart.php', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+        }
     }
 
         // public function actionChart()
@@ -108,6 +120,9 @@ class TeacherController extends Controller
      */
     public function actionCreate()
     {
+          if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות בדף זה');}
+        else{
         $model = new Teacher();
         $user = new User();
         $course = new Course();
@@ -166,7 +181,7 @@ class TeacherController extends Controller
             ]);
         }
     }
-
+}
     /**
      * Updates an existing Teacher model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -195,6 +210,9 @@ class TeacherController extends Controller
 
     public function actionUpdate($id)  // update teacher & user  together
         {
+          if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות בדף זה');}
+        else{
         $model = Teacher::findOne($id);
         if (!$model) {
             throw new NotFoundHttpException("The teacher was not found.");
@@ -270,7 +288,7 @@ class TeacherController extends Controller
        
         ]);
     }
-
+        }
 
 
 
@@ -282,14 +300,16 @@ class TeacherController extends Controller
      */
     public function actionDelete($id)
     {
-
+        if (\Yii::$app->user->can('indexOwnStudent')){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה למחוק מורים  ');}
+        else{
          User::find()->where(['id' =>$id])->one()->delete();// delete from user table
-        $this->findModel($id)->delete();
+         $this->findModel($id)->delete();
        
       
-        return $this->redirect(['index']);
+         return $this->redirect(['index']);
+         }
     }
-
 
 
     /**

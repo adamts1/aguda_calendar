@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use Yii;
+use yii\helpers\Url;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -11,6 +12,9 @@ use app\models\LostPasswordForm;
 use app\models\ContactForm;
 use app\models\User;
 use app\models\EmailMessage;
+use yii\web\Session;
+use app\models\FormRecoverPass;
+use app\models\FormResetPass;
 
 class SiteController extends Controller
 {
@@ -71,56 +75,151 @@ class SiteController extends Controller
      *
      * @return string
      */
+     public function actionRecoverpass()
+ {
+  //Instancia para validar el formulario
+  $model = new FormRecoverPass;
+  
+  //Mensaje que será mostrado al usuario en la vista
+  $msg = null;
+  
+  if ($model->load(Yii::$app->request->post()))
+  {
+      
+   if ($model->validate())
+   {
+    
+    $users = User::find()->where(['email' => $model->email])->all();
+    foreach ($users as $user):
+        $userId = $user->id;
+    endforeach;
+    
+     $subject = "Recuperar password";
+     $body = "<p>Copie el siguiente código de verificación para restablecer su password ... ";
+     $body .= "<strong>".$user->verification_code."</strong></p>";
+     $body .= "<p><a href='http://localhost/a_p/web/site/resetpass'>Recuperar password</a></p>";
+
+     //Enviamos el correo
+     Yii::$app->mailer->compose()
+     ->setTo($model->email)
+     ->setFrom('donotereply@agudalekidumahinuh.com')
+     ->setSubject($subject)
+     ->setHtmlBody($body)
+     ->send();
+     
+     //Vaciar el campo del formulario
+     $model->email = null;
+     
+     //Mostrar el mensaje al usuario
+     $msg = "Le hemos enviado un mensaje a su cuenta de correo para que pueda resetear su password";
+   
+   
+   }
+   else
+   {
+    $model->getErrors();
+   }
+  }
+  return $this->render("recoverpass", ["model" => $model, "msg" => $msg]);
+ }
+ 
+ public function actionResetpass()
+ {
+  
+  $model = new FormResetPass;
+  $msg = null;
+  
+  
+  
+  
+  if ($model->load(Yii::$app->request->post()))
+  {
+   if ($model->validate())
+   {
+    
+    print_r('model formresetpass validate');
+     $newUser = User::findOne(["email" => $model->email, "verification_code" => $model->verification_code]);
+     
+     //Encriptar el password
+     //$user->password = crypt($model->password, Yii::$app->params["salt"]);
+     $newUser->password = $model->password;
+
+
+     //Si la actualización se lleva a cabo correctamente
+     if ($presentUser->save())
+     {
+      
+      //Vaciar los campos del formulario
+      $model->email = null;
+      $model->password = null;
+      $model->password_repeat = null;
+      $model->verification_code = null;
+      
+      $msg = "Enhorabuena, password reseteado correctamente, redireccionando a la página de login ...";
+      $msg .= "<meta http-equiv='refresh' content='5; ".Url::toRoute("site/login")."'>";
+     }
+     else
+     {
+      $msg = "Ha ocurrido un error";
+     }
+     
+   
+   }
+  }
+  
+  return $this->render("resetpass", ["model" => $model, "msg" => $msg]);
+  
+ }
     public function actionLogin()
     {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
+        
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
-
         $lostPasswordForm = new LostPasswordForm();
-        if($lostPasswordForm->load(Yii::$app->request->post()) && $lostPasswordForm->validate())
-        {
-          $user = User::findOne(['email'=>$lostPasswordForm->email]);
-
-          if ($user){
-              
-              $message = EmailMessage::findOne(['slug'=>'password_recovery']);
-              
-            
-               $email = Yii::$app->mailer
-                ->compose(['body'=>$message])
-                ->setFrom('donotereply@mipo.com')
-                ->setTo($user->email)
-                ->setSubject('Recovery Password');
-                
-                Yii::$app->mailer->compose()
-                    ->setFrom('somebody@domain.com')
-                    ->setTo($user->email)
-                    ->setSubject('Email sent from Yii2-Swiftmailer')
-                    ->send();
-
-                 Yii::$app->mailer->compose()
-                    ->setTo('laury.aziza@gmail.com')
-                    ->setFrom('donotreply@gmail.com')
-                    ->setSubject('Invite')
-                    ->setTextBody('Hello!')
-                    ->send();
-
-                if ($email->send()){
-                    print_r('email send');die();
-                }
-
-
-
-          }
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+             Yii::$app->session->setFlash('success');
+             return $this->goHome();
+            //return $this->goBack();
         }
 
         return $this->render('login', [
             'model' => $model,
+            'lostPasswordForm' => $lostPasswordForm,
+
+        ]);
+        
+    }
+    public function actionForgotPassword()
+    {
+        
+        $lostPasswordForm = new LostPasswordForm();
+        if($lostPasswordForm->load(Yii::$app->request->post()) && $lostPasswordForm->validate())
+        {
+          $user = User::findOne(['email'=>$lostPasswordForm->email]);
+          if ($user){
+              $message = EmailMessage::findOne(['slug'=>'password_recovery']);
+              //print_r($message->body);die;
+               $email = Yii::$app->mailer
+                ->compose(['body'=>$message->body])
+                ->setTextBody($message->body)
+                ->setFrom('donotereply@agudalekidumahinuh.com')
+                ->setTo($lostPasswordForm->email)
+                ->setSubject('Recovery Password');
+
+                if ($email->send()){
+                    //print_r('email send to '.$lostPasswordForm->email);die();
+                    Yii::$app->session->setFlash('emailSend');
+                    return $this->goHome();
+                }
+                else{
+                     print_r('email not send');die();
+                }
+                if (!Yii::$app->user->isGuest) {
+                    return $this->goHome();
+                }
+          }
+        }
+
+        return $this->render('login', [
             'lostPasswordForm' => $lostPasswordForm,
 
         ]);
@@ -134,9 +233,11 @@ class SiteController extends Controller
      */
     public function actionLogout()
     {
+
         Yii::$app->user->logout();
 
         return $this->goHome();
+
     }
 
     /**
@@ -168,7 +269,8 @@ class SiteController extends Controller
     }
     
     //////////////////////////////////////////////////// RBAC  /////////////////////////////////////////
-	public function actionRole()
+	
+    public function actionRole()
 	{
 		$auth = Yii::$app->authManager;				
 		
@@ -194,10 +296,7 @@ class SiteController extends Controller
 		$updateOwnTeacher->description = 'Teacher can update himself';
 		$auth->add($updateOwnTeacher);	
 
-			
-		
 	}
-
 
 	public function actionSchooldirectorpermissions()
 	{
@@ -225,14 +324,10 @@ class SiteController extends Controller
 	{
 		$auth = Yii::$app->authManager;
 		
-		
 		$createSchoolDir = $auth->createPermission('createSchoolDir');  
 		$createSchoolDir->description = 'admin can create all School Director';
 		$auth->add($createSchoolDir);
-		
-		
-		
-	
+
 	}
 
 	public function actionChilds()

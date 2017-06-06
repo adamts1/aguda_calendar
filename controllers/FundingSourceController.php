@@ -8,6 +8,8 @@ use app\models\FundingSourceSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use \yii\web\HttpException;
+use \yii\web\UnauthorizedHttpException;
 
 /**
  * FundingSourceController implements the CRUD actions for FundingSource model.
@@ -53,6 +55,9 @@ class FundingSourceController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות ברשימת המשתמשים');}
+        else{
         $searchModel = new FundingSourceSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -60,6 +65,7 @@ class FundingSourceController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
     }
 
     /**
@@ -69,9 +75,13 @@ class FundingSourceController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות ברשימת המשתמשים');}
+        else{
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+        }
     }
 
     /**
@@ -81,6 +91,9 @@ class FundingSourceController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות ברשימת המשתמשים');}
+        else{
         $model = new FundingSource();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -89,6 +102,7 @@ class FundingSourceController extends Controller
             return $this->render('create', [
                 'model' => $model,
             ]);
+        }
         }
     }
 
@@ -100,6 +114,9 @@ class FundingSourceController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות ברשימת המשתמשים');}
+        else{
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -108,6 +125,7 @@ class FundingSourceController extends Controller
             return $this->render('update', [
                 'model' => $model,
             ]);
+        }
         }
     }
 
@@ -119,9 +137,13 @@ class FundingSourceController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות ברשימת המשתמשים');}
+        else{
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+        }
     }
 
     /**

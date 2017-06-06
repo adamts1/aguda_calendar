@@ -70,6 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
            $form = ActiveForm::begin([
                        'id' => 'password-forgot',
                        'options' => ['class' => ''],
+                       'action'=>'http://localhost/a_p/web/site/forgot-password'
                    ])
            ?>
            <div class="form_item form_item_mail">

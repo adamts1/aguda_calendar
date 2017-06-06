@@ -20,6 +20,7 @@ namespace app\models;
  * @property string $phone
  * @property string $address
  * @property string $notes
+ * @property string $verification_code
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
@@ -48,7 +49,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function rules()
     {
         return [
-            [['notes'], 'string'],
+            [['notes','verification_code'], 'string'],
             [['status', 'created_at', 'updated_at', 'created_by', 'updated_by', 'userRole'], 'integer'],
             [['username', 'password', 'auth_key', 'firstname', 'lastname', 'email', 'phone', 'address'], 'string', 'max' => 255],
             [['username', 'password', ], 'required'],
@@ -73,6 +74,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             'phone' => 'טלפון',
             'address' => 'כתובת',
             'notes' => 'הערות',
+            'verification_code'=>'קוד',
             'status' => 'Status',
             'created_at' => 'תאריך כניסה למערכת',
             'updated_at' => 'עדכון אחרון',

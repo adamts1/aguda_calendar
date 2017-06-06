@@ -35,6 +35,7 @@ class Location extends \yii\db\ActiveRecord
             [['centerid'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['centerid'], 'exist', 'skipOnError' => true, 'targetClass' => Center::className(), 'targetAttribute' => ['centerid' => 'id']],
+            
         ];
     }
 

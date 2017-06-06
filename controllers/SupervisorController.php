@@ -9,7 +9,8 @@ use app\models\SupervisorSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use \yii\web\HttpException;
+use \yii\web\UnauthorizedHttpException;
 /**
  * SupervisorController implements the CRUD actions for Supervisor model.
  */
@@ -59,6 +60,10 @@ class SupervisorController extends Controller
      */
     public function actionIndex()
     {
+        
+        if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות ברשימת הרכזים');}
+        else{
         $searchModel = new SupervisorSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -66,6 +71,7 @@ class SupervisorController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
     }
 
     /**
@@ -75,9 +81,13 @@ class SupervisorController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות ברשימת הרכזים');}
+        else{
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+        }
     }
 
     /**
@@ -87,6 +97,10 @@ class SupervisorController extends Controller
      */
     public function actionCreate()
     {
+        //
+        if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה ליצור רכז  ');}
+        else{
         $model = new Supervisor();
          $user = new User();
 
@@ -98,10 +112,6 @@ class SupervisorController extends Controller
 
              $model->id = $user->id; //insert the same id as user
              $model->save();
-
-
-
-
 
             return $this->redirect(['view', 'id' => $model->id]);
 
@@ -117,7 +127,7 @@ class SupervisorController extends Controller
             ]);
         }
     }
-
+    }
     /**
      * Updates an existing Supervisor model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -140,37 +150,40 @@ class SupervisorController extends Controller
 
     public function actionUpdate($id)  // update teacher & user  together
         {
-        $model = Supervisor::findOne($id);
-        if (!$model) {
-            throw new NotFoundHttpException("The supervisor was not found.");
-        }
-        
-        $user = User::findOne($model->id); // userNumber is the fk
-        if (!$user) {
-            throw new NotFoundHttpException("The user has no profile.");
-        }
-        
-        //$model->scenario = 'update';
-        //$teacher->scenario = 'update';
-        
-        if ($model->load(Yii::$app->request->post()) && $user->load(Yii::$app->request->post())) {
-            //$isValid = $model->validate();
-            //$isValid = $teacher->validate() && $isValid;
-            //if ($isValid) {
-                $model->save(false);
-                $user->save(false);
-                return $this->redirect(['supervisor/view', 'id' => $id]);
-           // }
-        }
-        $roles = Supervisor::getRoles(); 
-        return $this->render('update', [
-            'model' => $model,
-            'user' => $user,
-            'roles' => $roles,
+        if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לעדכן רכזים ');}
+        else{
+            $model = Supervisor::findOne($id);
+            if (!$model) {
+                throw new NotFoundHttpException("The supervisor was not found.");
+            }
+            
+            $user = User::findOne($model->id); // userNumber is the fk
+            if (!$user) {
+                throw new NotFoundHttpException("The user has no profile.");
+            }
+            
+            //$model->scenario = 'update';
+            //$teacher->scenario = 'update';
+            
+            if ($model->load(Yii::$app->request->post()) && $user->load(Yii::$app->request->post())) {
+                //$isValid = $model->validate();
+                //$isValid = $teacher->validate() && $isValid;
+                //if ($isValid) {
+                    $model->save(false);
+                    $user->save(false);
+                    return $this->redirect(['supervisor/view', 'id' => $id]);
+            // }
+            }
+            $roles = Supervisor::getRoles(); 
+            return $this->render('update', [
+                'model' => $model,
+                'user' => $user,
+                'roles' => $roles,
 
-        ]);
+            ]);
+        }
     }
-
 
     /**
      * Deletes an existing Supervisor model.
@@ -180,10 +193,14 @@ class SupervisorController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה למחוק רכזים');}
+        else{
             User::find()->where(['id' =>$id])->one()->delete();
-        $this->findModel($id)->delete();
+            $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+            return $this->redirect(['index']);
+        }
     }
 
     /**

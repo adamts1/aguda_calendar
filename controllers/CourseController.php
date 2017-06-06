@@ -13,6 +13,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\VarDumper;
 use yii\db\QueryBuilder;  
+use \yii\web\HttpException;
+use \yii\web\UnauthorizedHttpException;
 
 
 /**
@@ -59,6 +61,9 @@ class CourseController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות ברשימת קורסים');}
+        else{
         $searchModel = new CourseSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -66,6 +71,7 @@ class CourseController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+        }
     }
 
     /**
@@ -75,9 +81,13 @@ class CourseController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות ברשימת קורסים');}
+        else{
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+        }
     }
 
     /**
@@ -87,7 +97,9 @@ class CourseController extends Controller
      */
     public function actionCreate()
     {
-
+        if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה ליצור קורסים חדשים  ');}
+        else{
         if (Yii::$app->user->can('createStudent'))
         {
         $model = new Course();
@@ -119,6 +131,7 @@ class CourseController extends Controller
 
     }
     }
+    }
 
     /**
      * Updates an existing Course model.
@@ -128,6 +141,10 @@ class CourseController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לעדכן קורסים  ');}
+        else{
+
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -136,6 +153,7 @@ class CourseController extends Controller
             return $this->render('update', [
                 'model' => $model,
             ]);
+        }
         }
     }
 
@@ -147,9 +165,14 @@ class CourseController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה למחוק קורסים  ');}
+        else{
+
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
     }
 
     /**
