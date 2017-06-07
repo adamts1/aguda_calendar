@@ -77,10 +77,9 @@ class SiteController extends Controller
      */
      public function actionRecoverpass()
  {
-  //Instancia para validar el formulario
+  
   $model = new FormRecoverPass;
   
-  //Mensaje que será mostrado al usuario en la vista
   $msg = null;
   
   if ($model->load(Yii::$app->request->post()))
@@ -94,10 +93,10 @@ class SiteController extends Controller
         $userId = $user->id;
     endforeach;
     
-     $subject = "Recuperar password";
-     $body = "<p>Copie el siguiente código de verificación para restablecer su password ... ";
+     $subject = "Reset password";
+     $body = "<p>Copie this code to reset password ... ";
      $body .= "<strong>".$user->verification_code."</strong></p>";
-     $body .= "<p><a href='http://localhost/a_p/web/site/resetpass'>Recuperar password</a></p>";
+     $body .= "<p><a href='http://localhost/a_p/web/site/resetpass'>Reset password</a></p>";
 
      //Enviamos el correo
      Yii::$app->mailer->compose()
@@ -107,11 +106,8 @@ class SiteController extends Controller
      ->setHtmlBody($body)
      ->send();
      
-     //Vaciar el campo del formulario
      $model->email = null;
-     
-     //Mostrar el mensaje al usuario
-     $msg = "Le hemos enviado un mensaje a su cuenta de correo para que pueda resetear su password";
+     $msg = "שלחנו הודעה אל חשבון האימייל שלך, כך שתוכל לאפס את סיסמתך";
    
    
    }
@@ -119,6 +115,7 @@ class SiteController extends Controller
    {
     $model->getErrors();
    }
+
   }
   return $this->render("recoverpass", ["model" => $model, "msg" => $msg]);
  }
@@ -137,7 +134,7 @@ class SiteController extends Controller
    if ($model->validate())
    {
     
-    print_r('model formresetpass validate');
+     print_r('model formresetpass validate');
      $newUser = User::findOne(["email" => $model->email, "verification_code" => $model->verification_code]);
      
      //Encriptar el password
@@ -146,7 +143,7 @@ class SiteController extends Controller
 
 
      //Si la actualización se lleva a cabo correctamente
-     if ($presentUser->save())
+     if ($newUser->save())
      {
       
       //Vaciar los campos del formulario
@@ -155,7 +152,7 @@ class SiteController extends Controller
       $model->password_repeat = null;
       $model->verification_code = null;
       
-      $msg = "Enhorabuena, password reseteado correctamente, redireccionando a la página de login ...";
+      $msg = "איפוס הסיסמה מחדש נעשה בהצלחה כהלכה לעמוד ההתחברות ...";
       $msg .= "<meta http-equiv='refresh' content='5; ".Url::toRoute("site/login")."'>";
      }
      else

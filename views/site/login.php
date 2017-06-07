@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ]) ?>
         </div>
         <div class="forgot_pwd">
-            <a href="#forgot_tab" aria-controls="forgot_tab" role="tab" data-toggle="tab"><?= Html::label('שכחת סיסמא ? ', 'reveal-password') ?></a>
+        <a href="http://localhost/a_p/web/site/recoverpass">שכחת סיסמא ?</a>
         </div>
 
         <div class="form-group">
