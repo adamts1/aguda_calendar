@@ -86,7 +86,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php endforeach;?>
             </div>
             <?php endforeach;?>
-        
+            <div class="modal-row">
+              <div class="modal-info-teacher-name">
+                  סה"כ"
+              </div>
+              <div class="modal-info-teacher-hours">
+                <?php $fundingSourceHours = FundingsourceTeacher::find()->where(['sourceid'=>$fs->id])->all(); 
+                $totalHours = 0;
+                foreach ($fundingSourceHours as $fundingSourceHour):
+                  $totalHours = $totalHours + $fundingSourceHour->numberOfHours;
+                  
+                endforeach;
+                print_r($totalHours);
+                ?>
+              </div>
+            </div>
 
         </div>
         <div class="modal-footer">

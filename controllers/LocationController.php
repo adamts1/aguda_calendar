@@ -8,6 +8,8 @@ use app\models\LocationSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use \yii\web\HttpException;
+use \yii\web\UnauthorizedHttpException;
 
 /**
  * LocationController implements the CRUD actions for Location model.
@@ -35,6 +37,10 @@ class LocationController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות בדף זה');}
+        else{
+        
         $searchModel = new LocationSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -42,6 +48,8 @@ class LocationController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+
+        }
     }
 
     /**
@@ -51,9 +59,15 @@ class LocationController extends Controller
      */
     public function actionView($id)
     {
+            if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות בדף זה');}
+        else{
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+
+        }
     }
 
     /**
@@ -63,6 +77,9 @@ class LocationController extends Controller
      */
     public function actionCreate()
     {
+           if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות בדף זה');}
+        else{
         $model = new Location();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -81,6 +98,7 @@ class LocationController extends Controller
                 'model' => $model,
             ]);
         }
+        }
     }
 
     /**
@@ -91,6 +109,9 @@ class LocationController extends Controller
      */
     public function actionUpdate($id)
     {
+          if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות בדף זה');}
+        else{
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -99,6 +120,7 @@ class LocationController extends Controller
             return $this->render('update', [
                 'model' => $model,
             ]);
+        }
         }
     }
 
@@ -110,9 +132,14 @@ class LocationController extends Controller
      */
     public function actionDelete($id)
     {
+        
+          if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות בדף זה');}
+        else{
+
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index']);}
     }
 
     /**

@@ -19,7 +19,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'user' => $user,
         'roles' => $roles,
 
-
     ]) ?>
 
 </div>

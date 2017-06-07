@@ -8,6 +8,8 @@ use app\models\CenterSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use \yii\web\HttpException;
+use \yii\web\UnauthorizedHttpException;
 
 /**
  * CenterController implements the CRUD actions for Center model.
@@ -52,6 +54,10 @@ class CenterController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות ברשימת המרכזים');}
+        else{
+
         $searchModel = new CenterSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -59,6 +65,7 @@ class CenterController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+        }
     }
 
     /**
@@ -68,9 +75,14 @@ class CenterController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות ברשימת המרכזים');}
+        else{
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+        }
     }
 
     /**
@@ -80,6 +92,9 @@ class CenterController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות ברשימת המרכזים');}
+        else{
         $model = new Center();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -88,6 +103,7 @@ class CenterController extends Controller
             return $this->render('create', [
                 'model' => $model,
             ]);
+        }
         }
     }
 
@@ -99,6 +115,9 @@ class CenterController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות ברשימת המרכזים');}
+        else{
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -107,6 +126,7 @@ class CenterController extends Controller
             return $this->render('update', [
                 'model' => $model,
             ]);
+        }
         }
     }
 
@@ -118,9 +138,13 @@ class CenterController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות ברשימת המרכזים');}
+        else{
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+        }
     }
 
     /**

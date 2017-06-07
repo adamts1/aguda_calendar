@@ -9,7 +9,8 @@ use app\models\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use \yii\web\HttpException;
+use \yii\web\UnauthorizedHttpException;
 /**
  * UserController implements the CRUD actions for User model.
  */
@@ -36,6 +37,9 @@ class UserController extends Controller
      */
     public function actionIndex()
     {
+          if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות בדף זה');}
+        else{
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -43,6 +47,7 @@ class UserController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+        }
     }
 
     /**
@@ -52,9 +57,13 @@ class UserController extends Controller
      */
     public function actionView($id)
     {
+          if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות בדף זה');}
+        else{
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+        }
     }
 
     /**
@@ -64,6 +73,9 @@ class UserController extends Controller
      */
     public function actionCreate()
     {
+          if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות בדף זה');}
+        else{
         $model = new User();
         //$teacher = new Teacher(); //בדיקה
 
@@ -83,6 +95,7 @@ class UserController extends Controller
                 
             ]);
         }
+        }
     }
 
     /**
@@ -93,6 +106,9 @@ class UserController extends Controller
      */
     public function actionUpdate($id)
     {
+          if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות בדף זה');}
+        else{
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -101,6 +117,7 @@ class UserController extends Controller
             return $this->render('update', [
                 'model' => $model,
             ]);
+        }
         }
     }
 
@@ -112,9 +129,13 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
+          if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות בדף זה');}
+        else{
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+        }
     }
 
    
