@@ -288,6 +288,45 @@ class Teacher extends \yii\db\ActiveRecord
 		return $allTeachers;	
     }
 
+    public static function getAllTeachersByCenter()
+    {
+
+        $centerQuery = (new \yii\db\Query())
+        ->select('C2.id')
+        ->from('center C2')
+        ->join('JOIN','teacher T','C2.id=T.centerid')
+        ->where(['T.id' => Yii::$app->user->identity->id]);
+
+        $allTeachersByCenter = (new \yii\db\Query())
+           ->select(['U.id','U.username'])
+           ->from('user U')
+           ->join('JOIN','teacher T','U.id=T.id')
+           ->join('JOIN','center C','T.centerid=C.id')
+           ->where(['C.id' => $centerQuery])
+           ->limit(50)
+           ->all();
+
+		$allTeachersByCenterArray = ArrayHelper::
+					map($allTeachersByCenter, 'id', 'username');
+		return $allTeachersByCenterArray;	
+    }
+
+    //   public static function getStudentByTeacher()  //provide courses according to center supervisor
+	// {
+	// 	$studentByTeacher = (new \yii\db\Query())
+    //        ->select(['course.id','course.coursename'])
+    //        ->from('course')
+    //        ->join(' JOIN','course_center','course_center.courseid=course.id')
+    //        ->join('JOIN','center','course_center.centerid=center.id')
+    //        ->join(' JOIN','supervisor','center.id=supervisor.centerId')
+    //        ->where(['supervisor.id' => Yii::$app->user->identity->id])
+    //        ->limit(50)
+    //        ->all();
+	// 	$allstudentByTeacher = ArrayHelper::
+	// 				map($studentByTeacher, 'id', 'coursename');
+	// 	return $allcoursebycenter;						
+	// }
+
    
 
     

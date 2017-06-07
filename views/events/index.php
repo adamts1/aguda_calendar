@@ -7,30 +7,60 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\EventsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-// $this->title = 'Events';
+$this->title = 'משוב על שיעורים';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
-
-<style>
-                     /* Iframe calendar style */
-	.calendar{	
-	/*float: center;*/
-    /*margin: 0px 0px 0px 0x;*/
-    padding: 0px 0px 0px 0px;
-    width: 100%;
-    height: 1100px;
-    border: 0px solid black;
-     	
-	}
-</style>     
-
 <div class="events-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    
-  <!-- display calendar-->
-    <iframe class="calendar" src="http://localhost/a_p/Fullcalendar"></iframe>
-</div>
-</body>
+    <p>
+        <?= Html::a('Create Events', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
 
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+                 [ 'attribute' => 'title', // New attribute for filter instead of fk userNumber. the functions are at TeacherSearch!
+           	 'label' => 'תיאור השיבוץ',
+             'format'=>'raw',
+                    'value' => function($data){
+					 return
+                        Html::a($data->title, ['events/view','id'=>$data->id], ['title' => 'View','class'=>'no-pjax']);
+                    }
+            ],
+            
+
+            // 'id',
+            // 'title',
+            // 'color',
+            'start',
+            'end',
+
+            
+
+         // 'groupNumber',
+
+            [
+              'attribute' => 'courseid',
+               	'value' => function($model){
+					return $model->course->courseName;},
+            ],
+
+            [
+              'attribute' => 'locationid',
+               	'value' => function($model){
+					return $model->location->locationName;},
+            ],
+            // 'teacherid',
+            'studentstring',
+
+            ['class' => 'yii\grid\ActionColumn',
+             'template' => '{update} {delete}',],
+        ],
+    ]); ?>
+
+</div>

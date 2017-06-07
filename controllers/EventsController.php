@@ -4,10 +4,14 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Events;
+use app\models\Student;
+use app\models\StudentEvents;
 use app\models\EventsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use	yii\helpers\ArrayHelper; 
+
 
 /**
  * EventsController implements the CRUD actions for Events model.
@@ -35,7 +39,6 @@ class EventsController extends Controller
      */
     public function actionIndex()
     {
-        $this->layout = 'eventsLayout'; // check
         $searchModel = new EventsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -83,13 +86,45 @@ class EventsController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model = Events::findOne($id);
+        if (!$model) {
+            throw new NotFoundHttpException("The events was not found");
+        }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+         $student = ArrayHelper::map(Student::find()->all(), 'id', 'nickname');
+         $studentevents = new StudentEvents();
+
+        if ($model->load(Yii::$app->request->post())) {
+
+            $model->save(false);
+
+            StudentEvents::deleteAll(['eventsid' => $id]);
+                 $studentevents->load(Yii::$app->request->post());
+
+                 if (!empty($studentevents->studentid)){
+                     foreach ($studentevents->studentid as $studentid) {
+                        $studentevents = new StudentEvents();
+                        $studentevents->setAttributes([
+                        'studentid' => $studentid,
+                        'eventsid' => $id,
+                   ]);
+                   $studentevents->save();
+                  }
+                }
+
+
+
+
+
+
+
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'id' => $id,
+
             ]);
         }
     }

@@ -19,7 +19,7 @@ class EventsSearch extends Events
     {
         return [
             [['id', 'centerid', 'groupNumber', 'courseid', 'teacherid', 'locationid'], 'integer'],
-            [['title', 'color', 'start', 'end'], 'safe'],
+            [['title', 'color', 'start', 'end', 'studentstring'], 'safe'],
         ];
     }
 
@@ -42,12 +42,30 @@ class EventsSearch extends Events
     public function search($params)
     {
         $query = Events::find();
-
         // add conditions that should always apply here
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+       $dataProvider = new ActiveDataProvider([
+           'pagination' => false,
+
+       
+             'query' => Events::find()
+            ->join('JOIN','teacher','events.teacherid=teacher.id')
+            ->where(['teacher.id' => Yii::$app->user->identity->id])
+            ->andWhere(['<=','start',date("Y-m-d")])
+            ->orderBy(['start' => SORT_DESC])
+            ->limit(10)
+            
+
+
+
+
+
+
+
+
+             ]);// provide for supervisor
+
+        $this->load($params);
 
         $this->load($params);
 
@@ -70,7 +88,8 @@ class EventsSearch extends Events
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'color', $this->color]);
+            ->andFilterWhere(['like', 'color', $this->color])
+            ->andFilterWhere(['like', 'studentstring', $this->studentstring]);
 
         return $dataProvider;
     }

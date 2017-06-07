@@ -3,6 +3,10 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;    
+use app\models\StudentEvents;
+
+
 
 /**
  * This is the model class for table "events".
@@ -17,6 +21,7 @@ use Yii;
  * @property int $courseid
  * @property int $teacherid
  * @property int $locationid
+ * @property string $studentstring
  *
  * @property Center $center
  * @property Course $course
@@ -43,7 +48,7 @@ class Events extends \yii\db\ActiveRecord
         return [
             [['start', 'end'], 'safe'],
             [['centerid', 'groupNumber', 'courseid', 'teacherid', 'locationid'], 'integer'],
-            [['title', 'color'], 'string', 'max' => 255],
+            [['title', 'color', 'studentstring'], 'string', 'max' => 255],
             [['centerid'], 'exist', 'skipOnError' => true, 'targetClass' => Center::className(), 'targetAttribute' => ['centerid' => 'id']],
             [['courseid'], 'exist', 'skipOnError' => true, 'targetClass' => Course::className(), 'targetAttribute' => ['courseid' => 'id']],
             [['locationid'], 'exist', 'skipOnError' => true, 'targetClass' => Location::className(), 'targetAttribute' => ['locationid' => 'id']],
@@ -57,16 +62,17 @@ class Events extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'title' => 'Title',
+            'id' => 'מספר שיבוץ',
+            'title' => 'תיאור ',
             'color' => 'Color',
-            'start' => 'Start',
-            'end' => 'End',
-            'centerid' => 'Centerid',
+            'start' => 'זמן התחלה',
+            'end' => 'זמן סיום',
+            'centerid' => 'מרכז',
             'groupNumber' => 'Group Number',
-            'courseid' => 'Courseid',
-            'teacherid' => 'Teacherid',
-            'locationid' => 'Locationid',
+            'courseid' => 'מקצוע לימוד',
+            'teacherid' => 'מורה מלמד',
+            'locationid' => 'כיתת לימוד',
+            'studentstring' => 'שמות הסטודנטים',
         ];
     }
 
@@ -117,4 +123,32 @@ class Events extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Student::className(), ['id' => 'studentid'])->viaTable('student_events', ['eventsid' => 'id']);
     }
+
+
+    /////////////////////////////////
+ 
+
+    public static function getStudentByCenter()  //provide courses according to center supervisor
+	{
+		$studentbycenter = (new \yii\db\Query())
+           ->select(['S.id','S.nickname'])
+           ->from('student S')
+           ->join('JOIN','center C','S.centerid=C.id')
+           ->join(' JOIN','teacher T','C.id=T.centerId')
+           ->where(['T.id' => Yii::$app->user->identity->id])
+           ->limit(50)
+           ->all();
+		$allstudentbycenter = ArrayHelper::
+					map($studentbycenter, 'id', 'nickname');
+		return $allstudentbycenter;						
+	}
+
+        public static function getInitStudents($id) //This function get courseId and return an array of the existing users on this activity
+    {
+        $studentevents = ArrayHelper::map(StudentEvents::find()
+        ->where(['eventsid'=>$id])->all(),'studentid', 'studentid');
+        return $studentevents;
+    }
+/////////////////////////////////////////
+
 }

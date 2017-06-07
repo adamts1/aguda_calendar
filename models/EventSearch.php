@@ -71,6 +71,7 @@ class EventSearch extends Event
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'description', $this->description]);
 
+
         return $dataProvider;
     }
 }

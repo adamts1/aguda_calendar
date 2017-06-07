@@ -449,7 +449,7 @@ function getData(val)
 				  <div class="form-group">
 					<label for="locationId" class="col-sm-2 control-label">כיתת לימוד</label>
 					<div class="col-sm-10">
-					  <select id="locationId" class="form-control"  name="locationId" dir="rtl">
+					  <select id="locationid" class="form-control"  name="locationId" dir="rtl">
 						<?php
             
             $mysqlserver="localhost";
@@ -494,7 +494,7 @@ function getData(val)
 				  <div class="form-group">
 					<label for="centerid" class="col-sm-2 control-label">מרכז</label>
 					<div class="col-sm-10">
-					  <select id="centerId" class="form-control"  name="centerId" dir="rtl">
+					  <select id="centerid" class="form-control"  name="centerId" dir="rtl">
 						<?php
             
             $mysqlserver="localhost";
@@ -534,9 +534,9 @@ function getData(val)
 				  </div>	
 
 					<div class="form-group">
-					<label for="teacherId" class="col-sm-2 control-label">מורה מלמד</label>
+					<label for="teacherid" class="col-sm-2 control-label">מורה מלמד</label>
 					<div class="col-sm-10">
-					  <select id="teacherId" class="form-control"  name="teacherId" dir="rtl">
+					  <select id="teacherid" class="form-control"  name="teacherId" dir="rtl">
 						<?php
             
             	
@@ -581,7 +581,7 @@ function getData(val)
 					<div class="form-group">
 					<label for="courseId" class="col-sm-2 control-label">מקצוע לימוד</label>
 					<div class="col-sm-10">
-					  <select id="courseId" class="form-control"  name="courseId" dir="rtl">
+					  <select id="courseid" class="form-control"  name="courseId" dir="rtl">
 						<?php
             
             	
@@ -782,8 +782,8 @@ function getData(val)
 			hiddenDays: [6], // hide Saturday
 			//fixedWeekCount: true, // False if we want 4.5 - 6 rows of calendar instead of default 6
 			// weekNumbers: true, // If we want to display week numbers 
-			scrollTime: '06:30:00', // The day start at 6:30 instead of 6:00
-			minTime: "06:00:00", // Min Time of every day
+			scrollTime: '07:30:00', // The day start at 6:30 instead of 6:00
+			minTime: "07:00:00", // Min Time of every day
 			maxTime: "18:00:00", // Max time of every day
 			// displayEventTime : false, // If we want to hide the display of time in every event
 			nowIndicator: true, // display a marker indicating the current time
@@ -838,7 +838,7 @@ function getData(val)
 					$('#ModalEdit #centerid').val(event.centerid);
 					$('#ModalEdit #courseid').val(event.courseid);
 					$('#ModalEdit #teacherid').val(event.teacherid);
-					$('#ModalEdit #studentstring').val(event.studentstring);
+					// $('#ModalEdit #studentstring').val(event.studentstring);
 				
 
 							var id = event.id; // event activityId
@@ -873,6 +873,7 @@ function getData(val)
           element.find('.fc-title').append("<br/><b>מורה בפעילות: </b>" + event.teacherid + "</br>"); // We can change event.comment to what we want disply
           element.find('.fc-title').append("<br/><b>מקצועת: </b>" + event.courseid + "</br>"); // We can change event.comment to what we want disply
           element.find('.fc-title').append("<br/><b>תלמידים: </b>" + event.studentstring + "</br>"); // We can change event.comment to what we want disply
+          element.find('.fc-title').append("<br/><b>מיקום: </b>" + event.locationid + "</br>"); // We can change event.comment to what we want disply
 
 			},
 			eventDrop: function(event, delta, revertFunc) { // si changement de position

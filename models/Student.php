@@ -161,4 +161,6 @@ class Student extends \yii\db\ActiveRecord
     {
         return $this->name.' '.$this->lastname;
     }
+
+    
 }

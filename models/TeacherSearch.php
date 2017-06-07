@@ -53,7 +53,7 @@ class TeacherSearch extends Teacher
 
 
         // add conditions that should always apply here
-        if (Yii::$app->user->can('createSchoolDir')){
+        if (\Yii::$app->user->can('createSchoolDir')){
         $dataProvider = new ActiveDataProvider([
              'query' => $query,                             // provide for admin
             // 'query' => Teacher::find()->where(['id'=> Yii::$app->user->identity->id]),

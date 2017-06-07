@@ -35,6 +35,7 @@ class Location extends \yii\db\ActiveRecord
             [['centerid'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['centerid'], 'exist', 'skipOnError' => true, 'targetClass' => Center::className(), 'targetAttribute' => ['centerid' => 'id']],
+            
         ];
     }
 
@@ -83,12 +84,12 @@ class Location extends \yii\db\ActiveRecord
     }
 
      public static function getLocation()  // return the name of the location using for dropdown 
-	{
-		$allLocation = self::find()->all();
-		$allLocationArray = ArrayHelper::
-					map($allLocation, 'id', 'name');
-		return $allLocationArray;						
-	}   
+    {
+        $allLocation = self::find()->all();
+        $allLocationArray = ArrayHelper::
+                    map($allLocation, 'id', 'name');
+        return $allLocationArray;                       
+    }   
 
      public function getLocationName()
     {

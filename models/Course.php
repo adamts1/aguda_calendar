@@ -101,7 +101,15 @@ class Course extends \yii\db\ActiveRecord
 
     public static function getCourse()  // return the name of the course using for dropdown 
 	{
-		$allCourses = self::find()->all();
+		$allCourses =  (new \yii\db\Query())
+           ->select(['C.id','C.coursename'])
+           ->from('course C')
+           ->join('JOIN','course_center CC','C.id=CC.courseid')
+           ->join('JOIN','center C1','CC.centerid=C1.id')
+           ->join('JOIN','teacher T','C1.id=T.centerid')
+           ->where(['T.id' => Yii::$app->user->identity->id])
+           ->limit(50)
+           ->all();
 		$allCoursesArray = ArrayHelper::
 					map($allCourses, 'id', 'coursename');
 		return $allCoursesArray;						
@@ -114,10 +122,10 @@ class Course extends \yii\db\ActiveRecord
         return $this->coursename;
     }
 
-//     public static function getCourse1()
-// {
-//     return Course::find()->select(['id', 'coursename'])->all();
-// }
+    public static function getCourse1()
+    {
+    return Course::find()->select(['id', 'coursename'])->all();
+    }
 
 
 }
