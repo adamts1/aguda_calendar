@@ -22,6 +22,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'rowOptions'=>function($model){
+            if ($model->status == 1)
+            {
+                return ['class' => 'success'];
+            }
+        },
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
                  [ 'attribute' => 'title', // New attribute for filter instead of fk userNumber. the functions are at TeacherSearch!
@@ -32,6 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         Html::a($data->title, ['events/view','id'=>$data->id], ['title' => 'View','class'=>'no-pjax']);
                     }
             ],
+            
             
 
             // 'id',

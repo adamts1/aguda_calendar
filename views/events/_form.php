@@ -39,10 +39,10 @@ use yii\helpers\ArrayHelper;
 
      <?= $form->field($model, 'locationid')->dropDownList(Location::getLocation()) ?>  
 
-
+     
    <!--<?= $form->field($model, 'studentstring')->textInput(['maxlength' => true]) ?>-->
 
-
+    <?= $form->field($model, 'status')->dropDownList([ '0' => 'לא מסוכם' ,'1' => 'מסוכם',]) ?>
 <!--///////////////////////////////////-->
 <?php
 

@@ -113,12 +113,6 @@ class EventsController extends Controller
                 }
 
 
-
-
-
-
-
-
             return $this->redirect(['index', 'id' => $model->id]);
         } else {
             return $this->render('update', [
