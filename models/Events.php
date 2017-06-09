@@ -22,6 +22,7 @@ use app\models\StudentEvents;
  * @property int $teacherid
  * @property int $locationid
  * @property string $studentstring
+ * @property int status
  *
  * @property Center $center
  * @property Course $course
@@ -47,7 +48,7 @@ class Events extends \yii\db\ActiveRecord
     {
         return [
             [['start', 'end'], 'safe'],
-            [['centerid', 'groupNumber', 'courseid', 'teacherid', 'locationid'], 'integer'],
+            [['centerid', 'groupNumber', 'courseid', 'teacherid', 'locationid','status'], 'integer'],
             [['title', 'color', 'studentstring'], 'string', 'max' => 255],
             [['centerid'], 'exist', 'skipOnError' => true, 'targetClass' => Center::className(), 'targetAttribute' => ['centerid' => 'id']],
             [['courseid'], 'exist', 'skipOnError' => true, 'targetClass' => Course::className(), 'targetAttribute' => ['courseid' => 'id']],
