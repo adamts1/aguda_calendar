@@ -186,6 +186,9 @@ function getData(val)
 <?php } ?>
 <?php if($authorizationLevel == '2') {?>
 <option value="2">מיקום</option>
+<option value="3">מורים</option>
+<option value="4">מקצועות</option>
+<option value="5">תלמידים</option>
 <?php } ?>
 
 </select>
@@ -311,7 +314,13 @@ function getData(val)
 				  <div class="form-group">
 					<label for="title" class="col-sm-2 control-label">תיאור שיבוץ</label>
 					<div class="col-sm-10">
-					  <input type="text" name="title" class="form-control" id="title" placeholder="Title">
+					  <input type="text" name="title" class="form-control" id="title" placeholder="(תיאור השיבוץ (הזנה בעברית בלבד"  onkeyup="letterOnly(this)">
+													<script>
+					function letterOnly(input) {
+						var regex = /[^א-ת ]/gi;
+						input.value = input.value.replace(regex,"");
+					}
+					</script>
 					</div>
           </div>
 
@@ -400,18 +409,18 @@ function getData(val)
 				  </div>
 
 					
-				  <div class="form-group">
+				  <!--<div class="form-group">
 					<label for="start" class="col-sm-2 control-label"></label>
-					<div class="col-sm-10">
+					<div class="col-sm-10">-->
 					  <input type="hidden" name="start" class="form-control" id="start" readonly>
-					</div>
+					<!--</div>
 				  </div>	
-				  <div class="form-group">
-					<label for="end" class="col-sm-2 control-label"></label>
-					<div class="col-sm-10">
+				  <div class="form-group">-->
+					<!--<label for="end" class="col-sm-2 control-label"></label>
+					<div class="col-sm-10">-->
 					  <input type="hidden" name="end" class="form-control" id="end" readonly>
-					</div>
-				  </div>
+					<!--</div>
+				  </div>-->
 					
 					<div class="form-group">
 				<label for="comment" class="col-sm-2 control-label">מספר שבועות</label>		
@@ -423,8 +432,8 @@ function getData(val)
 				
 			  </div>
 			  <div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="submit" class="btn btn-primary">Save changes</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">ביטול</button>
+				<button type="submit" class="btn btn-primary">שמור שינויים</button>
 			  </div>
 			</form>
 			</div>
@@ -687,13 +696,13 @@ function getData(val)
 						<ul>
  					 <li>
 				 <input type="radio" id="f-option" name="delete" value="1">
-  			  <label for="f-option">מחק פעילות</label>
+  			  <label for="f-option"  style = "padding-left:59px; color:red;">מחק פעילות</label>
 					<div class="check"></div>
 					</li>
 
 					<li>
 						<input type="radio"  id="s-option" value="2"  name="delete">
-								 <label for="s-option"  style = "padding-left:40px;"> מחק פעילות קבועה</label>
+								 <label for="s-option"  style = "padding-left:20px ; color:red;"> מחק פעילות קבועה</label> 
 								<div class="check"></div>
 									</li>
 															<script>
@@ -708,7 +717,7 @@ function getData(val)
 					</script>
 					  <li>
     <input type="radio" id="t-option" value = "3" name="delete">
-    <label for="t-option">עדכון קבועה</label>
+    <label for="t-option" style = "padding-left:60px; color:green;">עדכון קבועה</label>
 		 <div class="check"><div class="inside"></div></div>
   </li>
 											<script>
@@ -729,8 +738,8 @@ function getData(val)
 				
 			  </div>
 			  <div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="submit" class="btn btn-primary" onclick="myFunction()">Save changes</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">סגור</button>
+				<button type="submit" class="btn btn-primary" onclick="myFunction()">שמור שינויים</button>
 			  </div>
 			</form>
 			</div> 
