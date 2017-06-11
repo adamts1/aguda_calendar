@@ -177,9 +177,9 @@ class SiteController extends Controller
         $lostPasswordForm = new LostPasswordForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
 
-             if (Yii::$app->user->identity->userRole == 1){
+            /* if (Yii::$app->user->identity->userRole == 1){
                  return $this->redirect('http://localhost/a_p/web/events'); 
-             }
+             }*/
              return $this->goHome();
             //return $this->goBack();
         }

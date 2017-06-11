@@ -34,6 +34,7 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
+    if ( !Yii::$app->user->isGuest ):
      if (Yii::$app->user->identity->userRole != 1):
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
@@ -83,6 +84,7 @@ AppAsset::register($this);
         ],
     ]);
     NavBar::end();
+    endif;
     endif;
     ?>
     <div class="container">
