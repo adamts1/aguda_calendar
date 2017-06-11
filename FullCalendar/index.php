@@ -780,18 +780,18 @@ function getData(val)
 			hiddenDays:[6],
 
       
-      // navLinks: true, // we can click day/week (only if weekNumbers is true) numbers to navigate to spesific view 
+      navLinks: true, // we can click day/week (only if weekNumbers is true) numbers to navigate to spesific view 
 			// isRTL: true,
 			//businessHours: true, // display business hours // If we want gray background color for sunday and saturday 
 			eventLimit: true, // allow "more" link when too many events
-			//weekends: false, // If we don't eant to display Saturday and Sunday
+			weekends: false, // If we don't eant to display Saturday and Sunday
 			hiddenDays: [6], // hide Saturday
 			//fixedWeekCount: true, // False if we want 4.5 - 6 rows of calendar instead of default 6
 			// weekNumbers: true, // If we want to display week numbers 
 			scrollTime: '07:30:00', // The day start at 6:30 instead of 6:00
 			minTime: "07:00:00", // Min Time of every day
 			maxTime: "18:00:00", // Max time of every day
-			// displayEventTime : false, // If we want to hide the display of time in every event
+			displayEventTime : false, // If we want to hide the display of time in every event
 			nowIndicator: true, // display a marker indicating the current time
 			selectHelper: true,
 		<?php if($authorizationLevel == '1' ){ //if the user is admin
@@ -876,10 +876,10 @@ function getData(val)
 				
 				});
 
-          element.find('.fc-title').append("<br/><b>מורה בפעילות: </b>" + event.teacherid + "</br>"); // We can change event.comment to what we want disply
-          element.find('.fc-title').append("<br/><b>מקצועת: </b>" + event.courseid + "</br>"); // We can change event.comment to what we want disply
+          // element.find('.fc-title').append("<br/><b>מורה בפעילות: </b>" + event.teacherid + "</br>"); // We can change event.comment to what we want disply
+          // element.find('.fc-title').append("<br/><b>מקצועת: </b>" + event.courseid + "</br>"); // We can change event.comment to what we want disply
           element.find('.fc-title').append("<br/><b>תלמידים: </b>" + event.studentstring + "</br>"); // We can change event.comment to what we want disply
-          element.find('.fc-title').append("<br/><b>מיקום: </b>" + event.locationid + "</br>"); // We can change event.comment to what we want disply
+          // element.find('.fc-title').append("<br/><b>מיקום: </b>" + event.locationid + "</br>"); // We can change event.comment to what we want disply
 
 			},
 			eventDrop: function(event, delta, revertFunc) { // si changement de position
