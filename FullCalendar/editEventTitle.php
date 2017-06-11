@@ -98,8 +98,36 @@ if (isset($_POST['title'])  && isset($_POST['id']) && isset($_POST['locationId']
 		
 	} // End of update one events
 
-	if (isset($_POST['deleteAll']) && isset($_POST['id'])) {
 
+
+
+if (isset($_POST['delete']) && isset($_POST['id'])){
+
+		$id = $_POST['id'];
+		$deleteVal = $_POST['delete'];
+
+		
+		
+		if ($deleteVal == '1'){ // delete
+
+		
+		
+		$sql = "DELETE FROM events WHERE id = $id";
+		$query = $bdd->prepare( $sql );
+		if ($query == false) {
+		print_r($bdd->errorInfo());
+		die ('Erreur prepare delete events');
+		}
+		$res = $query->execute();
+		if ($res == false) {
+		print_r($query->errorInfo());
+		die ('Erreur execute delete events');
+		}
+	}
+
+
+		if ($deleteVal == '2'){ //delete all
+		
 		$id = $_POST['id'];
 		$start1 = $_POST['start'];
 		$startNumber1 = strtotime("$start1");
@@ -125,26 +153,8 @@ if (isset($_POST['title'])  && isset($_POST['id']) && isset($_POST['locationId']
 
 	}
 
-
-elseif (isset($_POST['delete']) && isset($_POST['id'])){
-
-		$id = $_POST['id'];
-		
-		$sql = "DELETE FROM events WHERE id = $id";
-		$query = $bdd->prepare( $sql );
-		if ($query == false) {
-		print_r($bdd->errorInfo());
-		die ('Erreur prepare delete events');
-		}
-		$res = $query->execute();
-		if ($res == false) {
-		print_r($query->errorInfo());
-		die ('Erreur execute delete events');
-		}
-	}
-
 	/////////////		update kavua 	/////////////
-	if (isset($_POST['updateAll']) && isset($_POST['id'])){
+	if ($deleteVal == '3'){ 
 	
 		$id = $_POST['id'];
 		$courseId = $_POST['courseId'];
@@ -276,6 +286,8 @@ elseif (isset($_POST['delete']) && isset($_POST['id'])){
 
 
 		
+}
+
 }
 
 header('Location: index.php');

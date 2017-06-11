@@ -666,6 +666,9 @@ function getData(val)
 					</div>
 				  </div>
 
+					<input type="hidden" name="id" class="form-control" id="id">
+
+
 					<div class="form-group">
 					<label for="studentString" class="col-sm-2 control-label"></label>
 					<div class="col-sm-10">
@@ -674,39 +677,21 @@ function getData(val)
 				  </div>
 
 
-						<div class="form-group" > 
-						<div class="col-sm-offset-2 col-sm-10" >
-						  <div class="checkbox"  >
-							<label class="text-danger"><input type="checkbox" id="home"   name="updateAll" ><p style="color:green;"  >עדכון כל פעיליוית מסוג זה</p></label>
-						  </div>
-						</div>
-					</div>
+								     <div class="container" style = "width:530px;">
+						<ul>
+ 					 <li>
+				 <input type="radio" id="f-option" name="delete" value="1">
+  			  <label for="f-option">מחק פעילות</label>
+					<div class="check"></div>
+					</li>
 
-					
-
-
-
-
-					
-				
-
-				    <div class="form-group"> 
-						<div class="col-sm-offset-2 col-sm-10">
-						  <div class="checkbox">
-							<label class="text-danger"><input type="checkbox"  name="delete"> מחק שיבוץ זה בלבד</label>
-						  </div>
-						</div>
-					</div>
-
-				
-					
-
-				 <div class="form-group"> 
-						<div class="col-sm-offset-2 col-sm-10">
-						  <div class="checkbox">
-
-							<label class="text-danger"><input type="checkbox" id="home" name="deleteAll" > מחק כל פעילות מסוג זה</label>
-							<script>
+					<li>
+						<input type="radio"  id="s-option" value="2"  name="delete">
+								 <label for="s-option"  style = "padding-left:40px;"> מחק פעילות קבועה</label>
+								<div class="check"></div>
+									</li>
+															<script>
+														
 						$("#home").click(function() {
   				  // this function will get executed every time the #home element is clicked (or tab-spacebar changed)
   				  if($(this).is(":checked")) // "this" refers to the element that fired the event
@@ -715,11 +700,15 @@ function getData(val)
    					 }
 						});
 					</script>
-						  </div>
-						</div>
-					</div>
+					  <li>
+    <input type="radio" id="t-option" value = "3" name="delete">
+    <label for="t-option">עדכון קבועה</label>
+		 <div class="check"><div class="inside"></div></div>
+  </li>
+</ul>
+</div>
+
 				  
-				  <input type="hidden" name="id" class="form-control" id="id">
 				
 				
 			  </div>
