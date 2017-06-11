@@ -73,7 +73,7 @@ class Events extends \yii\db\ActiveRecord
             'courseid' => 'מקצוע לימוד',
             'teacherid' => 'מורה מלמד',
             'locationid' => 'כיתת לימוד',
-            'studentstring' => 'שמות הסטודנטים',
+            'studentstring' => 'שמות התלמידים',
             'status'=>'סטטוס',
             'comments'=>'הערות',
         ];

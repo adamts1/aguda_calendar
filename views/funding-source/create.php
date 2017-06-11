@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\FundingSource */
 
-$this->title = 'Create Funding Source';
-$this->params['breadcrumbs'][] = ['label' => 'Funding Sources', 'url' => ['index']];
+$this->title = 'יצירת מקור מימון  ';
+$this->params['breadcrumbs'][] = ['label' => 'מקורות מימון', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="funding-source-create">

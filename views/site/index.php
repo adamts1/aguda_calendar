@@ -491,7 +491,7 @@ use app\models\Location;
               <div class="statistics-icon"><i class="icon-emotsmile"></i>
               </div>
               <div class="statistics-content">
-                <h5> <span data-count="6000" class="statistics-count">1200</span></h5><span>סטודנטים עולים מקבלים סיוע לימודי ורגשי</span>
+                <h5> <span data-count="6000" class="statistics-count">1200</span></h5><span>תלמידים עולים מקבלים סיוע לימודי ורגשי</span>
               </div>
             </div>
           </div>

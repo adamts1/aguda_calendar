@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\FundingsourceTeacher */
 
-$this->title = 'Create Fundingsource Teacher';
-$this->params['breadcrumbs'][] = ['label' => 'Fundingsource Teachers', 'url' => ['index']];
+$this->title = ' יצירת מקורות מימון לפי מורה ';
+$this->params['breadcrumbs'][] = ['label' => 'מקורות מימון לפי מורה', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="fundingsource-teacher-create">

@@ -330,7 +330,7 @@ a.desc:after {
 .site-index .home-section .hello-user2{
     display: inline-block;
     font-size: 40px;
-    color: white;;
+    color: white;
 }
 .site-index .home-section .hello-user{
     padding-right: 10px;
@@ -364,4 +364,8 @@ a.desc:after {
     height: 100%;
     padding-bottom: 74px;
     padding-top: 20px;
+}
+/**********************************/
+.addFST{
+    margin-top: 10px;
 }

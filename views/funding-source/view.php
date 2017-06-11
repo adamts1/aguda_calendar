@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\FundingSource */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Funding Sources', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'מקורות מימון', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="funding-source-view">

@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="right-list col-md-2">
     <div class="button-action-list">
-        <?= Html::a('הוספת סטודנט', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('הוספת תלמיד', ['create'], ['class' => 'btn btn-success']) ?>
     </div>
     <div class="btn-group-vertical button-action-list" role="group" aria-label="...">
     <?= Html::a('קבוצות', ['/group'], ['class' => 'btn btn-info']) ?>
@@ -28,6 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 <div class="col-md-10">
+    <h1><?= Html::encode($this->title) ?></h1>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

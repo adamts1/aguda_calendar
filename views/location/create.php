@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $model app\models\Location */
 
 $this->title = 'יצירת כיתת לימוד';
-$this->params['breadcrumbs'][] = ['label' => 'Locations', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'כיתות', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="location-create">

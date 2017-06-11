@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="right-list col-md-2">
     <div class="button-action-list">
         <?= Html::a('הוספת מורה', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('הוספת מקור מימון למורה', ['fundingsource-teacher/create'], ['class' => 'btn btn-warning addFST']) ?>
     </div>
     <div class="btn-group-vertical button-action-list" role="group" aria-label="...">
     <?= Html::a('קבוצות', ['/group'], ['class' => 'btn btn-info']) ?>
@@ -24,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= Html::a('כיתות', ['/location'], ['class' => 'btn btn-info']) ?>
     <?= Html::a('מרכזים', ['/center'], ['class' => 'btn btn-info']) ?>
     <?= Html::a('אירועים', ['/event'], ['class' => 'btn btn-info']) ?>
-    <?= Html::a('סטודנטים', ['/student'], ['class' => 'btn btn-info']) ?>
+    <?= Html::a('תלמידים', ['/student'], ['class' => 'btn btn-info']) ?>
     <?= Html::a('מקור מימון', ['/funding-source'], ['class' => 'btn btn-info']) ?>
     </div>
 </div>
@@ -75,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			// ],
             
             ['class' => 'yii\grid\ActionColumn',
-            'template' => '{update} {delete}',],
+            'template' => '{update} {delete} ',],
         ],
     ]);
 

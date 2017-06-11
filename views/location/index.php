@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= Html::a('מורים', ['/teacher'], ['class' => 'btn btn-info']) ?>
     <?= Html::a('מרכזים', ['/center'], ['class' => 'btn btn-info']) ?>
     <?= Html::a('אירועים', ['/event'], ['class' => 'btn btn-info']) ?>
-    <?= Html::a('סטודנטים', ['/student'], ['class' => 'btn btn-info']) ?>
+    <?= Html::a('תלמידים', ['/student'], ['class' => 'btn btn-info']) ?>
     <?= Html::a('מקור מימון', ['/funding-source'], ['class' => 'btn btn-info']) ?>
     </div>
 </div>

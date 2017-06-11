@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Supervisor */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Supervisors', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'רכזים', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="supervisor-view">

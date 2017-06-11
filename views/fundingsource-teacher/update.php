@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model app\models\FundingsourceTeacher */
 
 $this->title = 'Update Fundingsource Teacher: ' . $model->sourceid;
-$this->params['breadcrumbs'][] = ['label' => 'Fundingsource Teachers', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'מקורות מימון לפי מורה', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->sourceid, 'url' => ['view', 'sourceid' => $model->sourceid, 'teacherid' => $model->teacherid]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

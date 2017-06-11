@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Center */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Centers', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'מרכזים', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="center-view">

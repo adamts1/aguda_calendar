@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Center */
 
-$this->title = 'Create Center';
-$this->params['breadcrumbs'][] = ['label' => 'Centers', 'url' => ['index']];
+$this->title = 'יצירת מרכז ';
+$this->params['breadcrumbs'][] = ['label' => 'מרכזים', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="center-create">
