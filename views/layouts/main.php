@@ -34,12 +34,14 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
+     if (Yii::$app->user->identity->userRole != 1):
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
            /* ['label' => 'Home', 'url' => ['/site/index']],*/
-            ['label' => 'קבוצות', 'url' => ['/group']],
+            ['label' => 'תלמידים', 'url' => ['/student']],
             ['label' => 'קורסים', 'url' => ['/course']],
+            //['label' => 'קורסים', 'url' => ['/fundingsource-teacher']],
             ['label' => 'מורים', 'url' => ['/teacher']],
             ['label' => 'כיתות', 'url' => ['/location']],
             ['label' => 'מרכזים', 'url' => ['/center']],
@@ -61,6 +63,27 @@ AppAsset::register($this);
         ],
     ]);
     NavBar::end();
+    else:
+     echo Nav::widget([
+        'options' => ['class' => 'navbar-nav navbar-right'],
+        'items' => [
+             ['label' => 'השיבוצים שלי', 'url' => ['/events']],
+            Yii::$app->user->isGuest ? (
+                ['label' => 'Login', 'url' => ['/site/login']]
+            ) : (
+                '<li>'
+                . Html::beginForm(['/site/logout'], 'post')
+                . Html::submitButton(
+                    'Logout )' . Yii::$app->user->identity->username . '    )',
+                    ['class' => 'btn btn-link logout']
+                )
+                . Html::endForm()
+                . '</li>'
+            )
+        ],
+    ]);
+    NavBar::end();
+    endif;
     ?>
     <div class="container">
         <?= Breadcrumbs::widget([

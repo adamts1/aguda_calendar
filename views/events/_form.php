@@ -42,9 +42,7 @@ use yii\helpers\ArrayHelper;
      
    <!--<?= $form->field($model, 'studentstring')->textInput(['maxlength' => true]) ?>-->
 
-    <?= $form->field($model, 'status')->dropDownList([ '0' => 'לא מסוכם' ,'1' => 'מסוכם',]) ?>
-<!--///////////////////////////////////-->
-<?php
+   <?php
 
      $datastudents = Events::getStudentByCenter(); 
 
@@ -64,6 +62,12 @@ use yii\helpers\ArrayHelper;
             'maximumInputLength' => 10
         ],
     ]); ?>
+
+    <?= $form->field($model, 'status')->dropDownList([ '0' => 'לא מסוכם' ,'1' => 'מסוכם',]) ?>
+
+    <?= $form->field($model, 'comments')->textarea(['rows' => '6']) ?>
+<!--///////////////////////////////////-->
+
 
 <!--//////////////////////////////////-->
     <div class="form-group">

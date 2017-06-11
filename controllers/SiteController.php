@@ -67,6 +67,10 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        if(Yii::$app->user->isGuest)
+        { 
+            $this->redirect(['/site/login']);
+        }
         return $this->render('index');
     }
 
@@ -134,7 +138,6 @@ class SiteController extends Controller
    if ($model->validate())
    {
     
-     print_r('model formresetpass validate');
      $newUser = User::findOne(["email" => $model->email, "verification_code" => $model->verification_code]);
      
      //Encriptar el password
@@ -157,7 +160,7 @@ class SiteController extends Controller
      }
      else
      {
-      $msg = "Ha ocurrido un error";
+      $msg = "טעות";
      }
      
    
@@ -173,7 +176,6 @@ class SiteController extends Controller
         $model = new LoginForm();
         $lostPasswordForm = new LostPasswordForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-             Yii::$app->session->setFlash('success');
 
              if (Yii::$app->user->identity->userRole == 1){
                  return $this->redirect('http://localhost/a_p/web/events'); 
@@ -191,7 +193,6 @@ class SiteController extends Controller
     }
     public function actionForgotPassword()
     {
-        
         $lostPasswordForm = new LostPasswordForm();
         if($lostPasswordForm->load(Yii::$app->request->post()) && $lostPasswordForm->validate())
         {

@@ -35,11 +35,7 @@ use yii\bootstrap\Alert;
 
     <?= $form->field($user, 'phone')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'role')->dropDownList($roles)->label(''); ?>		
-
-
-
-
+    <?= $form->field($model, 'role')->dropDownList($roles, ['readonly' => true])->label('הרשאות'); ?>		
 
     <?= $form->field($user, 'address')->textInput(['maxlength' => true]) ?>
 

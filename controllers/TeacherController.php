@@ -169,7 +169,8 @@ class TeacherController extends Controller
 
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            			$roles = Teacher::getRoles(); 
+            $roles = Teacher::getRoles(); 
+           
             return $this->render('create', [
                 'model' => $model,
                 'user' => $user,

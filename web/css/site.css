@@ -321,3 +321,47 @@ a.desc:after {
     color: red;
     border-color: #ffb3b3;
 }
+/********* HOMEPAGE *********/
+.site-index .home-section .hello-user1{
+    display: inline-block;
+    font-size: 40px;
+    color: white;
+}
+.site-index .home-section .hello-user2{
+    display: inline-block;
+    font-size: 40px;
+    color: white;;
+}
+.site-index .home-section .hello-user{
+    padding-right: 10px;
+    padding-bottom: 20px;
+    
+}
+.site-index .home-section .table-responsive{
+    padding-top: 50px;
+}
+.home-section .col-sm-offset-2.col-md-4.col-sm-6.margin-left-setting{
+    MARGIN-LEFT: 0PX;
+    MARGIN-RIGHT: 0PX;
+    FLOAT: RIGHT;
+}
+.site-index .home-section{
+    background-image:  url(/a_p/web/images/HomePageBackground.jpg);
+}
+#about.about.section-space-padding{
+     background:  url(http://www.kidum-edu.org.il/wp-content/uploads/2016/03/02.jpg);
+}
+#about.about.section-space-padding .section-title{
+    color: white;
+}
+.site-index .home-page-title{
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: #363535 3px 3px 5px;
+    font-variant: small-caps;
+    color: #00CED1;
+    font-size: 86px;
+    height: 100%;
+    padding-bottom: 74px;
+    padding-top: 20px;
+}

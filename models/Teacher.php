@@ -279,6 +279,14 @@ class Teacher extends \yii\db\ActiveRecord
 		}
 		return $roles; 	
 	}
+    public static function getRole()
+    {
+         $role =  (new \yii\db\Query())
+           ->select(['item_name'])
+           ->from('auth_assignment')
+           ->where(['user_id' => Yii::$app->user->identity->id]);
+        return $role;
+    }
     public static function getAllTeachers()
     {
         $allTeachers = (new \yii\db\Query())

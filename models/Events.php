@@ -74,6 +74,8 @@ class Events extends \yii\db\ActiveRecord
             'teacherid' => 'מורה מלמד',
             'locationid' => 'כיתת לימוד',
             'studentstring' => 'שמות הסטודנטים',
+            'status'=>'סטטוס',
+            'comments'=>'הערות',
         ];
     }
 
