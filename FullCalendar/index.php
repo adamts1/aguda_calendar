@@ -60,6 +60,7 @@ function filterTable($sql)
     <script src="dist/fastselect.standalone.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700,900&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://rawgit.com/dbrekalo/attire/master/dist/css/build.min.css">
+		<link rel="stylesheet" href="dist/fastradio.css"> <!-- radio button -->
     <script src="https://rawgit.com/dbrekalo/attire/master/dist/js/build.min.js"></script>
 
     <!--select2-->
