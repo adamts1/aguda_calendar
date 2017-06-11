@@ -623,7 +623,13 @@ function getData(val)
 				  <div class="form-group">
 					<label for="title" class="col-sm-2 control-label">תיאור שיבוץ</label>
 					<div class="col-sm-10">
-					  <input type="text" name="title" class="form-control" id="title" placeholder="Title">
+					  <input type="text" name="title" class="form-control" id="title" placeholder="Title" onkeyup="letterOnly(this)"  required>
+											<script>
+					function letterOnly(input) {
+						var regex = /[^א-ת ]/gi;
+						input.value = input.value.replace(regex,"");
+					}
+					</script>
 					</div>
 				  </div>
 
@@ -692,11 +698,11 @@ function getData(val)
 									</li>
 															<script>
 														
-						$("#home").click(function() {
+						$("#s-option").click(function() {
   				  // this function will get executed every time the #home element is clicked (or tab-spacebar changed)
   				  if($(this).is(":checked")) // "this" refers to the element that fired the event
   				  {
-     		   alert('שים לב, כעת סימנת שינוי קבוע !!');
+     		   alert('שים לב, פעולה זו תמחק את כל השיבוצים מסוג זה !!');
    					 }
 						});
 					</script>
@@ -705,6 +711,16 @@ function getData(val)
     <label for="t-option">עדכון קבועה</label>
 		 <div class="check"><div class="inside"></div></div>
   </li>
+											<script>
+														
+						$("#t-option").click(function() {
+  				  // this function will get executed every time the #home element is clicked (or tab-spacebar changed)
+  				  if($(this).is(":checked")) // "this" refers to the element that fired the event
+  				  {
+     		   alert('שים לב, כעת סימנת שינוי קבוע !!');
+   					 }
+						});
+					</script>
 </ul>
 </div>
 
@@ -714,7 +730,7 @@ function getData(val)
 			  </div>
 			  <div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="submit" class="btn btn-primary">Save changes</button>
+				<button type="submit" class="btn btn-primary" onclick="myFunction()">Save changes</button>
 			  </div>
 			</form>
 			</div> 
