@@ -15,7 +15,7 @@ class m170227_115143_insert_userRole extends Migration
             'roleId' => '2',
         ]);	
         $this->insert('userRole', [
-            'roleName' => 'administrtor',
+            'roleName' => 'administrator',
              'roleId' => '3',
         ]);		
     }
@@ -24,7 +24,7 @@ class m170227_115143_insert_userRole extends Migration
     {
        $this->delete('userRole', ['roleName' => 'teacher']);
 		$this->delete('userRole', ['roleName' => 'supervisor']);
-		$this->delete('userRole', ['roleName' => 'administrtor']);
+		$this->delete('userRole', ['roleName' => 'administrator']);
     }	
 
    

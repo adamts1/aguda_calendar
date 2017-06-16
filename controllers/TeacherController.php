@@ -17,7 +17,6 @@ use	yii\helpers\ArrayHelper;
 use \yii\web\HttpException;
 use \yii\web\UnauthorizedHttpException;
 
-
 /**
  * TeacherController implements the CRUD actions for Teacher model.
  */
@@ -140,7 +139,8 @@ class TeacherController extends Controller
             endforeach;
             
             $user->id = $user->id;  //insert id to user table
-            $user->userRole = '1'; //insert id to user table
+            $user->userRole = 1; //insert id to user table
+            $model->role = "admin";
             $user->verification_code = $model->createRandomCode();
             $user->save();
 

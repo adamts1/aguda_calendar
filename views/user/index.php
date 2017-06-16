@@ -15,7 +15,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('הוספת עובד', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('הוספת רכז כללי', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('הוספת רכז', ['supervisor/create'], ['class' => 'btn btn-info']) ?>
+        <?= Html::a('הוספת מורה', ['teacher/create'], ['class' => 'btn btn-warning']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
