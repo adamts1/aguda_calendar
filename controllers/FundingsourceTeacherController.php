@@ -71,7 +71,13 @@ class FundingsourceTeacherController extends Controller
     public function actionCreate()
     {
         $model = new FundingsourceTeacher();
-
+        
+        /*if (($model->sourceid && $model->teacherid) ){
+            echo "<script>
+                alert('There are no fields to generate a report');
+                window.location.href='admin/ahm/panel';
+                </script>";
+        }*/
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'sourceid' => $model->sourceid, 'teacherid' => $model->teacherid]);
         } else {
