@@ -16,7 +16,6 @@ use Yii;
  */
 class Supervisor extends \yii\db\ActiveRecord
 {
-
           public $role; 
 
     /**
@@ -107,4 +106,21 @@ class Supervisor extends \yii\db\ActiveRecord
 		}
 		return $roles; 	
 	}
+     public static function createRandomCode() { 
+
+    $chars = "abcdefghijkmnopqrstuvwxyz023456789"; 
+    srand((double)microtime()*1000000); 
+    $i = 0; 
+    $pass = '' ; 
+
+    while ($i <= 7) { 
+        $num = rand() % 33; 
+        $tmp = substr($chars, $num, 1); 
+        $pass = $pass . $tmp; 
+        $i++; 
+    } 
+
+    return $pass; 
+
+} 
 }

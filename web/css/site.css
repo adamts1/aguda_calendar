@@ -92,8 +92,8 @@ a.desc:after {
 
 /* align the logout "link" (button in form) of the navbar */
 .nav li > form > button.logout {
-    padding: 15px;
-    border: none;
+    padding: 15px!important;
+    border: none!important;
 }
 
 @media(max-width:767px) {
@@ -161,55 +161,55 @@ a.desc:after {
     padding-top: 5px;
 }
 .navbar-inverse{
-    background-color:transparent;
+    background-color:transparent!important;
 }
 .navbar-brand{
-    background-image: url(/a_p/web/images/Logo-80.png);
-    width: 80px;
-    background-size: cover;
+    background-image: url(/a_p/web/images/Logo-80.png)!important;
+    width: 80px!important;
+    background-size: cover!important;
 }
 .collapse.navbar-collapse>ul>li>a{
-    color:#444444;
-    font-size: 15PX;
+    color:#444444!important;
+    font-size: 15PX!important;
     
 }
 .collapse.navbar-collapse>ul>li>form button{
-    color:#444444;
-    font-size: 15PX;
+    color:#444444!important;
+    font-size: 15PX!important;
 }
 .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus{
-    color:#444444;
-    background-color: transparent;
+    color:#444444!important;
+    background-color: transparent!important;
 }
 .collapse.navbar-collapse ul li a:hover{
-    color:#444444;
-     text-decoration: underline;
-     font-weight: bold;
+    color:#444444!important;
+     text-decoration: underline!important;
+     font-weight: bold!important;
 }
 .collapse.navbar-collapse ul li form button:hover{
-    color:#444444;
-     text-decoration: underline;
-     font-weight: bold;
+    color:#444444!important;
+     text-decoration: underline!important;
+     font-weight: bold!important;
 }
 .navbar-inverse.navbar-fixed-top.navbar .navbar-header .navbar-toggle a.navbar-brand:hover{
-    color:#444444;
-    text-decoration: underline;
-    font-weight: bold;
+    color:#444444!important;
+    text-decoration: underline!important;
+    font-weight: bold!important;
 }
 .navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus{
-    color:#444444;
-     text-decoration: underline;
-     font-weight: bold;
+    color:#444444!important;
+     text-decoration: underline!important;
+     font-weight: bold!important;
 }
 .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus{
-    font-weight: bold;
+    font-weight: bold!important;
 }
 .navbar-inverse .navbar-brand{
-    color:#444444;
+    color:#444444!important;
 }
 .navbar-inverse{
-    border-color:white;
-    background-color: white;
+    border-color:white!important;
+    background-color: white!important;
 
 }
 /****** LOG IN *******/
@@ -349,10 +349,10 @@ a.desc:after {
     background-image:  url(/a_p/web/images/HomePageBackground.jpg);
 }
 #about.about.section-space-padding{
-     background:  url(http://www.kidum-edu.org.il/wp-content/uploads/2016/03/02.jpg);
+    /* background:  url(http://www.kidum-edu.org.il/wp-content/uploads/2016/03/02.jpg);*/
 }
 #about.about.section-space-padding .section-title{
-    color: white;
+    color: black;
 }
 .site-index .home-page-title{
     text-align: center;
@@ -363,6 +363,13 @@ a.desc:after {
     font-size: 86px;
     height: 100%;
     padding-bottom: 74px;
+    padding-top: 20px;
+}
+.section-space-padding .col-sm-12 .section-title{
+    height: 48px;
+}
+.site-index .header-homepage{
+    padding-bottom: 60px;
     padding-top: 20px;
 }
 /**********************************/

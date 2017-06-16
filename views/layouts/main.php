@@ -35,20 +35,79 @@ AppAsset::register($this);
         ],
     ]);
     if ( !Yii::$app->user->isGuest ):
-     if (Yii::$app->user->identity->userRole != 1):
+     if (Yii::$app->user->identity->userRole == 2):
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-           /* ['label' => 'Home', 'url' => ['/site/index']],*/
-            ['label' => 'תלמידים', 'url' => ['/student']],
+            /*['label' => 'תלמידים', 'url' => ['/student']],
             ['label' => 'קורסים', 'url' => ['/course']],
-            //['label' => 'קורסים', 'url' => ['/fundingsource-teacher']],
             ['label' => 'מורים', 'url' => ['/teacher']],
             ['label' => 'כיתות', 'url' => ['/location']],
             ['label' => 'מרכזים', 'url' => ['/center']],
             ['label' => 'אירועים', 'url' => ['/event']],
             ['label' => 'רכזים', 'url' => ['/supervisor']],
-            ['label' => 'מקור מימון', 'url' => ['/funding-source']],
+            ['label' => 'מקור מימון', 'url' => ['/funding-source']],*/
+            ['label' => 'הפרופיל שלי', 'url' => ['/supervisor']],
+            ['label' => 'שיבוצים', 'url' => ['/event']],
+            [
+            'label' => 'ניהול משאבים',
+                'items' => [
+                    ['label' =>  'מקור מימון', 'url' => ['/funding-source']],
+                    '<li class="divider"></li>',
+                    ['label' => 'כיתות', 'url' => ['/location']],
+                    '<li class="divider"></li>',
+                    ['label' => 'קורסים', 'url' => ['/course']],
+                    '<li class="divider"></li>',
+                    ['label' => 'תלמידים', 'url' => ['/student']],
+                ],
+            ],
+            [
+            'label' => 'ניהול משתמשים',
+                'items' => [
+                    ['label' => 'מורים', 'url' => ['/teacher']],
+                ],
+            ],
+            Yii::$app->user->isGuest ? (
+                ['label' => 'Login', 'url' => ['/site/login']]
+            ) : (
+                '<li>'
+                . Html::beginForm(['/site/logout'], 'post')
+                . Html::submitButton(
+                    ' ( התנתקות )  ' . Yii::$app->user->identity->username ,
+                    ['class' => 'btn btn-link logout']
+                )
+                . Html::endForm()
+                . '</li>'
+            )
+        ],
+    ]);
+    NavBar::end();
+    elseif(Yii::$app->user->identity->userRole == 3):
+     echo Nav::widget([
+        'options' => ['class' => 'navbar-nav navbar-right'],
+        'items' => [
+             ['label' => 'הפרופיל שלי', 'url' => ['/supervisor']],
+            ['label' => 'שיבוצים', 'url' => ['/event']],
+            [
+            'label' => 'ניהול משאבים',
+                'items' => [
+                    ['label' =>  'מקור מימון', 'url' => ['/funding-source']],
+                    '<li class="divider"></li>',
+                    ['label' => 'כיתות', 'url' => ['/location']],
+                    '<li class="divider"></li>',
+                    ['label' => 'קורסים', 'url' => ['/course']],
+                    '<li class="divider"></li>',
+                    ['label' => 'תלמידים', 'url' => ['/student']],
+                    ['label' => 'מרכזים', 'url' => ['/center']],
+                ],
+            ],
+            [
+            'label' => 'ניהול משתמשים',
+                'items' => [
+                    ['label' => 'מורים', 'url' => ['/teacher']],
+                     ['label' => 'רכזים', 'url' => ['/supervisor']],
+                ],
+            ],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
@@ -64,24 +123,13 @@ AppAsset::register($this);
         ],
     ]);
     NavBar::end();
-    else:
-     echo Nav::widget([
+    elseif(Yii::$app->user->identity->userRole == 1):
+         echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-             ['label' => 'השיבוצים שלי', 'url' => ['/events']],
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Logout )' . Yii::$app->user->identity->username . '    )',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
-        ],
+             ['label' => 'הפרופיל שלי', 'url' => ['/supervisor']],
+             ['label' => 'שיבוצים', 'url' => ['/events']],
+                 ],
     ]);
     NavBar::end();
     endif;
@@ -97,9 +145,9 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+        <p class="pull-left">&copy; Adam tsityat & Laury Aziza <?= date('Y') ?></p>
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
+        <p class="pull-right"><?//= Yii::powered() ?></p>
     </div>
 </footer>
 

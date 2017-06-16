@@ -50,6 +50,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return [
             [['notes','verification_code'], 'string'],
+            ['email', 'unique'],
             [['status', 'created_at', 'updated_at', 'created_by', 'updated_by', 'userRole'], 'integer'],
             [['username', 'password', 'auth_key', 'firstname', 'lastname', 'email', 'phone', 'address'], 'string', 'max' => 255],
             [['username', 'password', ], 'required'],

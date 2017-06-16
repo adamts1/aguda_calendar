@@ -958,7 +958,7 @@ ul.portfolio li.active {
 /* Services */
 
 .services-section {
-  background-color: #F9F9F9;
+  background-color: transparent;
 }
 
 .services-section hr {
@@ -969,7 +969,7 @@ ul.portfolio li.active {
 
 .services-section .services-detail {
     border-radius: 100%;
-    background-color: #ffffff;
+    background-color: #F9F9F9;
     box-shadow: 0px 1px 2px 0px rgba(90, 91, 95, 0.15);
     transition: all 0.3s ease-in-out;
     position: relative;

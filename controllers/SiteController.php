@@ -16,6 +16,8 @@ use yii\web\Session;
 use app\models\FormRecoverPass;
 use app\models\FormResetPass;
 
+
+
 class SiteController extends Controller
 {
     /**
@@ -111,7 +113,7 @@ class SiteController extends Controller
      ->send();
      
      $model->email = null;
-     $msg = "שלחנו הודעה אל חשבון האימייל שלך, כך שתוכל לאפס את סיסמתך";
+     $msg = "נשלחה הודעה אל חשבון האימייל שלך, לצורך איפוס סיסמה";
    
    
    }

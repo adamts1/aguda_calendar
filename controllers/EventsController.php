@@ -11,6 +11,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use	yii\helpers\ArrayHelper; 
+use \yii\web\HttpException;
+use \yii\web\UnauthorizedHttpException;
 
 
 /**
@@ -39,6 +41,9 @@ class EventsController extends Controller
      */
     public function actionIndex()
     {
+          if (Yii::$app->user->identity->userRole != 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות בדף זה');}
+        else{
         $searchModel = new EventsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -46,7 +51,7 @@ class EventsController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
-    }
+    }}
 
     /**
      * Displays a single Events model.
@@ -55,9 +60,13 @@ class EventsController extends Controller
      */
     public function actionView($id)
     {
+          if (Yii::$app->user->identity->userRole != 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות בדף זה');}
+        else{
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+        }
     }
 
     /**
@@ -67,6 +76,9 @@ class EventsController extends Controller
      */
     public function actionCreate()
     {
+          if (Yii::$app->user->identity->userRole != 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות בדף זה');}
+        else{
         $model = new Events();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -75,6 +87,7 @@ class EventsController extends Controller
             return $this->render('create', [
                 'model' => $model,
             ]);
+        }
         }
     }
 
@@ -86,6 +99,9 @@ class EventsController extends Controller
      */
     public function actionUpdate($id)
     {
+          if (Yii::$app->user->identity->userRole != 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות בדף זה');}
+        else{
         $model = Events::findOne($id);
         if (!$model) {
             throw new NotFoundHttpException("The events was not found");
@@ -121,6 +137,7 @@ class EventsController extends Controller
 
             ]);
         }
+        }
     }
 
     /**
@@ -131,9 +148,13 @@ class EventsController extends Controller
      */
     public function actionDelete($id)
     {
+          if (Yii::$app->user->identity->userRole != 1){ // only teachers and principals can watch users 
+			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות בדף זה');}
+        else{
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+        }
     }
 
     /**

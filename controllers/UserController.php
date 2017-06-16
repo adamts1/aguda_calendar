@@ -77,16 +77,23 @@ class UserController extends Controller
 			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות בדף זה');}
         else{
         $model = new User();
+        
         //$teacher = new Teacher(); //בדיקה
 
         if(Yii::$app->request->isAjax && $model->load(Yii::$app->request->post()))
         {
+           
             Yii::$app->response->format = 'json';
+            if ($model->validate()) {
+                return ActiveForm::validate($model);
+            } else {
+                // validation failed: $errors is an array containing error messages
+                $errors = $model->errors;
+            }
             return ActiveForm::validate($model);
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()  ) {
-    
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [

@@ -318,6 +318,23 @@ class Teacher extends \yii\db\ActiveRecord
 					map($allTeachersByCenter, 'id', 'username');
 		return $allTeachersByCenterArray;	
     }
+    public static function createRandomCode() { 
+
+    $chars = "abcdefghijkmnopqrstuvwxyz023456789"; 
+    srand((double)microtime()*1000000); 
+    $i = 0; 
+    $pass = '' ; 
+
+    while ($i <= 7) { 
+        $num = rand() % 33; 
+        $tmp = substr($chars, $num, 1); 
+        $pass = $pass . $tmp; 
+        $i++; 
+    } 
+
+    return $pass; 
+
+} 
 
     //   public static function getStudentByTeacher()  //provide courses according to center supervisor
 	// {

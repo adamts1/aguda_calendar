@@ -123,13 +123,14 @@ class TeacherController extends Controller
           if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
 			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות בדף זה');}
         else{
+
         $model = new Teacher();
         $user = new User();
         $course = new Course();
         $fundingsource = new FundingSource();
 
         if ($model->load(Yii::$app->request->post()) && $user->load(Yii::$app->request->post())  && $model->save()) {
-         
+            
             $michtamchim = User::find()->all();
             foreach ($michtamchim as $michtamech):
                 if ($user->username == $michtamech->username):
@@ -140,6 +141,7 @@ class TeacherController extends Controller
             
             $user->id = $user->id;  //insert id to user table
             $user->userRole = '1'; //insert id to user table
+            $user->verification_code = $model->createRandomCode();
             $user->save();
 
             $model->id = $user->id; //insert the same id as user
