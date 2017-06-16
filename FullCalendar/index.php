@@ -144,6 +144,10 @@ function showUser(str) {
 		float: none;
 		margin: 0 auto;
 	}
+
+
+
+
     </style>
  
 
@@ -173,7 +177,7 @@ function getData(val)
 
 
 <form action="index.php" method="get">
-<div id="filter" style="float:right;margin-right:50px;">
+<div id="filter" style="float:right;margin-right:95px;">
 <select id="mainselection"   name="valueToSearch" class="finspecific"   dir="rtl">
 <!-- $secondFilterValue & chosen declared in the begining of this page	-->
 <option value="0"><?php echo $secondFilterValue ?></option> 
@@ -315,12 +319,12 @@ function getData(val)
 					<label for="title" class="col-sm-2 control-label">תיאור שיבוץ</label>
 					<div class="col-sm-10">
 					  <input type="text" name="title" class="form-control" id="title" placeholder="(תיאור השיבוץ (הזנה בעברית בלבד"  onkeyup="letterOnly(this)">
-													<script>
+													<!--<script>
 					function letterOnly(input) {
 						var regex = /[^א-ת ]/gi;
 						input.value = input.value.replace(regex,"");
 					}
-					</script>
+					</script>-->
 					</div>
           </div>
 
@@ -433,7 +437,7 @@ function getData(val)
 			  </div>
 			  <div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">ביטול</button>
-				<button type="submit" class="btn btn-primary">שמור שינויים</button>
+				<button type="submit" class="btn btn-primary"/>שמור שינויים</button>
 			  </div>
 			</form>
 			</div>
@@ -635,7 +639,7 @@ function getData(val)
 					  <input type="text" name="title" class="form-control" id="title" placeholder="Title" onkeyup="letterOnly(this)"  required>
 											<script>
 					function letterOnly(input) {
-						var regex = /[^א-ת ]/gi;
+						var regex = /[^0-9א-ת ]/gi;
 						input.value = input.value.replace(regex,"");
 					}
 					</script>
@@ -761,18 +765,25 @@ function getData(val)
 	<script src='js/he.js'></script>
 	<script>
 
+
+
 	$(document).ready(function() {
-		var d = new Date();
+		var d =  new Date();
+
 		var initialLangCode = 'he';
 		defaultDate: d,
+
+
 
 		
 		$('#calendar').fullCalendar({
 			header: {
 				left: 'next  today prev ',
-				center: 'title',
+				// center: 'title',
 				right: 'month,agendaWeek,agendaDay'
 			},
+
+			  
 
 			buttonText: { // Values dor cuttons 
                     today: 'היום',
@@ -803,6 +814,9 @@ function getData(val)
 			displayEventTime : false, // If we want to hide the display of time in every event
 			nowIndicator: true, // display a marker indicating the current time
 			selectHelper: true,
+
+	
+
 		<?php if($authorizationLevel == '1' ){ //if the user is admin
 			?>
 				editable: false,
@@ -816,6 +830,9 @@ function getData(val)
 		
 			
 				select: function(start, end) {
+
+
+
 				
 				$('#ModalAdd #start').val(moment(start).format('YYYY-MM-DD HH:mm:ss'));
 				var start = moment(start).format('YYYY-MM-DD HH:mm:ss'); // new event start time
@@ -885,12 +902,15 @@ function getData(val)
 				
 				});
 
-          // element.find('.fc-title').append("<br/><b>מורה בפעילות: </b>" + event.teacherid + "</br>"); // We can change event.comment to what we want disply
-          // element.find('.fc-title').append("<br/><b>מקצועת: </b>" + event.courseid + "</br>"); // We can change event.comment to what we want disply
-          element.find('.fc-title').append("<br/><b>תלמידים: </b>" + event.studentstring + "</br>"); // We can change event.comment to what we want disply
-          // element.find('.fc-title').append("<br/><b>מיקום: </b>" + event.locationid + "</br>"); // We can change event.comment to what we want disply
+          // element.find('.fc-title').append("<br/><b>מורה בפעילות: </b>" + event.teacherid ); // We can change event.comment to what we want disply
+          element.find('.fc-title').append("<br/><b>מקצוע: </b>" + event.courseid ); // We can change event.comment to what we want disply
+          element.find('.fc-title').append("<br/><b>תלמידים: </b>" + event.studentstring ); // We can change event.comment to what we want disply
+          element.find('.fc-title').append("<br/><b>מיקום: </b>" + event.locationid ); // We can change event.comment to what we want disply
 
-			},
+		   	},
+
+
+
 			eventDrop: function(event, delta, revertFunc) { // si changement de position
 
 				edit(event);
@@ -990,6 +1010,17 @@ function getData(val)
 				}
 			});
 		}
+       
+
+			 
+       var previousDate = moment('<?php echo $start; ?>'); 
+
+
+				// console.log(previousDate);
+
+
+        $('#calendar').fullCalendar('gotoDate', previousDate);
+
 		
 	});
 

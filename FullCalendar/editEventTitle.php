@@ -2,6 +2,8 @@
 
 require_once('bdd.php');
 
+
+
 if (isset($_POST['title'])  && isset($_POST['id']) && isset($_POST['locationId']) && !isset($_SESSION['courseId']) ){
 	
 	$id = $_POST['id'];

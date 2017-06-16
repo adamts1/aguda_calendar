@@ -43,10 +43,19 @@ class SupervisorSearch extends Supervisor
         $query = Supervisor::find();
 
         // add conditions that should always apply here
+        if (\Yii::$app->user->can('createSchoolDir')){
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+        }else{
+            $dataProvider = new ActiveDataProvider([
+             'query' => Supervisor::find()
+           ->join('JOIN','center','supervisor.centerid=center.id')
+           ->where(['supervisor.id' => Yii::$app->user->identity->id])
+
+             ]);// provide for supervisor
+        }
 
         $this->load($params);
 
