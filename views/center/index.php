@@ -17,11 +17,9 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= Html::a('הוספת מרכז', ['create'], ['class' => 'btn btn-success']) ?>
         </div>
         <div class="btn-group-vertical button-action-list" role="group" aria-label="...">
-        <?= Html::a('קבוצות', ['/group'], ['class' => 'btn btn-info']) ?>
         <?= Html::a('קורסים', ['/course'], ['class' => 'btn btn-info']) ?>
         <?= Html::a('מורים', ['/teacher'], ['class' => 'btn btn-info']) ?>
         <?= Html::a('כיתות', ['/location'], ['class' => 'btn btn-info']) ?>
-        <?= Html::a('מרכזים', ['/center'], ['class' => 'btn btn-info']) ?>
         <?= Html::a('אירועים', ['/event'], ['class' => 'btn btn-info']) ?>
         <?= Html::a('תלמידים', ['/student'], ['class' => 'btn btn-info']) ?>
         <?= Html::a('מקור מימון', ['/funding-source'], ['class' => 'btn btn-info']) ?>
