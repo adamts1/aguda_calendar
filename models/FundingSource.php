@@ -72,8 +72,18 @@ class FundingSource extends \yii\db\ActiveRecord
 
     
 
-    public function getFundingSourceName()
+    /*public function getFundingSourceName()
     {
         return $this->sourcename;
+    }*/
+    public function getFundingSource()
+    {
+        $allFundingSource = (new \yii\db\Query())
+           ->select(['*'])
+           ->from('funding_source')
+           ->all();
+		$allFundingSourceArray = ArrayHelper::
+					map($allFundingSource, 'id', 'sourcename');
+		return $allFundingSourceArray;	
     }
 }

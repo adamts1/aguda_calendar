@@ -98,6 +98,7 @@ AppAsset::register($this);
                     ['label' => 'קורסים', 'url' => ['/course']],
                     '<li class="divider"></li>',
                     ['label' => 'תלמידים', 'url' => ['/student']],
+                    '<li class="divider"></li>',
                     ['label' => 'מרכזים', 'url' => ['/center']],
                 ],
             ],
@@ -105,6 +106,7 @@ AppAsset::register($this);
             'label' => 'ניהול משתמשים',
                 'items' => [
                     ['label' => 'מורים', 'url' => ['/teacher']],
+                    '<li class="divider"></li>',
                      ['label' => 'רכזים', 'url' => ['/supervisor']],
                 ],
             ],
@@ -158,7 +160,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; Adam tsityat & Laury Aziza <?= date('Y') ?></p>
+        <p class="pull-left">&copy; Adam Tsityat & Laury Aziza <?= date('Y') ?></p>
 
         <p class="pull-right"><?//= Yii::powered() ?></p>
     </div>

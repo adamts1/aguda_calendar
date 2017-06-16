@@ -19,6 +19,9 @@ class FundingsourceTeacherSearch extends FundingsourceTeacher
     {
         return [
             [['sourceid', 'teacherid','numberOfHours'], 'integer'],
+            [['sourceid', 'teacherid','numberOfHours'], 'required'],
+
+
         ];
     }
 

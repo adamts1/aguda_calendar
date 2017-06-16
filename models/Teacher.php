@@ -295,6 +295,17 @@ class Teacher extends \yii\db\ActiveRecord
            ->all();
 		return $allTeachers;	
     }
+    public static function getTeachers()
+    {
+         $allTeachers = (new \yii\db\Query())
+           ->select(['*'])
+           ->from('user')
+           ->where(['userRole'=>1])
+           ->all();
+		$allTeachersArray = ArrayHelper::
+					map($allTeachers, 'id', 'username');
+		return $allTeachersArray;	
+    }
 
     public static function getAllTeachersByCenter()
     {

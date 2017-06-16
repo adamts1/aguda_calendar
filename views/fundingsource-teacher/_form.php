@@ -2,6 +2,9 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\models\FundingSource;
+use app\models\Userrole;
+use app\models\Teacher;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\FundingsourceTeacher */
@@ -12,11 +15,10 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'sourceid')->textInput() ?>
+    <?= $form->field($model, 'sourceid')->dropDownList(FundingSource::getFundingSource()) ?>
+    <?= $form->field($model, 'teacherid')->dropDownList(Teacher::getTeachers()) ?>
 
-    <?= $form->field($model, 'teacherid')->textInput() ?>
-
-    <?= $form->field($model, 'numberOfHours')->textInput() ?>
+    <?= $form->field($model, 'numberOfHours')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
