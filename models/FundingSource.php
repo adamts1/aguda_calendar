@@ -86,4 +86,17 @@ class FundingSource extends \yii\db\ActiveRecord
 					map($allFundingSource, 'id', 'sourcename');
 		return $allFundingSourceArray;	
     }
+    public function existFs($Fs){
+        $allFundingSources = (new \yii\db\Query())
+           ->select(['*'])
+           ->from('funding_source')
+           ->all();
+        foreach ( $allFundingSources as  $allFundingSource){
+            if ($Fs == $allFundingSource){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

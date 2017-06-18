@@ -78,8 +78,20 @@ class FundingsourceTeacherController extends Controller
                 window.location.href='admin/ahm/panel';
                 </script>";
         }*/
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            //print_r(FundingsourceTeacher::existFst($model->sourceid,$model->teacherid));die;
+             if(FundingsourceTeacher::existFst($model->sourceid,$model->teacherid) ){
+                 echo "<script>
+                alert('it is already exist funding source to this teacher');
+                window.location.href='';
+                </script>";
+                    return $this->render('create', [
+                    'model' => $model,
+                    ]);
+             }else{
+             $model->save();
             return $this->redirect(['view', 'sourceid' => $model->sourceid, 'teacherid' => $model->teacherid]);
+            }
         } else {
             return $this->render('create', [
                 'model' => $model,

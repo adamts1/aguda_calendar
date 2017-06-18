@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use app\models\FundingSource;
 use app\models\Userrole;
 use app\models\Teacher;
+use app\models\FundingsourceTeacher;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\FundingsourceTeacher */
@@ -25,5 +26,5 @@ use app\models\Teacher;
     </div>
 
     <?php ActiveForm::end(); ?>
-
+     
 </div>

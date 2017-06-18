@@ -29,7 +29,7 @@ class FundingsourceTeacher extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['sourceid', 'teacherid'], 'required'],
+            [['sourceid', 'teacherid','numberOfHours'], 'required'],
             [['sourceid', 'teacherid' , 'numberOfHours'], 'integer'],
             [['sourceid'], 'exist', 'skipOnError' => true, 'targetClass' => FundingSource::className(), 'targetAttribute' => ['sourceid' => 'id']],
             [['teacherid'], 'exist', 'skipOnError' => true, 'targetClass' => Teacher::className(), 'targetAttribute' => ['teacherid' => 'id']],
@@ -70,5 +70,12 @@ class FundingsourceTeacher extends \yii\db\ActiveRecord
     public function getTeachers()
     {
         return $this->find('teacherid')->all();
+    }
+    public function existFst($Fs,$Ft){
+        $result = FundingsourceTeacher::find()->where(['sourceId'=>$Fs , 'teacherid'=>$Ft])->all();
+        if (!empty($result)){
+            return true;
+        }else
+        return false;
     }
 }
