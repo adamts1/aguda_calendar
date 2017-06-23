@@ -14,10 +14,12 @@ $this->title = 'מורים';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="right-list col-md-2">
+ <?php if (Yii::$app->user->identity->userRole != 3):?>
     <div class="button-action-list">
         <?= Html::a('הוספת מורה', ['create'], ['class' => 'btn btn-success']) ?>
         <?= Html::a('הוספת מקור מימון למורה', ['fundingsource-teacher/create'], ['class' => 'btn btn-warning addFST']) ?>
     </div>
+<?php endif;?>
     <div class="btn-group-vertical button-action-list" role="group" aria-label="...">
     <?= Html::a('קורסים', ['/course'], ['class' => 'btn btn-info']) ?>
     <?= Html::a('כיתות', ['/location'], ['class' => 'btn btn-info']) ?>
@@ -74,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			// ],
             
             ['class' => 'yii\grid\ActionColumn',
-            'template' => '{update} {delete} ',],
+            'template' => Yii::$app->user->identity->userRole != 3 ? '{update} {delete}' :'{delete}' ,],
         ],
     ]);
 

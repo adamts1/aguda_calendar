@@ -152,6 +152,15 @@ class Events extends \yii\db\ActiveRecord
         ->where(['eventsid'=>$id])->all(),'studentid', 'studentid');
         return $studentevents;
     }
+    
+    public function getStudentArray() //import all the courses of one teacher used in teacher/view
+    {
+        $studentArray = [];
+        foreach($this->studentEvents as $id) {
+            $studentArray[] = $id->studentArray->name;
+        }
+        return implode("\n,", $studentArray);
+    }
 /////////////////////////////////////////
 
 }

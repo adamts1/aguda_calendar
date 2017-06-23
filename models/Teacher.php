@@ -253,14 +253,14 @@ class Teacher extends \yii\db\ActiveRecord
     return implode("\n,", $course);
     }
 
-    public function getSourceOfTeacher() //import all the source of one teacher used in teacher/view
+  /*public function getSourceOfTeacher() //import all the source of one teacher used in teacher/view
     {
     $source = [];
     foreach($this->fundingsourceTeachers as $id) {
         $source[] = $id->source->fundingSourceName;
     }
     return implode("\n,", $source);
-    }
+    }*/
 
     public function getUserole()
     {

@@ -117,7 +117,7 @@ class TeacherController extends Controller
      */
     public function actionCreate()
     {
-          if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+          if (Yii::$app->user->identity->userRole == 1 || Yii::$app->user->identity->userRole == 3){ // only teachers and principals can watch users 
 			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות בדף זה');}
         else{
 
@@ -211,7 +211,7 @@ class TeacherController extends Controller
 
     public function actionUpdate($id)  // update teacher & user  together
         {
-          if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+          if (Yii::$app->user->identity->userRole == 1  || Yii::$app->user->identity->userRole == 3){ // only teachers and principals can watch users 
 			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות בדף זה');}
         else{
         $model = Teacher::findOne($id);
@@ -301,7 +301,7 @@ class TeacherController extends Controller
      */
     public function actionDelete($id)
     {
-        if (\Yii::$app->user->can('indexOwnStudent')){ // only teachers and principals can watch users 
+        if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
 			throw new UnauthorizedHttpException ('שלום, אינך מורשה למחוק מורים  ');}
         else{
          User::find()->where(['id' =>$id])->one()->delete();// delete from user table

@@ -15,9 +15,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('הוספת רכז כללי', ['supervisor/create'], ['class' => 'btn btn-success']) ?>
+    <?php if (Yii::$app->user->identity->userRole == 3):?>
+        <?= Html::a('הוספת רכז כללי', ['user/create'], ['class' => 'btn btn-success']) ?>
+    
         <?= Html::a('הוספת רכז', ['supervisor/create'], ['class' => 'btn btn-info']) ?>
+    <?php endif;?>
+    <?php if (Yii::$app->user->identity->userRole != 3):?>
         <?= Html::a('הוספת מורה', ['teacher/create'], ['class' => 'btn btn-warning']) ?>
+    <?php endif;?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

@@ -104,7 +104,16 @@ class SupervisorController extends Controller
         $model = new Supervisor();
          $user = new User();
 
-        if ($model->load(Yii::$app->request->post()) && $user->load(Yii::$app->request->post())  && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $user->load(Yii::$app->request->post()) ) {
+
+            if (Yii::$app->user->identity->userRole == 2){
+                  $model->centerId = (new \yii\db\Query())
+                    ->select(['center.id'])
+                    ->from('center')
+                    ->join(' JOIN','supervisor','center.id=supervisor.centerId')
+                    ->where(['supervisor.id' => Yii::$app->user->identity->id])->scalar();
+            }
+             
              $user->id = $user->id;  //insert id to user table
              $user->userRole = '2'; //insert id to user table
              $model->role = "pro";
@@ -114,6 +123,10 @@ class SupervisorController extends Controller
              $model->id = $user->id; //insert the same id as user
              
              $model->save();
+
+            
+
+
 
             return $this->redirect(['view', 'id' => $model->id]);
 

@@ -47,7 +47,7 @@ AppAsset::register($this);
             ['label' => 'אירועים', 'url' => ['/event']],
             ['label' => 'רכזים', 'url' => ['/supervisor']],
             ['label' => 'מקור מימון', 'url' => ['/funding-source']],*/
-            ['label' => 'הפרופיל שלי', 'url' => ['/supervisor']],
+            ['label' => 'הפרופיל שלי', 'url' => ['/supervisor/view?id='.Yii::$app->user->identity->id]],
             ['label' => 'שיבוצים', 'url' => ['/event']],
             [
             'label' => 'ניהול משאבים',
@@ -65,6 +65,8 @@ AppAsset::register($this);
             'label' => 'ניהול משתמשים',
                 'items' => [
                     ['label' => 'מורים', 'url' => ['/teacher']],
+                    '<li class="divider"></li>',
+                     ['label' => 'רכזים', 'url' => ['/supervisor']],
                 ],
             ],
             Yii::$app->user->isGuest ? (
@@ -86,7 +88,7 @@ AppAsset::register($this);
      echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-             ['label' => 'הפרופיל שלי', 'url' => ['/user']],
+             ['label' => 'הפרופיל שלי', 'url' => ['/user/view?id='.Yii::$app->user->identity->id]],
             ['label' => 'שיבוצים', 'url' => ['/event']],
             [
             'label' => 'ניהול משאבים',
@@ -129,7 +131,7 @@ AppAsset::register($this);
          echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-             ['label' => 'הפרופיל שלי', 'url' => ['/supervisor']],
+             ['label' => 'הפרופיל שלי', 'url' => ['/teacher/view?id='.Yii::$app->user->identity->id]],
              ['label' => 'שיבוצים', 'url' => ['/events']],
                Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]

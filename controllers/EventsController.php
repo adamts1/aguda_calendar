@@ -81,7 +81,8 @@ class EventsController extends Controller
         else{
         $model = new Events();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -111,7 +112,7 @@ class EventsController extends Controller
          $studentevents = new StudentEvents();
 
         if ($model->load(Yii::$app->request->post())) {
-
+            print_r($model);
             $model->save(false);
 
             StudentEvents::deleteAll(['eventsid' => $id]);

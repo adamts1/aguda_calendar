@@ -53,11 +53,11 @@ $this->params['breadcrumbs'][] = $this->title;
               
             ],
 
-            [  // Shows all  the courses
+           /* [  // Shows all  the courses
                 'attribute' => 'מומן ע"י',
                 'value' => $model->getSourceOfTeacher(),
               
-            ],
+            ],*/
 
              [  // Shows all  the courses
                 'attribute' => 'שם ושם משפחה',

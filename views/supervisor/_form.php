@@ -58,12 +58,13 @@ use app\models\Center;
 
         <!--<?= $form->field($model, 'id')->textInput() ?>-->
 
-
+<?php if (Yii::$app->user->identity->userRole == 3):?>
     <?= $form->field($model, 'centerId')->dropDownList(Center::getCenter()) ?>  
+    
+<?php endif;?>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
-
     <?php ActiveForm::end(); ?>
 
 </div>

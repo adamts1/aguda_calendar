@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\User */
 
-$this->title = 'הוספת רכז';
-$this->params['breadcrumbs'][] = ['label' => 'עובדים', 'url' => ['index']];
+$this->title = 'הוספת רכז כללי';
+$this->params['breadcrumbs'][] = ['label' => 'רכז כללי', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-create">

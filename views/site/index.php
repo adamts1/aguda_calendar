@@ -138,30 +138,36 @@ use app\models\Location;
             </div>
             
             <div class="row margin-top-30">
-            
-            <div class="col-md-4 col-sm-6">
-				<div class="services-detail">
-					<i class="fa fa-user-o color-1"></i>
-					<h3> מורים</h3>
-					<hr>
-				</div>
-			</div>
+            <a href="/a_p/web/teacher">
+                <div class="col-md-4 col-sm-6">
+                    <div class="services-detail">
+                        <i class="fa fa-user-o color-1"></i>
+                        <h3> מורים</h3>
+                        <hr>
+                    </div>
+                </div>
+            </a>
 
-			<div class="col-md-4 col-sm-6">
-				<div class="services-detail">
-					<i class="fa fa-user-o color-2"></i>
-					<h3>רכזים</h3>
-					<hr>
-				</div>
-			</div>
+            <a href="/a_p/web/supervisor">
+                <div class="col-md-4 col-sm-6">
+                    <div class="services-detail">
+                        <i class="fa fa-user-o color-2"></i>
+                        <h3>רכזים</h3>
+                        <hr>
+                    </div>
+                </div>
+            </a>
 
-			<div class="col-md-4 col-sm-6">
-				<div class="services-detail">
-					<i class="fa fa-user-o color-3"></i>
-					<h3>מנהלים</h3>
-					<hr>
-				</div>
-			</div>
+            <a href="/a_p/web/supervisor">
+                <div class="col-md-4 col-sm-6">
+                    <div class="services-detail">
+                        <i class="fa fa-user-o color-3"></i>
+                        <h3>מנהלים</h3>
+                        <hr>
+                    </div>
+                </div>
+            </a>
+
 			</div>
             
             </div>

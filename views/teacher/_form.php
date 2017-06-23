@@ -73,17 +73,6 @@ use yii\bootstrap\Alert;
 ]);
 ?>
 
-<?=  $form->field($fundingsource, 'id')->widget(Select2::classname(), [
-   
-    'data' => [$datafunding],
-    'language' => 'de',
-   'options' => ['multiple' => true],
-    'pluginOptions' => [
-        'allowClear' => true,
-        'tags' => true,
-    ],
-]);
-?>
 
   
      
@@ -108,22 +97,7 @@ use yii\bootstrap\Alert;
         ],
     ]); ?>
 
-     
-<label class="control-label">מקור מימון</label>
 
-   <?= Select2::widget([
-      
-        'name' => 'FundingsourceTeacher[sourceid]',
-	     'value' => $sourcesids, 
-         'data' => [$datafunding],
-        'options' => ['placeholder' => 'הזן מקור מימון', 'multiple' => true],
-        'pluginOptions' => [
-            'tags' => true,
-            'maximumInputLength' => 10
-        ],
-    ]);
-    
-     ?>
 
      <?php } ?>
 

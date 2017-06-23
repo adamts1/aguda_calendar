@@ -53,6 +53,7 @@ class TeacherSearch extends Teacher
 
 
         // add conditions that should always apply here
+ if (!Yii::$app->user->isGuest){
    if (Yii::$app->user->identity->userRole == 3){ // if eden
 
              $dataProvider = new ActiveDataProvider([
@@ -80,6 +81,7 @@ class TeacherSearch extends Teacher
 
              ]);
         }
+    }
 
            
 
