@@ -86,7 +86,7 @@ AppAsset::register($this);
      echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-             ['label' => 'הפרופיל שלי', 'url' => ['/supervisor']],
+             ['label' => 'הפרופיל שלי', 'url' => ['/user']],
             ['label' => 'שיבוצים', 'url' => ['/event']],
             [
             'label' => 'ניהול משאבים',

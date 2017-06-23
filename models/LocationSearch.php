@@ -44,6 +44,8 @@ class LocationSearch extends Location
         $query = Location::find();
 
    /////////// query that provide only location of conected user
+
+    if (Yii::$app->user->identity->userRole == 2 ){  
            $dataProvider = new ActiveDataProvider([
               'query' => Location::find()
            ->join('JOIN','center','location.centerid=center.id')
@@ -51,6 +53,13 @@ class LocationSearch extends Location
            ->where(['supervisor.id' => Yii::$app->user->identity->id])
 
         ]);
+    }
+    if (Yii::$app->user->identity->userRole == 3 ){  
+           $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+
+        ]);
+    }
 
         $this->load($params);
 

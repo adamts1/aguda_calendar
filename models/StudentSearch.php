@@ -44,14 +44,33 @@ class StudentSearch extends Student
     $query = Student::find();
 
         // add conditions that should always apply here
+     if (Yii::$app->user->identity->userRole == 3){ // if eden
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+         }
 
-         $dataProvider = new ActiveDataProvider([
+          if (Yii::$app->user->identity->userRole == 2 ){  
+                       $dataProvider = new ActiveDataProvider([
+
               'query' => Student::find()
            ->join('JOIN','center','student.centerid=center.id')
            ->join('JOIN','supervisor','center.id=supervisor.centerId')
            ->where(['supervisor.id' => Yii::$app->user->identity->id])
 
         ]);
+         }
+
+          if (Yii::$app->user->identity->userRole == 1 ){  
+              $dataProvider = new ActiveDataProvider([
+              'query' => Student::find()
+              ->join('JOIN','center','student.centerid=center.id')
+              ->join('JOIN','supervisor','center.id=supervisor.centerId')
+              ->where(['supervisor.id' => Yii::$app->user->identity->id])
+
+        ]);
+         }
+
         $this->load($params);
 
         if (!$this->validate()) {

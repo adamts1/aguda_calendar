@@ -44,10 +44,13 @@ class UserSearch extends User
         $query = User::find();
 
         // add conditions that should always apply here
+    if (Yii::$app->user->identity->userRole == 3 ){  
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+            'query' => User::find()
+           ->where(['id' => Yii::$app->user->identity->id])
         ]);
+    }
 
         $this->load($params);
 
