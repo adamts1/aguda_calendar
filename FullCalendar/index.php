@@ -797,7 +797,7 @@ function getData(val)
 			defaultView: 'agendaWeek', // Default view is now agendaWeek instead of month. we can allso use agendaDay
 
 			lang: initialLangCode,
-			hiddenDays:[6],
+			hiddenDays:[5],
 
       
       navLinks: true, // we can click day/week (only if weekNumbers is true) numbers to navigate to spesific view 

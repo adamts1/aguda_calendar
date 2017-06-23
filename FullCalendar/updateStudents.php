@@ -78,10 +78,10 @@ include "connectdb2.php";
 														 WHERE start <= '$start' AND end >= '$end'))) 
 														 AND S2.id = '$identity'
 														 OR (P.id IN 
-					                                    (SELECT DISTINCT S.id 
-														FROM student S, student_events SE, events E 
-					                                    WHERE S.id=SE.studentid 
-														AND SE.eventsid = E.id AND SE.eventsid = '$id'))");
+					                                     (SELECT DISTINCT S.id 
+														 FROM student S, student_events SE, events E 
+					                                     WHERE S.id=SE.studentid 
+														 AND SE.eventsid = E.id AND SE.eventsid = '$id'))");
 
 					}
 

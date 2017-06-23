@@ -2,8 +2,6 @@
 
 require_once('bdd.php');
 
-
-
 if (isset($_POST['title'])  && isset($_POST['id']) && isset($_POST['locationId']) && !isset($_SESSION['courseId']) ){
 	
 	$id = $_POST['id'];
@@ -103,7 +101,7 @@ if (isset($_POST['title'])  && isset($_POST['id']) && isset($_POST['locationId']
 
 
 
- elseif (isset($_POST['delete']) && isset($_POST['id'])){
+if (isset($_POST['delete']) && isset($_POST['id'])){
 
 		$id = $_POST['id'];
 		$deleteVal = $_POST['delete'];

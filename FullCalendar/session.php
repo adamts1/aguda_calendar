@@ -22,6 +22,6 @@ else{ // If there is active session
 		$authorizationLevel = '3'; // teacher -> View Only
 	}
 }
-echo $authorizationLevel;
+// echo $authorizationLevel;
 
 ?>

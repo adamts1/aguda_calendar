@@ -79,7 +79,9 @@ if(isset($_GET['valueToSearch']) && $_GET['titleToSearch'] && $_GET['valueToSear
 
         if( $authorizationLevel == '1' ){
 
-            $sql = "SELECT  FROM events";
+            $sql = "SELECT E.id, E.title, E.start, E.end, E.color, E.centerid, E.locationid, E.teacherid, E.courseid, E.groupNumber, E.studentstring 
+            FROM events E
+            WHERE E.centerid ='1'";
         $firstFilterValue = "חיפוש לפי";
 		$sqlValueToSearch = "0";
 
