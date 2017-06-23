@@ -8,14 +8,14 @@ if (empty($_SESSION['__id'])) { // If there is no active session
 }
 else{ // If there is active session
 	$identity = $_SESSION['__id'];
-	$sqlForAuthoriaztion = "SELECT `item_name` FROM `auth_assignment` WHERE `user_id`=$identity";
+	$sqlForAuthoriaztion = "SELECT `userRole` FROM `user` WHERE `id`=$identity";
 	$reqForAuthoriaztion = $bdd->prepare($sqlForAuthoriaztion); // $sql came from value_from_filter.php
 	$reqForAuthoriaztion->execute();
 	$eventsForAuthoriaztion = $reqForAuthoriaztion->fetch();
 	$valueForAuthoriaztion =  $eventsForAuthoriaztion[0];
-	if($valueForAuthoriaztion== "admin"){
+	if($valueForAuthoriaztion== "administrtor"){
 		$authorizationLevel = '1'; // mega supervisor authorization
-	}elseif($valueForAuthoriaztion== "pro"){
+	}elseif($valueForAuthoriaztion== "supervisor"){
      			$authorizationLevel = '2'; // supervisor full authorization -> CRUD
 	}
 	else{

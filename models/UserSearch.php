@@ -51,6 +51,13 @@ class UserSearch extends User
            ->where(['id' => Yii::$app->user->identity->id])
         ]);
     }
+     if (Yii::$app->user->identity->userRole == 2 ){  //צריך להוריד יותר מאור אין צורך שרכז יראה משתמשים
+
+           $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+         
+    }
 
         $this->load($params);
 
