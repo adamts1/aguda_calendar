@@ -13,14 +13,15 @@ else{ // If there is active session
 	$reqForAuthoriaztion->execute();
 	$eventsForAuthoriaztion = $reqForAuthoriaztion->fetch();
 	$valueForAuthoriaztion =  $eventsForAuthoriaztion[0];
-	if($valueForAuthoriaztion== "administrtor"){
+	if($valueForAuthoriaztion== "3"){
 		$authorizationLevel = '1'; // mega supervisor authorization
-	}elseif($valueForAuthoriaztion== "supervisor"){
+	}elseif($valueForAuthoriaztion== "2"){
      			$authorizationLevel = '2'; // supervisor full authorization -> CRUD
 	}
 	else{
 		$authorizationLevel = '3'; // teacher -> View Only
 	}
 }
+echo $authorizationLevel;
 
 ?>
