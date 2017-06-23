@@ -53,22 +53,35 @@ class TeacherSearch extends Teacher
 
 
         // add conditions that should always apply here
-        if (\Yii::$app->user->can('createSchoolDir')){
-        $dataProvider = new ActiveDataProvider([
-             'query' => $query,                             // provide for admin
-            // 'query' => Teacher::find()->where(['id'=> Yii::$app->user->identity->id]),
-            // 'query' => Supevisor::find()->where(['id'=> Yii::$app->user->identity->id]),
-        ]);
-        }else{
+   if (Yii::$app->user->identity->userRole == 3){ // if eden
+
+             $dataProvider = new ActiveDataProvider([
+             'query' => Teacher::find()
+           ->join('JOIN','center','teacher.centerid=center.id')
+           ->join('JOIN','supervisor','center.id=supervisor.centerId')
+            
+             ]);}
+           if (Yii::$app->user->identity->userRole == 2){ //if racaz
+
             $dataProvider = new ActiveDataProvider([
              'query' => Teacher::find()
            ->join('JOIN','center','teacher.centerid=center.id')
            ->join('JOIN','supervisor','center.id=supervisor.centerId')
            ->where(['supervisor.id' => Yii::$app->user->identity->id])
 
-             ]);// provide for supervisor
+             ]);
+        }
+        
+        if (Yii::$app->user->identity->userRole == 1){  
+            $dataProvider = new ActiveDataProvider([
+             'query' => Teacher::find()
+             ->join('JOIN','user','teacher.id=user.id')
+             ->where(['user.id' => Yii::$app->user->identity->id])
+
+             ]);
         }
 
+           
 
         $dataProvider->sort->attributes['user'] = [
         // The tables are the ones our relation are configured to

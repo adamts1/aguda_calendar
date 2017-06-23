@@ -44,8 +44,8 @@ class FundingSource extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'מקורות מימון',
-            'sourcename' => 'sourcename',
+            'id' => 'מספר מזהה',
+            'sourcename' => 'שפ המקור',
         ];
     }
 

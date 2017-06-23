@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'שם ושם משפחה',
                 'value' => $model->id0->fullName,
               
-            ],
+             ],
 
             
             

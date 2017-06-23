@@ -29,6 +29,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
+
+             [  // Shows all  the courses
+                'attribute' => 'שם ושם משפחה',
+                'value' => $model->id0->fullName,
+              
+             ],
             //       [ // the name of supervisor from user
 			// 	'label' => $model->attributeLabels()['id'],
 			// 	'format' => 'html',
@@ -36,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			// 		['user/view', 'id' => $model->id0->id]),
 					
 			// ],            
-            'centerId',
+            // 'centerId',
                        [ // the name of supervisor from user
 				'label' => $model->attributeLabels()['centerId'],
 				'format' => 'html',

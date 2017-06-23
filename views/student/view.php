@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Student */
 
-$this->title = $model->name;
+$this->title = $model->nickname;
 $this->params['breadcrumbs'][] = ['label' => 'תלמידים', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -29,13 +29,19 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'centerid',
+            'nickname',
             'name',
             'lastname',
             'grade',
             'phone',
             'notes',
-            'nickname',
+             [ // the name of supervisor from user
+				'label' => $model->attributeLabels()['centerid'],
+				'format' => 'html',
+				'value' => Html::a($model->center->centername, 
+					['center/view', 'id' => $model->center->id]),	
+			    ],  
+
         ],
     ]) ?>
 

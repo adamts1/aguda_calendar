@@ -59,13 +59,13 @@ class Student extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'centerid' => 'Centerid',
+            'centerid' => 'מרכז',
             'name' => 'שם',
             'lastname' => 'שם משפחה',
             'grade' => 'כיתה',
             'phone' => 'טלפון',
             'notes' => 'הערות',
-            'nickname' => 'כינוי',
+            'nickname' => 'שם מזהה',
         ];
     }
 

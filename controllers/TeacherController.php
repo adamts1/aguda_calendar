@@ -61,9 +61,7 @@ class TeacherController extends Controller
      */
     public function actionIndex()
     {
-       if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
-			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות בדף זה');}
-        else{
+       
         $searchModel = new TeacherSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         
@@ -71,7 +69,7 @@ class TeacherController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
-        }
+        
     }
 
     /**

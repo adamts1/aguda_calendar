@@ -103,7 +103,7 @@ if (isset($_POST['title'])  && isset($_POST['id']) && isset($_POST['locationId']
 
 
 
-if (isset($_POST['delete']) && isset($_POST['id'])){
+ elseif (isset($_POST['delete']) && isset($_POST['id'])){
 
 		$id = $_POST['id'];
 		$deleteVal = $_POST['delete'];

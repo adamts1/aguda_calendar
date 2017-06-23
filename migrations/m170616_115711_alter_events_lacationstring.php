@@ -2,19 +2,19 @@
 
 use yii\db\Migration;
 
-class m170604_161942_alter_student_nickname extends Migration
+class m170616_115711_alter_events_lacationstring extends Migration
 {
     public function up()
     {
 
-                 $this->addColumn('student','nickname','string'); 
-
+        $this->addColumn('events','loctionstring','string'); 
 
     }
 
     public function down()
     {
         
+
     }
 
     /*
@@ -26,7 +26,7 @@ class m170604_161942_alter_student_nickname extends Migration
 
     public function safeDown()
     {
-        echo "m170604_161942_alter_student_nickname cannot be reverted.\n";
+        echo "m170616_115711_alter_events_lacationstring cannot be reverted.\n";
 
         return false;
     }
