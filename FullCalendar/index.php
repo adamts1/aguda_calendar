@@ -797,14 +797,14 @@ function getData(val)
 			defaultView: 'agendaWeek', // Default view is now agendaWeek instead of month. we can allso use agendaDay
 
 			lang: initialLangCode,
-			hiddenDays:[5],
+			hiddenDays:[6],
 
       
       navLinks: true, // we can click day/week (only if weekNumbers is true) numbers to navigate to spesific view 
 			// isRTL: true,
 			//businessHours: true, // display business hours // If we want gray background color for sunday and saturday 
 			eventLimit: true, // allow "more" link when too many events
-			weekends: false, // If we don't eant to display Saturday and Sunday
+			weekends: true, // If we don't eant to display Saturday and Sunday
 			hiddenDays: [6], // hide Saturday
 			//fixedWeekCount: true, // False if we want 4.5 - 6 rows of calendar instead of default 6
 			// weekNumbers: true, // If we want to display week numbers 

@@ -117,34 +117,6 @@ if (isset($_POST['title']) && isset($_POST['start']) && isset($_POST['end']) && 
 
 
 //////////////
-
-            // $converIdToNameloc="SELECT `name` FROM `location` WHERE `id`= '8'";
-			// $converIdToNameloc1 = $bdd->prepare($converIdToNameloc); 
-			// $converIdToNameloc1->execute();
-
-		    // $locatoinString = implode(",", $converIdToNameloc1); 
-
-			$result = mysql_query("SELECT `name` FROM `location` WHERE `id`= '8'");
-            $names=array();
-            while ($row = mysql_fetch_row($result)) $names[]=$row[0];
-            mysql_free_result($result);
-
-
-			$sql = "UPDATE `events` SET `loctionstring`= '$result' WHERE `id` = '$eventsNumberInt' ";
-		
-		$query = $bdd->prepare( $sql );
-		if ($query == false) {
-			print_r($bdd->errorInfo());
-			die ('Erreur prepare insert usersString to activity table');
-		}
-		$sth = $query->execute();
-		if ($sth == false) {
-			print_r($query->errorInfo());
-			die ('Erreur execute insert usersString to activity table');
-		}
-
-
-/////////
 	
 
         $startNumber1 = $startNumber1+60*60*24*7;
@@ -161,5 +133,3 @@ header('Location: '.$_SERVER['HTTP_REFERER']);
 
 	
 ?>
-
-

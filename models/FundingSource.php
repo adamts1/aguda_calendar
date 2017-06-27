@@ -45,7 +45,7 @@ class FundingSource extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'מספר מזהה',
-            'sourcename' => 'שפ המקור',
+            'sourcename' => 'שם המקור',
         ];
     }
 

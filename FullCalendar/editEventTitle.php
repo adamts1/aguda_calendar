@@ -2,6 +2,8 @@
 
 require_once('bdd.php');
 
+
+
 if (isset($_POST['title'])  && isset($_POST['id']) && isset($_POST['locationId']) && !isset($_SESSION['courseId']) ){
 	
 	$id = $_POST['id'];
@@ -62,10 +64,10 @@ if (isset($_POST['title'])  && isset($_POST['id']) && isset($_POST['locationId']
 			}
 
 			$insertToStudentEventsTable = $insertToStudentEvents->execute(); // We must this line to insert values into table!!!!!
-			if ($insertToStudentEventsTable == false) {
-				print_r($insertToStudentEventsTable->errorInfo());
-				die ('Erreur execute student_events table');
-			}
+			// if ($insertToStudentEventsTable == false) {
+			// 	print_r($insertToStudentEventsTable->errorInfo());
+			// 	die ('Erreur execute student_events table');	
+			// }
 
 			/////// we want query for convert studen id to student name
 			$converIdToName="SELECT `nickname` FROM `student` WHERE `id`= '$studentName'";

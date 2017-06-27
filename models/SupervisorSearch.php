@@ -48,7 +48,8 @@ class SupervisorSearch extends Supervisor
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-        }else{
+        }
+        else{
             $dataProvider = new ActiveDataProvider([
              'query' => Supervisor::find()
            ->join('JOIN','center','supervisor.centerid=center.id')
