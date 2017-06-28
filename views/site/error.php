@@ -18,10 +18,10 @@ $this->title = $name;
     </div>
 
     <p>
-        The above error occurred while the Web server was processing your request.
+        .העמוד אליו ניסית להגיע אינו קיים
     </p>
     <p>
-        Please contact us if you think this is a server error. Thank you.
+        אנא חזור <a href="http://localhost/magshimim/web/">לעמוד הראשי</a> 
     </p>
 
 </div>
