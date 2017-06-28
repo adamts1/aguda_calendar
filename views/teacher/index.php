@@ -14,7 +14,7 @@ $this->title = 'מורים';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="right-list col-md-2">
- <?php if (Yii::$app->user->identity->userRole != 3):?>
+ <?php if (Yii::$app->user->identity->userRole == 2):?>
     <div class="button-action-list">
         <?= Html::a('הוספת מורה', ['create'], ['class' => 'btn btn-success']) ?>
         <?= Html::a('הוספת מקור מימון למורה', ['fundingsource-teacher/create'], ['class' => 'btn btn-warning addFST']) ?>

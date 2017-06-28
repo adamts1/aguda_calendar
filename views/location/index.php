@@ -15,7 +15,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
  <div class="right-list col-md-2">
     <div class="button-action-list">
-        <?= Html::a('הוספת מיקום ', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php  if (Yii::$app->user->identity->userRole != 3) :?>
+             <?= Html::a('הוספת מיקום ', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php endif; ?>
     </div>
     <div class="btn-group-vertical button-action-list" role="group" aria-label="...">
     <?= Html::a('קורסים', ['/course'], ['class' => 'btn btn-info']) ?>
@@ -37,11 +39,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             'name',
-    
-
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+            'template' => Yii::$app->user->identity->userRole != 3 ? '{update} {delete} {view}' :'{delete} {view}',
+            ],
         ],
     ]); ?>
 </div>

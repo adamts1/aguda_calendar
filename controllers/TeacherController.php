@@ -79,15 +79,12 @@ class TeacherController extends Controller
      */
     public function actionView($id)
     {
-          if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
-			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות בדף זה');}
-        else{
+         
 
         return $this->render('view', [
             'model' => $this->findModel($id),
 
         ]);
-        }
     }
 
     public function actionChart() ////important for the chart of teacher

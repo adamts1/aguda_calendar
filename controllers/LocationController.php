@@ -77,7 +77,7 @@ class LocationController extends Controller
      */
     public function actionCreate()
     {
-           if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+           if (Yii::$app->user->identity->userRole == 1 || Yii::$app->user->identity->userRole == 3){ // only teachers and principals can watch users 
 			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות בדף זה');}
         else{
         $model = new Location();
@@ -109,7 +109,7 @@ class LocationController extends Controller
      */
     public function actionUpdate($id)
     {
-          if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+          if (Yii::$app->user->identity->userRole == 1 || Yii::$app->user->identity->userRole == 3){ // only teachers and principals can watch users 
 			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות בדף זה');}
         else{
         $model = $this->findModel($id);

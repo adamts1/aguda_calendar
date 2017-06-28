@@ -91,7 +91,7 @@ class FundingSourceController extends Controller
      */
     public function actionCreate()
     {
-        if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+        if (Yii::$app->user->identity->userRole == 1 || Yii::$app->user->identity->userRole == 2){ // only teachers and principals can watch users 
 			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות ברשימת המשתמשים');}
         else{
         $model = new FundingSource();
@@ -114,7 +114,7 @@ class FundingSourceController extends Controller
      */
     public function actionUpdate($id)
     {
-        if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+        if (Yii::$app->user->identity->userRole == 1 || Yii::$app->user->identity->userRole == 2){ // only teachers and principals can watch users 
 			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות ברשימת המשתמשים');}
         else{
         $model = $this->findModel($id);
@@ -137,7 +137,7 @@ class FundingSourceController extends Controller
      */
     public function actionDelete($id)
     {
-        if (Yii::$app->user->identity->userRole == 1){ // only teachers and principals can watch users 
+        if (Yii::$app->user->identity->userRole == 1 || Yii::$app->user->identity->userRole == 2){ // only teachers and principals can watch users 
 			throw new UnauthorizedHttpException ('שלום, אינך מורשה לצפות ברשימת המשתמשים');}
         else{
         $this->findModel($id)->delete();
