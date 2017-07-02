@@ -79,7 +79,6 @@ class TeacherController extends Controller
      */
     public function actionView($id)
     {
-         
 
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -123,51 +122,59 @@ class TeacherController extends Controller
         $course = new Course();
         $fundingsource = new FundingSource();
 
-        if ($model->load(Yii::$app->request->post()) && $user->load(Yii::$app->request->post())  && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $user->load(Yii::$app->request->post())) {
             
-            $michtamchim = User::find()->all();
+            /*$michtamchim = User::find()->all();
             foreach ($michtamchim as $michtamech):
                 if ($user->username == $michtamech->username):
                     Yii::$app->session->setFlash('error', "this user already exist");
                     return $this->goBack();
                 endif;
-            endforeach;
+            endforeach;*/
             
             $user->id = $user->id;  //insert id to user table
             $user->userRole = 1; //insert id to user table
-            $model->role = "admin";
             $user->verification_code = $model->createRandomCode();
-            $user->save();
+            
+            if ( $user->save() ){
+                $model->id = $user->id; //insert the same id as user
+                $model->role = "admin";
+                $model->centerid = (new \yii\db\Query())
+                    ->select(['center.id'])
+                    ->from('center')
+                    ->join(' JOIN','supervisor','center.id=supervisor.centerId')
+                    ->where(['supervisor.id' => Yii::$app->user->identity->id])->scalar();
+            
+                $model->save();
+                if (empty($_POST['Course']['id'])){
+                   Yii::$app->session->setFlash('error', "this user already exist");
+                   
+                }
 
-            $model->id = $user->id; //insert the same id as user
-            $model->centerid = (new \yii\db\Query())
-           ->select(['center.id'])
-           ->from('center')
-           ->join(' JOIN','supervisor','center.id=supervisor.centerId')
-           ->where(['supervisor.id' => Yii::$app->user->identity->id])->scalar();
-        
-            $model->save();
+                if (!empty($_POST['Course']['id'])){
+                    foreach ($_POST['Course']['id'] as $id) {
+                        $questionCategory = new CourseTeacher; //instantiate new CourseTeacher model
+                        $questionCategory->teacherid = $model->id;
+                        $questionCategory->courseid = $id;
+                        $questionCategory->save();
+                    }
+                }
 
-          foreach ($_POST['Course']['id'] as $id) {
-              $questionCategory = new CourseTeacher; //instantiate new CourseTeacher model
-              $questionCategory->teacherid = $model->id;
-              $questionCategory->courseid = $id;
-              $questionCategory->save();
-           }
-
-           foreach ($_POST['FundingSource']['id'] as $id) {
-              $fundingsourceteacher = new FundingsourceTeacher; //instantiate new FundingsouceTeacher model
-              $fundingsourceteacher->teacherid = $model->id;
-              $fundingsourceteacher->sourceid = $id;
-              $fundingsourceteacher->save();
-           }
-           
-            // due to multiple courses for for one teacher
-
-            return $this->redirect(['view', 'id' => $model->id]);
+                /*foreach ($_POST['FundingSource']['id'] as $id) {
+                    $fundingsourceteacher = new FundingsourceTeacher; //instantiate new FundingsouceTeacher model
+                    $fundingsourceteacher->teacherid = $model->id;
+                    $fundingsourceteacher->sourceid = $id;
+                    $fundingsourceteacher->save();
+                }*/
+            
+                // due to multiple courses for for one teacher
+                return $this->redirect(['view', 'id' => $model->id]);
+            }else{
+              throw new UnauthorizedHttpException ('השם משתמש שהוזן תפוס, נא בחר שם משתמש אחר');
+}
         } else {
+
             $roles = Teacher::getRoles(); 
-           
             return $this->render('create', [
                 'model' => $model,
                 'user' => $user,

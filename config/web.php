@@ -29,9 +29,9 @@ $config = [
             'class' => 'yii\swiftmailer\Mailer',
             'transport' => [
                'class' => 'Swift_SmtpTransport',
-               'host' => 'smtp.sendgrid.net',
-               'username' => 'mipotech',
-               'password' => 'jL:5rc*B6*}+(1v',
+               'host' => 'smtp.gmail.com',
+               'username' => 'agudalekidumahinouh@gmail.com',
+               'password' => 'agudalekidumahinouh2017',
                'port' => '587',
                'encryption' => 'tls',
            ],

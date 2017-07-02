@@ -413,3 +413,10 @@ a.desc:after {
     -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
+.navbar-inverse.navbar-fixed-top.navbar .navbar-header{
+    float: right;
+    padding-left: 10px;
+}
+.navbar-inverse.navbar-fixed-top.navbar .collapse.navbar-collapse .navbar-nav.navbar-right.nav li{
+    letter-spacing: 1px;
+}

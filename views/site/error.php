@@ -21,7 +21,7 @@ $this->title = $name;
         .העמוד אליו ניסית להגיע אינו קיים
     </p>
     <p>
-        אנא חזור <a href="http://localhost/magshimim/web/">לעמוד הראשי</a> 
+        אנא חזור <a href="http://localhost/a_p/web/">לעמוד הראשי</a> 
     </p>
 
 </div>

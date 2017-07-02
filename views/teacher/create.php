@@ -11,8 +11,15 @@ $this->params['breadcrumbs'][] = ['label' => 'מורים', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <script src="main.js"></script>
-<script>    
-    console.log('laury');
+<script>
+
+    $( ".select2-selection__rendered" ).click(function() {
+        console.log('laury');
+        if ( $('#course-id').val() > 0 ){
+            $('.form-group .btn.btn-success').removeAttr("disabled");
+        }
+    }
+
 </script>
 
 <div class="teacher-create">

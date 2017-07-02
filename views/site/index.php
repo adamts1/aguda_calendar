@@ -40,11 +40,14 @@ use app\models\Location;
     
     <!-- Main CSS Stylesheet -->
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    
+
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <!-- Google Web Fonts  -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,300,500,600,700">
     
  </head>
+
+
 <div class="site-index">
   <body>
     
@@ -631,7 +634,12 @@ use app\models\Location;
     
     <!-- Main Javascript File  -->
     <script type="text/javascript" src="js/scripts.js"></script>
-  
+    <script>
+        $( ".navbar-collapse .navbar-nav li.dropdown" ).click(function() {
+            console.log('laury');
+            $(this).addClass('open');
+        });
+    </script>
   
   </body>
   </div>

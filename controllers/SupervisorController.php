@@ -118,22 +118,18 @@ class SupervisorController extends Controller
              $user->userRole = '2'; //insert id to user table
              $model->role = "pro";
              $user->verification_code = $model->createRandomCode();
-             $user->save();
-
-             $model->id = $user->id; //insert the same id as user
              
-             $model->save();
+             if ($user->save()){
 
-            
-
-
-
-            return $this->redirect(['view', 'id' => $model->id]);
-
+                $model->id = $user->id; //insert the same id as user
+                $model->save();
+                return $this->redirect(['view', 'id' => $model->id]);
+             }
+                throw new UnauthorizedHttpException ('השם משתמש שהוזן תפוס, נא בחר שם משתמש אחר');
              
         } else {
 
-             $roles = Supervisor::getRoles(); 
+            $roles = Supervisor::getRoles(); 
             return $this->render('create', [
                 'model' => $model,
                 'user' => $user, //taking iputs from user to supervisor

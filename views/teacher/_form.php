@@ -15,6 +15,15 @@ use yii\bootstrap\Alert;
 /* @var $model app\models\Teacher */
 /* @var $form yii\widgets\ActiveForm */
 ?>
+<script>
+        $( ".select2-selection__rendered" ).click(function() {
+        console.log('laury');
+        if ( $('#course-id').val() > 0 ){
+            $('.form-group .btn.btn-success').removeAttr("disabled");
+        }
+    }
+</script>
+
 
 <div class="teacher-form">
 
@@ -65,7 +74,7 @@ use yii\bootstrap\Alert;
    
     'data' => [$data],
     'language' => 'de',
-   'options' => ['multiple' => true],
+    'options' => ['multiple' => true , 'require' =>true],
     'pluginOptions' => [
         'allowClear' => true,
         'tags' => true,
@@ -73,9 +82,6 @@ use yii\bootstrap\Alert;
 ]);
 ?>
 
-
-  
-     
 
      <?php }else { ?>
 
@@ -111,8 +117,7 @@ use yii\bootstrap\Alert;
 </div>
 
     <div class="form-group">
-      
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success'  : 'btn btn-primary' /*, 'disabled' => 'disabled'*/]) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
