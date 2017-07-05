@@ -44,13 +44,11 @@ $this->params['breadcrumbs'][] = $this->title;
 					return  Html::a($model->id0->fullName,['teacher/view','id'=>$model->id], ['title' => 'View','class'=>'no-pjax']);
                     }
             ],
-            [
-              'attribute' => 'user',
-               	'value' => function($model){
-					return $model->id0->fullName;},
-            ],
+          
             [
               'attribute' => 'center',
+              	'label' => 'מרכז',
+				'format' => 'raw',
                	'value' => function($model){
 					return $model->center->centername;},
             ],

@@ -25,8 +25,10 @@ use yii\helpers\ArrayHelper;
  */
 class Teacher extends \yii\db\ActiveRecord
 {
-      public $editableUsers = [];  // many to many
+    //   public $editableUsers = [];  // many to many
       public $role; 
+    //   public $center; 
+
     
     public static function tableName()
     {
@@ -41,7 +43,7 @@ class Teacher extends \yii\db\ActiveRecord
         return [
             [['centerid'], 'integer'],
             [['subject'], 'string', 'max' => 255],
-            ['role', 'safe'],
+            [['role', 'user','center'], 'safe'],
             [['centerid'], 'exist', 'skipOnError' => true, 'targetClass' => Center::className(), 'targetAttribute' => ['centerid' => 'id']],
             [['id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id' => 'id']],
         ];
@@ -206,7 +208,7 @@ class Teacher extends \yii\db\ActiveRecord
    {
          $fundingsource =  ArrayHelper::map(FundingSource::find()->all(),'id', 'sourcename');
          return $fundingsource;                       
-     }
+   }
 
      public function afterSave($insert,$changedAttributes)
     {

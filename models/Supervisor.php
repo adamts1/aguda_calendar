@@ -54,7 +54,7 @@ class Supervisor extends \yii\db\ActiveRecord
     {
         return [
             [['centerId'], 'integer'],
-            ['role', 'safe'],
+            [['role', 'user','center'], 'safe'],
             [['centerId'], 'exist', 'skipOnError' => true, 'targetClass' => Center::className(), 'targetAttribute' => ['centerId' => 'id']],
             [['id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id' => 'id']],
         ];
@@ -69,6 +69,8 @@ class Supervisor extends \yii\db\ActiveRecord
             'id' => 'ID',
             'centerId' => 'מרכז',
             'role'  => 'User role',
+            'user'  => 'שם ושם משפחה',
+            
 
         ];
     }

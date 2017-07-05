@@ -903,9 +903,7 @@ function getData(val)
 				});
 
           // element.find('.fc-title').append("<br/><b>מורה בפעילות: </b>" + event.teacherid ); // We can change event.comment to what we want disply
-          element.find('.fc-title').append("<br/><b>מקצוע: </b>" + event.courseid ); // We can change event.comment to what we want disply
           element.find('.fc-title').append("<br/><b>תלמידים: </b>" + event.studentstring ); // We can change event.comment to what we want disply
-          element.find('.fc-title').append("<br/><b>מיקום: </b>" + event.locationid ); // We can change event.comment to what we want disply
 
 		   	},
 

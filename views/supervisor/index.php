@@ -37,6 +37,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         
         'columns' => [
+
+            
+
+
+                         
              [   
                     'attribute'=>'user',
                     'format'=>'raw',
@@ -58,15 +63,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
            
            
-            [
-				'attribute' => 'centerId',
-				'label' => 'מרכז',
+             [
+              'attribute' => 'center',
+              	'label' => 'מרכז',
 				'format' => 'raw',
-				'value' => function($model){
-					return $model->center->centername;  //Showing course name instead of course number.
-				},
-				//'filter'=>Html::dropDownList('CourseClassSearch[teacherId]', $teacher, $teachers, ['class'=>'form-control']),   //////////////// the arguments are from the controller!
-			],
+               	'value' => function($model){
+					return $model->center->centername;},
+            ],
 
             ['class' => 'yii\grid\ActionColumn',
             'template' => '{update} {delete}',],

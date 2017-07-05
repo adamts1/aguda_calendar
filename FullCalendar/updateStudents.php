@@ -68,7 +68,7 @@ include "connectdb2.php";
 							} 
 					$studentsFromActivity=$students_language;
 					if($authorizationLevel == '2'){
-					$allAvailableStudents = mysql_query("SELECT P.id, P.nickname FROM student P
+					$allAvailableStudents = mysql_query("SELECT DISTINCT P.id, P.nickname FROM student P
                                                          JOIN center C ON P.centerid =C.id
                                                          JOIN supervisor S2 ON C.id = S2.centerid
                                                          WHERE (P.id NOT IN (SELECT DISTINCT S.id 
