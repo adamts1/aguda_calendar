@@ -6,8 +6,10 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Supervisor;
-use app\models\center;
-use app\models\user;
+use app\models\Center;
+// use app\models\Query;
+use yii\db\ActiveRecord;
+// use yii\db\Query;
 
 /**
  * SupervisorSearch represents the model behind the search form about `app\models\Supervisor`.
@@ -47,31 +49,67 @@ class SupervisorSearch extends Supervisor
      */
     public function search($params)
     {
+
+       if (Yii::$app->user->identity->userRole == 3){  
+
         $query = Supervisor::find();
 
-            $query->joinWith(['id0','center']);
-          
+       }
 
+        if (Yii::$app->user->identity->userRole == 2){  
+
+      
+        //     $query1 = Supervisor::find()
+        //    ->join('JOIN','center as c','supervisor.centerid=c.id')
+        //    ->join('JOIN','user as u','supervisor.id=u.id')
+        //    ->where(['supervisor.id' => Yii::$app->user->identity->id]);
+
+          $rows = (new \yii\db\Query())
+          ->select(['center.id'])
+          ->from('center')
+          ->join('JOIN','supervisor','center.id=supervisor.centerId')
+          ->where(['supervisor.id' => Yii::$app->user->identity->id]); //provide where in
+        
+
+
+           $query= Supervisor::find()
+           ->join('JOIN','center as c','supervisor.centerId=c.id')
+           ->join('JOIN','user as u','supervisor.id=u.id')
+           ->where(['c.id' => $rows]);
+
+             
+
+
+        }
+
+
+       
+        if (Yii::$app->user->identity->userRole == 1){  
+
+            $query = Teacher::find()
+             ->join('JOIN','user','teacher.id=user.id')
+             ->where(['user.id' => Yii::$app->user->identity->id]);
+            
+        }
+
+        $query->joinWith(['id0','center']);
 
 
         // add conditions that should always apply here
-        if (Yii::$app->user->identity->userRole == 3){  
+ if (!Yii::$app->user->isGuest){
+      
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
 
-
-        }
-        else{
-            $dataProvider = new ActiveDataProvider([
-             'query' => Supervisor::find()
-           ->join('JOIN','center','supervisor.centerid=center.id')
-           ->join('JOIN','user','supervisor.id=user.id')
-           ->where(['supervisor.id' => Yii::$app->user->identity->id])
-
-             ]);// provide for supervisor
-        }
+             
+         
+             
+        
+        
+    
+    }
 
 
         $dataProvider->sort->attributes['user'] = [

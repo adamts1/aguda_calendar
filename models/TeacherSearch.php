@@ -8,6 +8,12 @@ use yii\data\ActiveDataProvider;
 use app\models\Teacher;
 use app\models\User;
 use app\models\Center;
+use yii\db\ActiveRecord;
+use yii\db\Query;
+use yii\db\Connection;
+use yii\db\Command;
+// use yii\base\Object;
+// use yii\db\ActiveQuery;
 
 /**
  * TeacherSearch represents the model behind the search form about `app\models\Teacher`.
@@ -47,40 +53,54 @@ class TeacherSearch extends Teacher
      */
     public function search($params)
     {
+
+       if (Yii::$app->user->identity->userRole == 3){  
+
         $query = Teacher::find();
+
+       }
+
+        if (Yii::$app->user->identity->userRole == 2){  
+
+      
+            $query = Teacher::find()
+           ->join('JOIN','center as c','teacher.centerid=c.id')
+           ->join('JOIN','supervisor','c.id=supervisor.centerId')
+           ->join('JOIN','user as u','u.id=teacher.id')
+           ->where(['supervisor.id' => Yii::$app->user->identity->id]);
+
+             
+
+
+        }
+
+
+       
+        if (Yii::$app->user->identity->userRole == 1){  
+
+            $query = Teacher::find()
+             ->join('JOIN','user','teacher.id=user.id')
+             ->where(['user.id' => Yii::$app->user->identity->id]);
+            
+        }
 
         $query->joinWith(['id0','center']);
 
 
         // add conditions that should always apply here
  if (!Yii::$app->user->isGuest){
-        if (Yii::$app->user->identity->userRole == 3){  
+      
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
 
-             }
-           if (Yii::$app->user->identity->userRole == 2){ //if racaz
-
-            $dataProvider = new ActiveDataProvider([
-            'query' => Teacher::find()
-           ->join('JOIN','center','teacher.centerid=center.id')
-           ->join('JOIN','supervisor','center.id=supervisor.centerId')
-           ->join('JOIN','user','user.id=teacher.id')
-           ->where(['supervisor.id' => Yii::$app->user->identity->id])
-
-             ]);
-        }
+             
+         
+             
         
-        if (Yii::$app->user->identity->userRole == 1){  
-            $dataProvider = new ActiveDataProvider([
-             'query' => Teacher::find()
-             ->join('JOIN','user','teacher.id=user.id')
-             ->where(['user.id' => Yii::$app->user->identity->id])
-
-             ]);
-        }
+        
+    
     }
 
            
