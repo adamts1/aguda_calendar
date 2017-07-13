@@ -17,9 +17,9 @@ use app\models\FormRecoverPass;
 use app\models\FormResetPass;
 
 
-
 class SiteController extends Controller
 {
+
     /**
      * @inheritdoc
      */
@@ -51,6 +51,7 @@ class SiteController extends Controller
      */
     public function actions()
     {
+        
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
@@ -69,11 +70,16 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        
+        $url = Yii::$app->getUrlManager()->getBaseUrl();
+        //print_r($url);
         if(Yii::$app->user->isGuest)
         { 
             $this->redirect(['/site/login']);
         }
-        return $this->render('index');
+        return $this->render('index',[
+            'url'=>$url,
+        ]);
     }
 
     /**
@@ -95,6 +101,7 @@ class SiteController extends Controller
    {
     
     $users = User::find()->where(['email' => $model->email])->all();
+    $url = Yii::$app->getUrlManager()->getBaseUrl();
     foreach ($users as $user):
         $userId = $user->id;
     endforeach;
@@ -102,7 +109,7 @@ class SiteController extends Controller
      $subject = "Reset password";
      $body = "<p>Copie this code to reset password ... ";
      $body .= "<strong>".$user->verification_code."</strong></p>";
-     $body .= "<p><a href='http://localhost/a_p/web/site/resetpass'>Reset password</a></p>";
+     $body .= "<p><a href='http://localhost".$url."/site/resetpass'>Reset password</a></p>";
 
      //Enviamos el correo
      Yii::$app->mailer->compose()
@@ -162,7 +169,7 @@ class SiteController extends Controller
      }
      else
      {
-      $msg = "טעות";
+        $msg = "טעות";
      }
      
    

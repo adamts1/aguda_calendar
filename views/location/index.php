@@ -11,7 +11,7 @@ $this->title = 'מיקום';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="location-index">
-
+<?php print_r($url);?>
 
  <div class="right-list col-md-2">
     <div class="button-action-list">
