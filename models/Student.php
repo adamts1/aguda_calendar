@@ -47,7 +47,7 @@ class Student extends \yii\db\ActiveRecord
             [['centerid'], 'integer'],
             [['name', 'lastname', 'grade', 'phone', 'notes', 'nickname'], 'string', 'max' => 255],
             [['nickname'], 'required'],
-
+            [['center'], 'safe'],
             [['centerid'], 'exist', 'skipOnError' => true, 'targetClass' => Center::className(), 'targetAttribute' => ['centerid' => 'id']],
         ];
     }

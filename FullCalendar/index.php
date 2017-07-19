@@ -162,10 +162,12 @@ function getData(val)
 {
 	$.ajax({
 		type:"POST",
-		url:"get_Data.php",
+		url:"get_data.php",
     data: 'fatherFilterValue='+val,		
 		success: function(data){
 		$("#mainselection").html(data);
+		console.log(val);
+
 		}});
 
 		}
@@ -229,6 +231,7 @@ function getData(val)
 						
 							
                 <h2>מערכת שיבוץ שיעורים</h2>
+
                <p class="lead"></p>
                 <div id="calendar" class="col-centered"> </div>   
 <?php } ?>
@@ -806,12 +809,12 @@ function getData(val)
 			eventLimit: true, // allow "more" link when too many events
 			weekends: true, // If we don't eant to display Saturday and Sunday
 			hiddenDays: [6], // hide Saturday
-			//fixedWeekCount: true, // False if we want 4.5 - 6 rows of calendar instead of default 6
+			fixedWeekCount: true, // False if we want 4.5 - 6 rows of calendar instead of default 6
 			// weekNumbers: true, // If we want to display week numbers 
 			scrollTime: '07:30:00', // The day start at 6:30 instead of 6:00
 			minTime: "07:00:00", // Min Time of every day
 			maxTime: "18:00:00", // Max time of every day
-			displayEventTime : false, // If we want to hide the display of time in every event
+			displayEventTime : true, // If we want to hide the display of time in every event
 			nowIndicator: true, // display a marker indicating the current time
 			selectHelper: true,
 
@@ -1010,14 +1013,7 @@ function getData(val)
 		}
        
 
-			 
-       var previousDate = moment('<?php echo $start; ?>'); 
 
-
-				// console.log(previousDate);
-
-
-        $('#calendar').fullCalendar('gotoDate', previousDate);
 
 		
 	});

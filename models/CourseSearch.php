@@ -49,13 +49,14 @@ class CourseSearch extends Course
         
         /////////// query that provide only courses of conected teacher 
 
-        if (Yii::$app->user->can('createSchoolDir'))
-         {
+     if (Yii::$app->user->identity->userRole == 3){
+         
            $dataProvider = new ActiveDataProvider([
            'query' => $query,
 
          ]);}
-         else{
+               if (Yii::$app->user->identity->userRole == 2 ){  
+
             $dataProvider = new ActiveDataProvider([
               'query' => Course::find()
            ->join('JOIN','course_center','course_center.courseid=course.id')

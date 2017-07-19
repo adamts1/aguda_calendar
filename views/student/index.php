@@ -46,7 +46,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'phone',
             'notes',
             [
-              'attribute' => 'centerid',
+              'attribute' => 'center',
+              'label' => 'מרכז',
+				'format' => 'raw',
                	'value' => function($model){
 					return $model->center->centername;},
             ],
