@@ -240,10 +240,7 @@ function getData(val)
 				
 
         
-				
-        <!-- /.row -->
-		
-			<!-- Modal -->
+	
 		<div class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		  <div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -255,7 +252,7 @@ function getData(val)
 			  </div>
 			  
 
-     <!--/////////////////////////-->
+
  <div class="modal-body">
 
 
@@ -263,8 +260,7 @@ function getData(val)
 					<label for="centerid" class="col-sm-2 control-label">מרכז</label>
 					<div class="col-sm-10">
 					  <select id="centerId" class="form-control"  name="centerId" dir="rtl"  type='hidden'>
-						             					<?php
-
+					<?php
 							$mysqlserver="localhost";
  							$mysqlusername="root";
  							$mysqlpassword="";
@@ -274,19 +270,21 @@ function getData(val)
 							mysql_query("SET NAMES 'utf8'",$link); // Generate utf8 for hebrew
  							$sql = "SELECT C.id, C.name FROM center AS C
 							        JOIN supervisor AS S ON C.id =S.centerId
-                      WHERE  S.id = '$identity'";
-							
+                                    WHERE  S.id = '$identity'";
  							$result = mysql_query($sql);
- 
- 							
  							while ($row = mysql_fetch_array($result)) {
  							echo "<option   value='" . $row['id'] ."'>" . $row['name'] ."</option>";
  							}
  					?>
-         	</select>
+         	      		</select>
 					</div>
 					</div>
-			 <!--//////////////////////////////-->
+					   <div class="form-group">
+					    <label for="title" class="col-sm-2 control-label">תיאור שיבוץ</label>
+					     <div class="col-sm-10">
+					       <input type="text" name="title" class="form-control" id="title" placeholder="(תיאור השיבוץ (הזנה בעברית בלבד"  onkeyup="letterOnly(this)">
+					     </div>
+                       </div>  
 
 					<div class="form-group">
 					<label for="courseId" class="col-sm-2 control-label">מקצוע לימוד</label>
@@ -301,10 +299,10 @@ function getData(val)
  							mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
 							mysql_query("SET NAMES 'utf8'",$link); // Generate utf8 for hebrew
  							$sql = "SELECT C.id, 	C.coursename FROM course AS C 
-                      JOIN course_center AS CC ON C.id =CC.courseid 
-                      JOIN center AS C2  ON CC.centerid =C2.id 
-                      JOIN supervisor AS S ON C2.id =S.centerId
-                      WHERE  S.id = '$identity' ";
+                                    JOIN course_center AS CC ON C.id =CC.courseid 
+                                    JOIN center AS C2  ON CC.centerid =C2.id 
+                                    JOIN supervisor AS S ON C2.id =S.centerId
+                                    WHERE  S.id = '$identity' ";
  							$result = mysql_query($sql);
  
  							
@@ -312,31 +310,19 @@ function getData(val)
  							echo "<option value='" . $row['id'] ."'>" . $row['coursename'] ."</option>";
  							}
  					?>
-         	</select>
+         	         </select>
 					</div>
 					</div>
 
-				  <div class="form-group">
-					<label for="title" class="col-sm-2 control-label">תיאור שיבוץ</label>
-					<div class="col-sm-10">
-					  <input type="text" name="title" class="form-control" id="title" placeholder="(תיאור השיבוץ (הזנה בעברית בלבד"  onkeyup="letterOnly(this)">
-													<!--<script>
-					function letterOnly(input) {
-						var regex = /[^א-ת ]/gi;
-						input.value = input.value.replace(regex,"");
-					}
-					</script>-->
-					</div>
-          </div>
-				 <div class="form-group" id="createLocation" ></div>
 			   <div class="form-group" id="createTeacher" ></div>
+			   <div class="form-group" id="createLocation" ></div>
 			   <div class="form-group" id="createStudents" ></div>
 
 				 <div class="form-group">
 				 <label for="color" class="col-sm-2 control-label">צבע</label>
 					<div class="col-sm-10">
 					  <select name="color" class="form-control" id="color" dir="rtl">
-						  <option value="">Choose</option>
+						  <option value="">בחר צבע</option>
 						  <option style="color:#0071c5;" value="#0071c5">&#9724; כחול כהה</option>
 						  <option style="color:#40E0D0;" value="#40E0D0">&#9724; טורקיז</option>
 						  <option style="color:#008000;" value="#008000">&#9724; ירוק</option>						  
@@ -397,49 +383,8 @@ function getData(val)
 			  </div>
 
 			  <div class="modal-body">
-				  <div class="form-group">
-					<label for="locationId" class="col-sm-2 control-label">כיתת לימוד</label>
-					<div class="col-sm-10">
-					  <select id="locationid" class="form-control"  name="locationId" dir="rtl">
-						<?php
-            $mysqlserver="localhost";
-            $mysqlusername="root";
-            $mysqlpassword="";
-            $link=mysql_connect(localhost, $mysqlusername, $mysqlpassword) or die ("Error connecting to mysql server: ".mysql_error());
-            
-            $dbname = 'adam_project';
-            mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
-             if( $authorizationLevel == '2' )
-						 {  
-               
 
-						   $cdquery= "SELECT L.id, L.name FROM location AS L
-							            JOIN center AS C  ON L.centerid =C.id 
-                          JOIN supervisor AS S ON C.id =S.centerId
-                          WHERE  S.id = '$identity'";
-
-													
-
-              
-
-						 }else{
-                 ////////// provide location according to filter search if eden israeli
-							 $cdquery= "SELECT id, name FROM location  
-							            
-                          WHERE  centerid =  '$valueToSearch'";
-						 }
-            $cdresult=mysql_query($cdquery) or die ("Query to get data from firsttable failed: ".mysql_error());
-            
-            while ($cdrow=mysql_fetch_array($cdresult)) {
- 							echo "<option value='" . $cdrow['id'] ."'>" . $cdrow['name'] ."</option>";
-            }  ?>
-                </p>
-        </select>
-					</div>
-				  </div>
-
-	
-				  <div class="form-group">
+			  <div class="form-group">
 					<label for="centerid" class="col-sm-2 control-label">מרכז</label>
 					<div class="col-sm-10">
 					  <select id="centerid" class="form-control"  name="centerId" dir="rtl">
@@ -454,7 +399,7 @@ function getData(val)
             mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
              if( $authorizationLevel == '2' ){  
             $cdquery="SELECT C.id, C.name FROM center AS C
-							        JOIN supervisor AS S ON C.id =S.centerId
+					  JOIN supervisor AS S ON C.id =S.centerId
                       WHERE  S.id = '$identity'";
 						 }else {
                ////////// provide location according to filter search if eden israeli
@@ -470,10 +415,62 @@ function getData(val)
                 </p>
 				<?php
             ?>
-    
         </select>
 					</div>
-				  </div>	
+				  </div>
+                    
+					<div class="form-group">
+					<label for="title" class="col-sm-2 control-label">תיאור שיבוץ</label>
+					<div class="col-sm-10">
+					  <input type="text" name="title" class="form-control" id="title" placeholder="Title" onkeyup="letterOnly(this)"  required>
+											<script>
+					function letterOnly(input) {
+						var regex = /[^0-9א-ת ]/gi;
+						input.value = input.value.replace(regex,"");
+					}
+					</script>
+					</div>
+				  </div>
+
+				  <div class="form-group">
+					<label for="courseId" class="col-sm-2 control-label">מקצוע לימוד</label>
+					<div class="col-sm-10">
+					  <select id="courseId" class="form-control"  name="courseId" dir="rtl">
+						             					<?php
+							$mysqlserver="localhost";
+ 							$mysqlusername="root";
+ 							$mysqlpassword="";
+ 							$link=mysql_connect(localhost, $mysqlusername, $mysqlpassword) or die ("Error connecting to mysql server: ".mysql_error());
+ 							$dbname = 'adam_project';
+ 							mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
+							mysql_query("SET NAMES 'utf8'",$link); // Generate utf8 for hebrew
+							if($authorizationLevel == '2') {
+ 							$sql = "SELECT C.id, 	C.coursename FROM course AS C 
+                                    JOIN course_center AS CC ON C.id =CC.courseid 
+                                    JOIN center AS C2  ON CC.centerid =C2.id 
+                                    JOIN supervisor AS S ON C2.id =S.centerId
+                                    WHERE  S.id = '$identity' ";
+								  }else{
+									$sql = "SELECT C.id, 	C.coursename FROM course AS C 
+									        JOIN course_center AS CC ON C.id =CC.courseid
+											WHERE  CC.centerid = '$valueToSearch'";
+								  }
+ 							$result = mysql_query($sql);
+ 
+ 							
+ 							while ($row = mysql_fetch_array($result)) {
+ 							echo "<option value='" . $row['id'] ."'>" . $row['coursename'] ."</option>";
+ 							}
+ 					?>
+         	</select>
+					</div>
+					</div>
+
+				  
+				  
+
+
+				  
 
 					<div class="form-group">
 					<label for="teacherid" class="col-sm-2 control-label">מורה מלמד</label>
@@ -519,64 +516,51 @@ function getData(val)
          	</select>
 					</div>
 				  </div>
+				  
+				  <div class="form-group">
+					<label for="locationId" class="col-sm-2 control-label">כיתת לימוד</label>
+					<div class="col-sm-10">
+					  <select id="locationid" class="form-control"  name="locationId" dir="rtl">
+						<?php
+            $mysqlserver="localhost";
+            $mysqlusername="root";
+            $mysqlpassword="";
+            $link=mysql_connect(localhost, $mysqlusername, $mysqlpassword) or die ("Error connecting to mysql server: ".mysql_error());
+            
+            $dbname = 'adam_project';
+            mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
+             if( $authorizationLevel == '2' )
+						 {  
+               
 
+						   $cdquery= "SELECT L.id, L.name FROM location AS L
+							            JOIN center AS C  ON L.centerid =C.id 
+                          JOIN supervisor AS S ON C.id =S.centerId
+                          WHERE  S.id = '$identity'";
+
+													
+
+              
+
+						 }else{
+                 ////////// provide location according to filter search if eden israeli
+							 $cdquery= "SELECT id, name FROM location  
+							            
+                          WHERE  centerid =  '$valueToSearch'";
+						 }
+            $cdresult=mysql_query($cdquery) or die ("Query to get data from firsttable failed: ".mysql_error());
+            
+            while ($cdrow=mysql_fetch_array($cdresult)) {
+ 							echo "<option value='" . $cdrow['id'] ."'>" . $cdrow['name'] ."</option>";
+            }  ?>
+                </p>
+        </select>
+					</div>
+				  </div>
 
 					
 
-					<div class="form-group">
-					<label for="courseId" class="col-sm-2 control-label">מקצוע לימוד</label>
-					<div class="col-sm-10">
-					  <select id="courseid" class="form-control"  name="courseId" dir="rtl">
-						<?php
-            
-            	
-							$mysqlserver="localhost";
- 							$mysqlusername="root";
- 							$mysqlpassword="";
- 							$link=mysql_connect(localhost, $mysqlusername, $mysqlpassword) or die ("Error connecting to mysql server: ".mysql_error());
- 							$dbname = 'adam_project';
- 							mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
-							mysql_query("SET NAMES 'utf8'",$link); // Generate utf8 for hebrew
-							if( $authorizationLevel == '2' ) 
-							{  
- 							$query="SELECT C.id, 	C.coursename FROM course AS C 
-                      JOIN course_center AS CC ON C.id =CC.courseid 
-                      JOIN center AS C2  ON CC.centerid =C2.id 
-                      JOIN supervisor AS S ON C2.id =S.centerId
-                      WHERE  S.id = '$identity'";
-							}else{
-								$query="SELECT C.id, 	C.coursename FROM course AS C 
-                      JOIN course_center AS CC ON C.id =CC.courseid  
-                      WHERE  CC.centerid = '$valueToSearch'";
-							     }
- 							$result = mysql_query($query);
- 
- 							
- 							while ($row = mysql_fetch_array($result)) {
- 							echo "<option value='" . $row['id'] ."'>" . $row['coursename'] ."</option>";
- 							}
- 					?>
-					 
-
-         	</select>
-					</div>
-				  </div>
-
-
 				
-				  <div class="form-group">
-					<label for="title" class="col-sm-2 control-label">תיאור שיבוץ</label>
-					<div class="col-sm-10">
-					  <input type="text" name="title" class="form-control" id="title" placeholder="Title" onkeyup="letterOnly(this)"  required>
-											<script>
-					function letterOnly(input) {
-						var regex = /[^0-9א-ת ]/gi;
-						input.value = input.value.replace(regex,"");
-					}
-					</script>
-					</div>
-				  </div>
-
 					<!--   Update studentEvents Multiple Select - nice bootrsap code (link folders: doc, dist and demo)   -->
 					<div class="form-group" id="updateStudents" ></div>
 
@@ -587,7 +571,7 @@ function getData(val)
 					<label for="color" class="col-sm-2 control-label">צבע</label>
 					<div class="col-sm-10">
 					  <select name="color" class="form-control" id="color" dir="rtl">
-						  <option value="">Choose</option>
+						  <option value="">בחר צבע</option>
 						  <option style="color:#0071c5;" value="#0071c5">&#9724; כחול כהה</option>
 						  <option style="color:#40E0D0;" value="#40E0D0">&#9724; טורקיז</option>
 						  <option style="color:#008000;" value="#008000">&#9724; ירוק</option>						  
