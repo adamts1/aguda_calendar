@@ -45,8 +45,8 @@ if (isset($_POST['Event'][0]) && isset($_POST['Event'][1]) ){ // $_POST['Event']
                                              JOIN supervisor  S2 ON C.id = S2.centerid
                                              WHERE P.id NOT IN (SELECT DISTINCT S.id FROM student S, student_events SE, events E 
                                              WHERE S.id=SE.studentid AND SE.eventsid = E.id AND SE.eventsid 
-                                             IN (SELECT P2.id FROM events P2 WHERE P2.start >= '2017-05-28 07:30:00' 
-                                             AND P2.end <= '2017-05-28 08:00:00')) AND S2.id = '$identity'");
+                                             IN (SELECT P2.id FROM events P2 WHERE P2.start >= '$start' 
+                                             AND P2.end <= '$end' OR (P2.start <= '$start' AND P2.end >= '$end'))) AND S2.id = '$identity'");
                     
                                             
 					// $allAvailableStudents = all students that not in other activity at the same time or less. this query will show user even if there is at least 1 minutes that he is fre

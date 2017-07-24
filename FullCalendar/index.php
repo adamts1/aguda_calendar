@@ -32,10 +32,6 @@ function filterTable($sql)
   $filter_Result = mysqli_query($connect,$sql);
   return $filter_Result;
  }
-
-
-
-
 ?>
 
   
@@ -227,6 +223,7 @@ function getData(val)
                <br>
                <br>
                <br>
+						
             <div class="col-lg-12 text-center">
 						
 							
@@ -267,6 +264,7 @@ function getData(val)
 					<div class="col-sm-10">
 					  <select id="centerId" class="form-control"  name="centerId" dir="rtl"  type='hidden'>
 						             					<?php
+
 							$mysqlserver="localhost";
  							$mysqlusername="root";
  							$mysqlpassword="";
@@ -330,76 +328,12 @@ function getData(val)
 					</script>-->
 					</div>
           </div>
-
-					<div class="form-group">
-					<label for="location" class="col-sm-2 control-label">כיתת לימוד</label>
-					<div class="col-sm-10">
-					  <select id="locationId" class="form-control"  name="locationId" dir="rtl">
-						<?php
-							$mysqlserver="localhost";
- 							$mysqlusername="root";
- 							$mysqlpassword="";
- 							$link=mysql_connect(localhost, $mysqlusername, $mysqlpassword) or die ("Error connecting to mysql server: ".mysql_error());
- 							$dbname = 'adam_project';
- 							mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
-							mysql_query("SET NAMES 'utf8'",$link); // Generate utf8 for hebrew
- 							$sql = "SELECT L.id, L.name FROM location AS L
-							        JOIN center AS C  ON L.centerid =C.id 
-                      JOIN supervisor AS S ON C.id =S.centerId
-                      WHERE  S.id = '$identity'";
- 							$result = mysql_query($sql);
- 
- 							
- 							while ($row = mysql_fetch_array($result)) {
- 							echo "<option value='" . $row['id'] ."'>" . $row['name'] ."</option>";
- 							}
- 					?>
-         	</select>
-					</div>
-				  </div>
-
-
-<!--/////////////////////teacher-dropdown////////////////////-->
-
-					<div class="form-group">
-					<label for="teacherId" class="col-sm-2 control-label">מורה</label>
-					<div class="col-sm-10">
-					  <select id="teacherId" class="form-control"  name="teacherId" dir="rtl">
-						<?php
-							$mysqlserver="localhost";
- 							$mysqlusername="root";
- 							$mysqlpassword="";
- 							$link=mysql_connect(localhost, $mysqlusername, $mysqlpassword) or die ("Error connecting to mysql server: ".mysql_error());
- 							$dbname = 'adam_project';
- 							mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
-							mysql_query("SET NAMES 'utf8'",$link); // Generate utf8 for hebrew
- 							$query = "SELECT user.username, teacher.id
-                        FROM user
-                        JOIN teacher ON teacher.id=user.id
-							          JOIN center AS C  ON teacher.centerid =C.id 
-                        JOIN supervisor AS S ON C.id =S.centerId
-                        WHERE  S.id = '$identity'";
- 							$result = mysql_query($query);
- 
- 							
- 							while ($row = mysql_fetch_array($result)) {
- 							echo "<option value='" . $row['id'] ."'>" . $row['username'] ."</option>";
- 							}
- 					?>
-					 
-
-         	</select>
-					</div>
-				  </div>
-
-		<!--   Create studentactivity Multiple Select - nice bootrsap code (link folders: doc, dist and demo)   -->
+				 <div class="form-group" id="createLocation" ></div>
+			   <div class="form-group" id="createTeacher" ></div>
 			   <div class="form-group" id="createStudents" ></div>
-	  
-				
 
-					<!--//////////////////////////////////-->
-				  <div class="form-group">
-					<label for="color" class="col-sm-2 control-label">צבע</label>
+				 <div class="form-group">
+				 <label for="color" class="col-sm-2 control-label">צבע</label>
 					<div class="col-sm-10">
 					  <select name="color" class="form-control" id="color" dir="rtl">
 						  <option value="">Choose</option>
@@ -468,7 +402,6 @@ function getData(val)
 					<div class="col-sm-10">
 					  <select id="locationid" class="form-control"  name="locationId" dir="rtl">
 						<?php
-            
             $mysqlserver="localhost";
             $mysqlusername="root";
             $mysqlpassword="";
@@ -478,36 +411,34 @@ function getData(val)
             mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
              if( $authorizationLevel == '2' )
 						 {  
-               $cdquery= "SELECT L.id, L.name FROM location AS L
+               
+
+						   $cdquery= "SELECT L.id, L.name FROM location AS L
 							            JOIN center AS C  ON L.centerid =C.id 
                           JOIN supervisor AS S ON C.id =S.centerId
                           WHERE  S.id = '$identity'";
+
+													
+
+              
+
 						 }else{
                  ////////// provide location according to filter search if eden israeli
 							 $cdquery= "SELECT id, name FROM location  
 							            
                           WHERE  centerid =  '$valueToSearch'";
 						 }
-
-				
-						 
             $cdresult=mysql_query($cdquery) or die ("Query to get data from firsttable failed: ".mysql_error());
             
             while ($cdrow=mysql_fetch_array($cdresult)) {
  							echo "<option value='" . $cdrow['id'] ."'>" . $cdrow['name'] ."</option>";
-			
-			
-			
-                
-            
             }  ?>
                 </p>
-				
-    
         </select>
 					</div>
-				  </div>	
+				  </div>
 
+	
 				  <div class="form-group">
 					<label for="centerid" class="col-sm-2 control-label">מרכז</label>
 					<div class="col-sm-10">
@@ -529,18 +460,12 @@ function getData(val)
                ////////// provide location according to filter search if eden israeli
 							 $cdquery="SELECT id, name FROM center  
                       WHERE  id = '$valueToSearch'";
-
-							 
 						 }
             $cdresult=mysql_query($cdquery) or die ("Query to get data from firsttable failed: ".mysql_error());
             
             while ($cdrow=mysql_fetch_array($cdresult)) {
  							echo "<option value='" . $cdrow['id'] ."'>" . $cdrow['name'] ."</option>";
 			
-			
-			
-                
-            
             }  ?>
                 </p>
 				<?php
@@ -594,6 +519,9 @@ function getData(val)
          	</select>
 					</div>
 				  </div>
+
+
+					
 
 					<div class="form-group">
 					<label for="courseId" class="col-sm-2 control-label">מקצוע לימוד</label>
@@ -699,8 +627,8 @@ function getData(val)
 				  </div>
 
 
-								     <div class="container" style = "width:530px;">
-						<ul>
+								     <!--<div class="container" style = "width:530px;">-->
+						<!--<ul>
  					 <li>
 				 <input type="radio" id="f-option" name="delete" value="1">
   			  <label for="f-option"  style = "padding-left:59px; color:red;">מחק פעילות</label>
@@ -737,16 +665,68 @@ function getData(val)
    					 }
 						});
 					</script>
-</ul>
-</div>
+</ul>-->
+<!--</div>-->
 
-				  
-				
-				
-			  </div>
+
+</div>
+				<script>
+						$( ".updateButtonCalendar" ).click(function() {
+							console.log('adam');
+						});
+				</script>
 			  <div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">סגור</button>
-				<button type="submit" class="btn btn-primary" onclick="myFunction()">שמור שינויים</button>
+				<!--<button type="submit" class="btn btn-primary" onclick="myFunction()">שמור שינויים</button>-->
+				<button type="button" class="btn btn-primary updateButtonCalendar" data-toggle="modal" data-target="#updateModalCalendar">עדכון</button>
+				<button type="button"  class="btn btn-primary deleteButtonCalendar" data-toggle="modal" data-target="#deleteModalCalendar">מחק</button>
+
+				  <!-- Modal -->
+				<div class="modal fade" id="deleteModalCalendar" role="dialog">
+					<div class="modal-dialog">
+					
+						<!-- Modal content-->
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">מחיקת פעילות</h4>
+							</div>
+							<div class="modal-body">
+									<button  name="delete" value="1" type="submit" class="btn btn-primary">מחק פעילות </button>
+									<button  name="delete" value="2" type="submit" class="btn btn-primary" onclick="myFunction()">מחק את כל הפעילויות מסוג זה</button>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+
+
+				<div class="modal fade" id="updateModalCalendar" role="dialog">
+					<div class="modal-dialog">
+					
+						<!-- Modal content-->
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">עדכון פעילות</h4>
+							</div>
+							<div class="modal-body">
+									<button type="submit" class="btn btn-primary" onclick="myFunction()"> עדכן פעילות </button>
+									<button value = "3" name="delete" type="submit" class="btn btn-primary" onclick="myFunction() ">עדכן את כל הפעילויות מסוג זה</button>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+
+
+
 			  </div>
 			</form>
 			</div> 
@@ -772,7 +752,6 @@ function getData(val)
 
 	$(document).ready(function() {
 		var d =  new Date();
-
 		var initialLangCode = 'he';
 		defaultDate: d,
 
@@ -782,7 +761,7 @@ function getData(val)
 		$('#calendar').fullCalendar({
 			header: {
 				left: 'next  today prev ',
-				// center: 'title',
+				center: 'title',
 				right: 'month,agendaWeek,agendaDay'
 			},
 
@@ -858,6 +837,28 @@ function getData(val)
 									$("#createStudents").html(data); // insert the values from createUsersAndStudents.php to createUsersAndStudents div
 								}
 						});
+
+
+
+							$.ajax({ // send array with start and end times to updateUsersAndStudents.php while edit creating new activity
+							type: "POST",
+							url: 'createLocation.php',
+							data: {Event:Event},
+							success: function(data)
+								{
+									$("#createLocation").html(data); // insert the values from createUsersAndStudents.php to createUsersAndStudents div
+								}
+						});
+
+							$.ajax({ // send array with start and end times to updateUsersAndStudents.php while edit creating new activity
+							type: "POST",
+							url: 'createTeacher.php',
+							data: {Event:Event},
+							success: function(data)
+								{
+									$("#createTeacher").html(data); // insert the values from createUsersAndStudents.php to createUsersAndStudents div
+								}
+						});
 				$('#ModalAdd').modal('show');
 			},
 			eventRender: function(event, element) {
@@ -899,6 +900,7 @@ function getData(val)
 									$("#updateStudents").html(data); // insert the values from updateUsersAndStudents.php to updateUsersAndStudents div
 								}
 						});
+					
 				
 					$('#ModalEdit').modal('show');
 
@@ -1011,11 +1013,6 @@ function getData(val)
 				}
 			});
 		}
-       
-
-
-
-		
 	});
 
 </script>
